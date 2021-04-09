@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import Feed from '../../components/Feed';
+import { Suggested } from '../../components/Suggested';
 
 class Home extends React.Component {
   state = {
@@ -12,10 +14,7 @@ class Home extends React.Component {
       const { data } = await axios(
         `https://api.unsplash.com/photos/random/?client_id=${apiKey}`
       );
-      const id = data.id;
-      const photo = await axios(
-        `https://api.unsplash.com/photos/${id}/?client_id=${apiKey}`
-      );
+      const photo = await axios(`${data.links.self}/?client_id=${apiKey}`);
       const photoUrl = photo.data.urls.small;
       this.setState({
         photo: photoUrl,
@@ -24,9 +23,12 @@ class Home extends React.Component {
       console.log(error);
     }
   };
+
   render() {
     return (
       <div>
+        <Feed />
+        <Suggested />
         <button onClick={this.handleClick}>Generate Photo</button>
         {this.state.photo && <img src={this.state.photo} alt='whatever' />}
       </div>
