@@ -27,13 +27,6 @@ class Feed extends React.Component {
     }
   };
 
-  getPhoto = async photo => {
-    const apiKey = 'udklURXoWXmXIiykDuO2luB1M4X-HNkuOePzmJmjMhc';
-    const photoData = await axios(`${photo.links.self}/?client_id=${apiKey}`);
-    const photoUrl = photoData.urls.small;
-    return photoUrl;
-  };
-
   componentDidMount() {
     this.getAllPhotos();
   }
@@ -46,9 +39,12 @@ class Feed extends React.Component {
         {this.state.isLoading && <div>Loading photos...</div>}
         {isDataAvailable &&
           this.state.photos.map(item => {
-            const photoUrl = this.getPhoto(item);
             return (
-              <Photo src={photoUrl} alt={item.alt_description} key={item.id} />
+              <Photo
+                src={item.urls.small}
+                alt={item.alt_description}
+                key={item.id}
+              />
             );
           })}
       </div>

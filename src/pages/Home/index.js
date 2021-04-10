@@ -14,8 +14,7 @@ class Home extends React.Component {
       const { data } = await axios(
         `https://api.unsplash.com/photos/random/?client_id=${apiKey}`
       );
-      const photo = await axios(`${data.links.self}/?client_id=${apiKey}`);
-      const photoUrl = photo.data.urls.small;
+      const photoUrl = data.urls.small;
       this.setState({
         photo: photoUrl,
       });
