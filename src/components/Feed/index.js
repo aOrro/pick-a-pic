@@ -4,7 +4,8 @@ import { Photo } from '../Photo';
 
 class Feed extends React.Component {
   state = {
-    photos: null,
+    photos: [],
+    pageToLoad: 1,
     isLoading: false,
   };
 
@@ -15,11 +16,10 @@ class Feed extends React.Component {
         isLoading: true,
       });
       const { data } = await axios(
-        `https://api.unsplash.com/photos?page=1&client_id=${apiKey}`
+        `https://api.unsplash.com/photos?page=${this.state.pageToLoad}&client_id=${apiKey}`
       );
-      console.log(data);
       this.setState({
-        photo: data,
+        photos: [...this.state.photos, ...data],
         isLoading: false,
       });
     } catch (error) {
@@ -27,17 +27,27 @@ class Feed extends React.Component {
     }
   };
 
+  handleClick = () => {
+    this.setState({
+      pageToLoad: this.state.pageToLoad + 1,
+    });
+  };
+
   componentDidMount() {
     this.getAllPhotos();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.pageToLoad !== this.state.pageToLoad) this.getAllPhotos();
+  }
+
   render() {
-    const isDataAvailable = this.state.photos && !this.state.isLoading;
+    const dataIsAvailable = !this.state.isLoading && this.state.photos;
 
     return (
       <div>
         {this.state.isLoading && <div>Loading photos...</div>}
-        {isDataAvailable &&
+        {dataIsAvailable &&
           this.state.photos.map(item => {
             return (
               <Photo
@@ -47,6 +57,7 @@ class Feed extends React.Component {
               />
             );
           })}
+        <button onClick={this.handleClick}>More photos</button>
       </div>
     );
   }
