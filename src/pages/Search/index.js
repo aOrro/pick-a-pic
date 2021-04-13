@@ -16,13 +16,11 @@ class Search extends React.Component {
       this.setState({
         isLoading: true,
       });
-      const apiKey = 'udklURXoWXmXIiykDuO2luB1M4X-HNkuOePzmJmjMhc';
       const { inputValue, pageToLoad, photosData } = this.state;
       const { data } = await axios(
-        `https://api.unsplash.com/search/photos?page=${pageToLoad}&query=${inputValue}&client_id=${apiKey}`
+        `https://api.unsplash.com/search/photos?page=${pageToLoad}&query=${inputValue}&client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({
-        inputValue: '',
         photosData: [...photosData, ...data.results],
         isLoading: false,
       });
