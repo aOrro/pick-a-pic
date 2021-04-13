@@ -4,7 +4,7 @@ import { Photo } from '../Photo';
 export const UserPhotos = props => {
   return (
     <div>
-      <h2 onClick={props.click}>Photos</h2>
+      <h2 onClick={props.handleClick}>Photos</h2>
       {props.userPhotos.map(photo => {
         return (
           <Photo

@@ -58,7 +58,6 @@ class User extends React.Component {
       const { data } = await axios(
         `https://api.unsplash.com/users/${this.state.inputValue}/statistics?client_id=${process.env.REACT_APP_API_KEY}`
       );
-      console.log(data);
       this.setState({
         userStats: data,
       });
@@ -91,12 +90,12 @@ class User extends React.Component {
           />
         </form>
         <UserHeader userInfo={userInfo} />
-        <UserPhotos click={this.getUserPhotos} userPhotos={userPhotos} />
+        <UserPhotos handleClick={this.getUserPhotos} userPhotos={userPhotos} />
         <UserCollections
-          click={this.getUserCollections}
+          handleClick={this.getUserCollections}
           userCollections={userCollections}
         />
-        <UserStats click={this.getUserStats} userStats={userStats} />
+        <UserStats handleClick={this.getUserStats} userStats={userStats} />
       </div>
     );
   }

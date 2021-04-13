@@ -1,7 +1,7 @@
 export const UserStats = props => {
   return (
     <div>
-      <h2 onClick={props.click}>Stats</h2>
+      <h2 onClick={props.handleClick}>Stats</h2>
 
       {props.userStats && (
         <span>
