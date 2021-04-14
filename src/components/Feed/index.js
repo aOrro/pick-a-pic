@@ -10,13 +10,12 @@ class Feed extends React.Component {
   };
 
   getAllPhotos = async () => {
-    const apiKey = 'udklURXoWXmXIiykDuO2luB1M4X-HNkuOePzmJmjMhc';
     try {
       this.setState({
         isLoading: true,
       });
       const { data } = await axios(
-        `https://api.unsplash.com/photos?page=${this.state.pageToLoad}&client_id=${apiKey}`
+        `https://api.unsplash.com/photos?page=${this.state.pageToLoad}&client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({
         photos: [...this.state.photos, ...data],
@@ -42,21 +41,18 @@ class Feed extends React.Component {
   }
 
   render() {
-    const dataIsAvailable = !this.state.isLoading && this.state.photos;
-
     return (
       <div>
         {this.state.isLoading && <div>Loading photos...</div>}
-        {dataIsAvailable &&
-          this.state.photos.map(item => {
-            return (
-              <Photo
-                src={item.urls.small}
-                alt={item.alt_description}
-                key={item.id}
-              />
-            );
-          })}
+        {this.state.photos.map(item => {
+          return (
+            <Photo
+              src={item.urls.small}
+              alt={item.alt_description}
+              key={item.id}
+            />
+          );
+        })}
         <button onClick={this.handleClick}>More photos</button>
       </div>
     );
