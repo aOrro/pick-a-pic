@@ -1,12 +1,12 @@
-export const Collection = props => {
+export const Collection = ({ data }) => {
   return (
     <div>
       <img
-        src={props.data.cover_photo.urls.small}
-        alt={props.data.cover_photo.alt_description}
+        src={data.cover_photo.urls.small}
+        alt={data.cover_photo.alt_description}
       />
-      <h3>{props.data.title}</h3>
-      <span>{props.data.total_photos} photos</span>
+      <h3>{data.title}</h3>
+      <span>{data.total_photos} photos</span>
     </div>
   );
 };
