@@ -1,8 +1,9 @@
 import { Photo } from '../Photo';
+import { Container } from './styles';
 
 export const SearchResults = props => {
   return (
-    <div>
+    <Container>
       {props.isLoading && <div>Loading photos...</div>}
       {props.photosData.map(item => {
         return (
@@ -13,6 +14,6 @@ export const SearchResults = props => {
           />
         );
       })}
-    </div>
+    </Container>
   );
 };
