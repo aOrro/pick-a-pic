@@ -11,12 +11,9 @@ function App() {
     <Router>
       <NavBar />
       <Switch>
-        <Route path='/search'>
-          <Search />
-        </Route>
-        <Route path='/users/:id'>
-          <User />
-        </Route>
+        <Route path='/search' component={Search}></Route>
+        <Route path='/search/:searchTerm' component={Search}></Route>
+        <Route path='/users/:userName' component={User}></Route>
         <Route path='/'>
           <Home />
         </Route>

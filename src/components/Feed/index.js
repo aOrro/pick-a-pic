@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Photo } from '../Photo';
 
@@ -45,12 +46,18 @@ class Feed extends React.Component {
       <div>
         {this.state.isLoading && <div>Loading photos...</div>}
         {this.state.photos.map(item => {
+          console.log(item);
           return (
-            <Photo
-              src={item.urls.small}
-              alt={item.alt_description}
-              key={item.id}
-            />
+            <div>
+              <Photo
+                src={item.urls.small}
+                alt={item.alt_description}
+                key={item.id}
+              />
+              <Link to={`/users/${item.user.username}`}>
+                {item.user.username}
+              </Link>
+            </div>
           );
         })}
         <button onClick={this.handleClick}>More photos</button>
