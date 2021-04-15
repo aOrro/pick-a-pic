@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 export const PhotoCardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 5px;
 `;
 
 export const PhotoCardHeader = styled(Link)`
