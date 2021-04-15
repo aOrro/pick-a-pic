@@ -17,7 +17,7 @@ class User extends React.Component {
   getUserInfo = async () => {
     try {
       const { data } = await axios(
-        `https://api.unsplash.com/users/${this.state.inputValue}?client_id=${process.env.REACT_APP_API_KEY}`
+        `https://api.unsplash.com/users/${this.props.match.params.userName}?client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({
         userInfo: data,
@@ -30,7 +30,7 @@ class User extends React.Component {
   getUserPhotos = async () => {
     try {
       const { data } = await axios(
-        `https://api.unsplash.com/users/${this.state.inputValue}/photos?page=1&per_page=10&order_by=latest&stats=false&client_id=${process.env.REACT_APP_API_KEY}`
+        `https://api.unsplash.com/users/${this.props.match.params.userName}/photos?page=1&per_page=10&order_by=latest&stats=false&client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({
         userPhotos: data,
@@ -43,7 +43,7 @@ class User extends React.Component {
   getUserCollections = async () => {
     try {
       const { data } = await axios(
-        `https://api.unsplash.com/users/${this.state.inputValue}/collections?page=1&per_page=10&client_id=${process.env.REACT_APP_API_KEY}`
+        `https://api.unsplash.com/users/${this.props.match.params.userName}/collections?page=1&per_page=10&client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({
         userCollections: data,
@@ -56,7 +56,7 @@ class User extends React.Component {
   getUserStats = async () => {
     try {
       const { data } = await axios(
-        `https://api.unsplash.com/users/${this.state.inputValue}/statistics?client_id=${process.env.REACT_APP_API_KEY}`
+        `https://api.unsplash.com/users/${this.props.match.params.userName}/statistics?client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({
         userStats: data,
@@ -76,6 +76,10 @@ class User extends React.Component {
     e.preventDefault();
     this.getUserInfo();
   };
+
+  componentDidMount() {
+    this.getUserInfo();
+  }
 
   render() {
     const { userInfo, userPhotos, userCollections, userStats } = this.state;

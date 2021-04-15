@@ -32,7 +32,7 @@ export const NavBar = () => {
               </Link>
             </li>
             <li>
-              <Link to='/users/:id'>
+              <Link to='/users/me'>
                 <Icon src={userLogo} alt='user logo' />
               </Link>
             </li>

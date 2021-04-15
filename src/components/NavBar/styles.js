@@ -27,5 +27,6 @@ export const Logo = styled.img`
 `;
 
 export const Icon = styled.img`
-  width: 40%;
+  width: 20px;
+  margin: 15px;
 `;
