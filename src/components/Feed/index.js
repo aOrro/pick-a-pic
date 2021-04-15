@@ -1,16 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { Photo } from '../Photo';
-import heartLogo from '../../assets/images/heart-logo.png';
-import addLogo from '../../assets/images/add-logo.png';
-import {
-  Container,
-  PhotoCard,
-  SmallProfilePicture,
-  PhotoCardHeader,
-  PhotoCardFooter,
-  Likes,
-} from './styles';
+import { PhotoCard } from '../PhotoCard';
+import { Container } from './styles';
 
 class Feed extends React.Component {
   state = {
@@ -57,29 +48,14 @@ class Feed extends React.Component {
         {this.state.photos.map(item => {
           console.log(item);
           return (
-            <PhotoCard>
-              <PhotoCardHeader to={`/users/${item.user.username}`}>
-                <SmallProfilePicture
-                  src={item.user.profile_image.medium}
-                  alt={`${item.user.username}`}
-                />
-                {item.user.username}
-              </PhotoCardHeader>
-              <Photo
-                src={item.urls.small}
-                alt={item.alt_description}
-                key={item.id}
-              />
-              <PhotoCardFooter>
-                <Likes>
-                  <img src={heartLogo} alt='heart' style={{ marginRight: 5 }} />
-                  <>{item.likes}</>
-                </Likes>
-                <div>
-                  <img src={addLogo} alt='add' />
-                </div>
-              </PhotoCardFooter>
-            </PhotoCard>
+            <PhotoCard
+              username={item.user.username}
+              profileImage={item.user.profile_image.medium}
+              src={item.urls.small}
+              alt={item.alt_description}
+              key={item.id}
+              likes={item.likes}
+            />
           );
         })}
         <button onClick={this.handleClick}>More photos</button>
