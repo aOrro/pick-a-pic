@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Photo } from '../Photo';
+import { PhotoCard } from '../PhotoCard';
+import { Container } from './styles';
 
 class Feed extends React.Component {
   state = {
@@ -43,25 +43,22 @@ class Feed extends React.Component {
 
   render() {
     return (
-      <div>
+      <Container>
         {this.state.isLoading && <div>Loading photos...</div>}
         {this.state.photos.map(item => {
-          console.log(item);
           return (
-            <div>
-              <Photo
-                src={item.urls.small}
-                alt={item.alt_description}
-                key={item.id}
-              />
-              <Link to={`/users/${item.user.username}`}>
-                {item.user.username}
-              </Link>
-            </div>
+            <PhotoCard
+              userName={item.user.username}
+              profileImage={item.user.profile_image.medium}
+              src={item.urls.small}
+              alt={item.alt_description}
+              key={item.id}
+              likes={item.likes}
+            />
           );
         })}
         <button onClick={this.handleClick}>More photos</button>
-      </div>
+      </Container>
     );
   }
 }
