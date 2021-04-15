@@ -12,12 +12,12 @@ import {
 export const PhotoCard = props => {
   return (
     <PhotoCardContainer>
-      <PhotoCardHeader to={`/users/${props.username}`}>
+      <PhotoCardHeader to={`/users/${props.userName}`}>
         <SmallProfilePicture
           src={props.profileImage}
-          alt={`${props.username}`}
+          alt={`${props.userName}`}
         />
-        {props.username}
+        {props.userName}
       </PhotoCardHeader>
       <Photo src={props.src} alt={props.alt} />
       <PhotoCardFooter>

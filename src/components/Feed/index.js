@@ -46,10 +46,9 @@ class Feed extends React.Component {
       <Container>
         {this.state.isLoading && <div>Loading photos...</div>}
         {this.state.photos.map(item => {
-          console.log(item);
           return (
             <PhotoCard
-              username={item.user.username}
+              userName={item.user.username}
               profileImage={item.user.profile_image.medium}
               src={item.urls.small}
               alt={item.alt_description}
