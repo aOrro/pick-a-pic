@@ -10,10 +10,13 @@ import {
   UserMain,
 } from './styles.js';
 
-export const UserHeader = ({ userInfo }) => {
+export const UserHeader = ({ userInfo, isLoading }) => {
+  const showData = userInfo && !isLoading;
+
   return (
     <UserInfoContainer>
-      {userInfo && (
+      {isLoading && <div>Loading user info...</div>}
+      {showData && (
         <div>
           <ProfileImage
             src={userInfo.profile_image.large}
@@ -21,7 +24,7 @@ export const UserHeader = ({ userInfo }) => {
           />
         </div>
       )}
-      {userInfo && (
+      {showData && (
         <UserInfo>
           <UserMain>
             <h2>{userInfo.name}</h2>

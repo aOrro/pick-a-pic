@@ -1,7 +1,7 @@
 import { Container, CollectionInfo, Labels, Label } from './styles';
 
 export const Collection = ({ data }) => {
-  const initialToUppercase = word => {
+  const capitalizeFirstLetter = word => {
     return word.replace(/^\w/, word => word.toUpperCase());
   };
 
@@ -15,9 +15,9 @@ export const Collection = ({ data }) => {
         <h3>{data.title}</h3>
         <span>{data.total_photos} photos</span>
         <Labels>
-          <Label>{initialToUppercase(data.tags[0].title)}</Label>
-          <Label>{initialToUppercase(data.tags[1].title)}</Label>
-          <Label>{initialToUppercase(data.tags[2].title)}</Label>
+          <Label>{capitalizeFirstLetter(data.tags[0].title)}</Label>
+          <Label>{capitalizeFirstLetter(data.tags[1].title)}</Label>
+          <Label>{capitalizeFirstLetter(data.tags[2].title)}</Label>
         </Labels>
       </CollectionInfo>
     </Container>

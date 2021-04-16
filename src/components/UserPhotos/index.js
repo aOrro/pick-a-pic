@@ -3,10 +3,11 @@ import { Photo } from '../Photo';
 import { Container } from './styles';
 
 export const UserPhotos = props => {
-  const showData = props.userPhotos && props.showPhotos;
+  const showData = props.userPhotos && props.showPhotos && !props.isLoading;
 
   return (
     <Container>
+      {props.isLoading && <div>Loading photos...</div>}
       {showData &&
         props.userPhotos.map(photo => {
           return (
