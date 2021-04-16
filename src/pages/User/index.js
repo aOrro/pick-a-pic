@@ -4,14 +4,20 @@ import { UserHeader } from '../../components/UserHeader';
 import { UserPhotos } from '../../components/UserPhotos';
 import { UserCollections } from '../../components/UserCollections';
 import { UserStats } from '../../components/UserStats';
+import photoIcon from '../../assets/images/photo-icon.png';
+import collectionIcon from '../../assets/images/collection-icon.png';
+import statsIcon from '../../assets/images/stats-icon.png';
+import { Container, ContentContainer, Icon } from './styles';
 
 class User extends React.Component {
   state = {
-    inputValue: '',
     userInfo: null,
     userPhotos: [],
     userCollections: [],
     userStats: null,
+    showPhotos: true,
+    showCollections: false,
+    showStats: false,
   };
 
   getUserInfo = async () => {
@@ -34,6 +40,9 @@ class User extends React.Component {
       );
       this.setState({
         userPhotos: data,
+        showPhotos: true,
+        showCollections: false,
+        showStats: false,
       });
     } catch (error) {
       console.log(error);
@@ -47,6 +56,9 @@ class User extends React.Component {
       );
       this.setState({
         userCollections: data,
+        showPhotos: false,
+        showCollections: true,
+        showStats: false,
       });
     } catch (error) {
       console.log(error);
@@ -60,47 +72,58 @@ class User extends React.Component {
       );
       this.setState({
         userStats: data,
+        showPhotos: false,
+        showCollections: false,
+        showStats: true,
       });
     } catch (error) {
       console.log(error);
     }
   };
 
-  handleChange = e => {
-    this.setState({
-      inputValue: e.target.value,
-    });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    this.getUserInfo();
-  };
-
   componentDidMount() {
     this.getUserInfo();
+    this.getUserPhotos();
   }
 
   render() {
     const { userInfo, userPhotos, userCollections, userStats } = this.state;
 
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type='text'
-            onChange={this.handleChange}
-            value={this.state.inputValue}
-          />
-        </form>
+      <Container>
         <UserHeader userInfo={userInfo} />
-        <UserPhotos handleClick={this.getUserPhotos} userPhotos={userPhotos} />
-        <UserCollections
-          handleClick={this.getUserCollections}
-          userCollections={userCollections}
-        />
-        <UserStats handleClick={this.getUserStats} userStats={userStats} />
-      </div>
+        <ContentContainer>
+          <ul>
+            <li onClick={this.getUserPhotos}>
+              <Icon src={photoIcon} alt='photos' />
+              Photos
+            </li>
+            <li onClick={this.getUserCollections}>
+              <Icon src={collectionIcon} alt='collections' />
+              Collections
+            </li>
+            <li onClick={this.getUserStats}>
+              <Icon src={statsIcon} alt='Stats' />
+              Stats
+            </li>
+          </ul>
+          <UserPhotos
+            handleClick={this.getUserPhotos}
+            userPhotos={userPhotos}
+            showPhotos={this.state.showPhotos}
+          />
+          <UserCollections
+            handleClick={this.getUserCollections}
+            userCollections={userCollections}
+            showCollections={this.state.showCollections}
+          />
+          <UserStats
+            handleClick={this.getUserStats}
+            userStats={userStats}
+            showStats={this.state.showStats}
+          />
+        </ContentContainer>
+      </Container>
     );
   }
 }

@@ -1,12 +1,16 @@
 import { Collection } from '../Collection';
+import { Container } from './styles';
 
 export const UserCollections = props => {
+  const showData = props.userCollections && props.showCollections;
+
   return (
-    <div>
-      <h2 onClick={props.handleClick}>Collections</h2>
-      {props.userCollections.map(collection => {
-        return <Collection data={collection} key={collection.id} />;
-      })}
-    </div>
+    showData && (
+      <Container>
+        {props.userCollections.map(collection => {
+          return <Collection data={collection} key={collection.id} />;
+        })}
+      </Container>
+    )
   );
 };

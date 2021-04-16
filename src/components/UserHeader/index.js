@@ -1,25 +1,63 @@
+import followIcon from '../../assets/images/follow-icon.png';
+import globeIcon from '../../assets/images/globe-icon.png';
+import locationIcon from '../../assets/images/location-icon.png';
+import {
+  ProfileImage,
+  UserInfoContainer,
+  UserInfo,
+  UserInfoIcon,
+  UserStatsCount,
+  UserMain,
+} from './styles.js';
+
 export const UserHeader = ({ userInfo }) => {
   return (
-    <div>
+    <UserInfoContainer>
       {userInfo && (
         <div>
-          <img
-            src={userInfo && userInfo.profile_image.large}
+          <ProfileImage
+            src={userInfo.profile_image.large}
             alt='img description'
           />
         </div>
       )}
       {userInfo && (
-        <div>
-          <h2>{userInfo.name}</h2>
-          <span>{userInfo.username}</span>
+        <UserInfo>
+          <UserMain>
+            <h2>{userInfo.name}</h2>
+            <img src={followIcon} alt='follow' />
+          </UserMain>
+          <span>
+            <i>@{userInfo.username}</i>
+          </span>
           <span>{userInfo.bio}</span>
-          <span>{userInfo.location}</span>
-          <span>{userInfo.total_photos} Photos</span>
-          <span>{userInfo.followers_count} Followers</span>
-          <span>{userInfo.following_count} Following</span>
-        </div>
+          {userInfo.location && (
+            <span>
+              <UserInfoIcon src={locationIcon} alt='location' />
+              {userInfo.location}
+            </span>
+          )}
+          {userInfo.portfolio_url && (
+            <span>
+              <UserInfoIcon src={globeIcon} alt='portfolio' />
+              <a href={userInfo.portfolio_url} target='blank'>
+                {userInfo.portfolio_url}
+              </a>
+            </span>
+          )}
+          <UserStatsCount>
+            <span>
+              <strong>{userInfo.total_photos}</strong> Photos
+            </span>
+            <span>
+              <strong>{userInfo.followers_count}</strong> Followers
+            </span>
+            <span>
+              <strong>{userInfo.following_count}</strong> Following
+            </span>
+          </UserStatsCount>
+        </UserInfo>
       )}
-    </div>
+    </UserInfoContainer>
   );
 };

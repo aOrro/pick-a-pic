@@ -1,19 +1,22 @@
 import React from 'react';
 import { Photo } from '../Photo';
+import { Container } from './styles';
 
 export const UserPhotos = props => {
+  const showData = props.userPhotos && props.showPhotos;
+
   return (
-    <div>
-      <h2 onClick={props.handleClick}>Photos</h2>
-      {props.userPhotos.map(photo => {
-        return (
-          <Photo
-            src={photo.urls.small}
-            alt={photo.alt_description}
-            key={photo.id}
-          />
-        );
-      })}
-    </div>
+    <Container>
+      {showData &&
+        props.userPhotos.map(photo => {
+          return (
+            <Photo
+              src={photo.urls.small}
+              alt={photo.alt_description}
+              key={photo.id}
+            />
+          );
+        })}
+    </Container>
   );
 };
