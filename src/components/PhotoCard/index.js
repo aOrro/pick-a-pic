@@ -1,6 +1,6 @@
 import { Photo } from '../Photo';
-import heartLogo from '../../assets/images/heart-logo.png';
-import addLogo from '../../assets/images/add-logo.png';
+import heartIcon from '../../assets/images/heart-icon.png';
+import addIcon from '../../assets/images/add-icon.png';
 import {
   PhotoCardContainer,
   SmallProfilePicture,
@@ -22,11 +22,11 @@ export const PhotoCard = props => {
       <Photo src={props.src} alt={props.alt} />
       <PhotoCardFooter>
         <Likes>
-          <img src={heartLogo} alt='heart' style={{ marginRight: 5 }} />
+          <img src={heartIcon} alt='heart' style={{ marginRight: 5 }} />
           <>{props.likes}</>
         </Likes>
         <div>
-          <img src={addLogo} alt='add' />
+          <img src={addIcon} alt='add' />
         </div>
       </PhotoCardFooter>
     </PhotoCardContainer>
