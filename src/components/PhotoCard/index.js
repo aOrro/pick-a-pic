@@ -24,7 +24,7 @@ export const PhotoCard = props => {
       <PhotoCardFooter>
         <Likes>
           <StyledImage src={heartIcon} alt='heart' />
-          <>{props.likes}</>
+          {props.likes}
         </Likes>
         <div>
           <img src={addIcon} alt='add' />
