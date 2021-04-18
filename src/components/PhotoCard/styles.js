@@ -30,3 +30,7 @@ export const Likes = styled.div`
   display: flex;
   align-items: center;
 `;
+
+export const StyledImage = styled.img`
+  margin-right: 5px;
+`;

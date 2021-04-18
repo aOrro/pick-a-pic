@@ -7,6 +7,7 @@ import {
   PhotoCardHeader,
   PhotoCardFooter,
   Likes,
+  StyledImage,
 } from './styles';
 
 export const PhotoCard = props => {
@@ -22,7 +23,7 @@ export const PhotoCard = props => {
       <Photo src={props.src} alt={props.alt} />
       <PhotoCardFooter>
         <Likes>
-          <img src={heartIcon} alt='heart' style={{ marginRight: 5 }} />
+          <StyledImage src={heartIcon} alt='heart' />
           <>{props.likes}</>
         </Likes>
         <div>

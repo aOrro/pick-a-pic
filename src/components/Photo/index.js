@@ -1,8 +1,4 @@
-import styled from 'styled-components';
-
-const StyledPhoto = styled.img`
-  margin: 5px;
-`;
+import { StyledPhoto } from './styles';
 
 export const Photo = props => {
   return <StyledPhoto src={props.src} alt={props.alt} />;
