@@ -1,28 +1,91 @@
 import React from 'react';
 import axios from 'axios';
 import { SearchBar } from '../../components/SearchBar';
-import { SearchResults } from '../../components/SearchResults';
+import { SearchResultsPhotos } from '../../components/SearchResultsPhotos';
+import { SearchResultsCollections } from '../../components/SearchResultsCollections';
+import { SearchResultsUsers } from '../../components/SearchResultsUsers';
+import photoIcon from '../../assets/images/photo-icon.png';
+import collectionIcon from '../../assets/images/collection-icon.png';
+import userIcon from '../../assets/images/user-logo.png';
+import { Container, SearchTabs, Icon } from './styles';
 
 class Search extends React.Component {
   state = {
-    inputValue: '',
-    pageToLoad: 1,
+    searchValue: '',
     photosData: [],
-    isLoading: false,
+    collectionsData: [],
+    usersData: [],
+    showPhotos: true,
+    showCollections: false,
+    showUsers: false,
+    isLoadingPhotos: false,
+    isLoadingCollections: false,
+    isLoadingUsers: false,
   };
 
-  fetchPhotos = async () => {
+  getSearchPhotos = async () => {
     try {
       this.setState({
-        isLoading: true,
+        isLoadingPhotos: true,
       });
-      const { inputValue, pageToLoad, photosData } = this.state;
+
+      const { searchValue } = this.state;
       const { data } = await axios(
-        `https://api.unsplash.com/search/photos?page=${pageToLoad}&query=${inputValue}&client_id=${process.env.REACT_APP_API_KEY}`
+        `https://api.unsplash.com/search/photos?page=1&query=${searchValue}&client_id=${process.env.REACT_APP_API_KEY}`
       );
+
       this.setState({
-        photosData: [...photosData, ...data.results],
-        isLoading: false,
+        photosData: data.results,
+        showPhotos: true,
+        showCollections: false,
+        showUsers: false,
+        isLoadingPhotos: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  getSearchCollections = async () => {
+    try {
+      this.setState({
+        isLoadingCollections: true,
+      });
+
+      const { searchValue } = this.state;
+      const { data } = await axios(
+        `https://api.unsplash.com/search/collections?page=1&query=${searchValue}&client_id=${process.env.REACT_APP_API_KEY}`
+      );
+
+      this.setState({
+        collectionsData: data.results,
+        showPhotos: false,
+        showCollections: true,
+        showUsers: false,
+        isLoadingCollections: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  getSearchUsers = async () => {
+    try {
+      this.setState({
+        isLoadingUsers: true,
+      });
+
+      const { searchValue } = this.state;
+      const { data } = await axios(
+        `https://api.unsplash.com/search/users?page=1&query=${searchValue}&client_id=${process.env.REACT_APP_API_KEY}`
+      );
+
+      this.setState({
+        usersData: data.results,
+        showPhotos: false,
+        showCollections: false,
+        showUsers: true,
+        isLoadingUsers: false,
       });
     } catch (error) {
       console.log(error);
@@ -31,20 +94,14 @@ class Search extends React.Component {
 
   handleChange = e => {
     this.setState({
-      inputValue: e.target.value,
+      searchValue: e.target.value,
     });
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.history.push(`/search/${this.state.inputValue}`);
-    this.fetchPhotos();
-  };
-
-  handleClick = () => {
-    this.setState({
-      pageToLoad: this.state.pageToLoad + 1,
-    });
+    this.props.history.push(`/search/${this.state.searchValue}`);
+    this.getSearchPhotos();
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -53,18 +110,30 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div>
+      <Container>
         <SearchBar
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
-          value={this.state.value}
+          value={this.state.searchValue}
         />
-        <SearchResults
-          photosData={this.state.photosData}
-          isLoading={this.state.isLoading}
-        />
-        <button onClick={this.handleClick}>More photos</button>
-      </div>
+        <SearchTabs>
+          <li onClick={this.getSearchPhotos}>
+            <Icon src={photoIcon} alt='photos' />
+            Photos
+          </li>
+          <li onClick={this.getSearchCollections}>
+            <Icon src={collectionIcon} alt='collections' />
+            Collections
+          </li>
+          <li onClick={this.getSearchUsers}>
+            <Icon src={userIcon} alt='users' />
+            Users
+          </li>
+        </SearchTabs>
+        <SearchResultsPhotos {...this.state} />
+        <SearchResultsCollections {...this.state} />
+        <SearchResultsUsers {...this.state} />
+      </Container>
     );
   }
 }

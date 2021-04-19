@@ -3,7 +3,8 @@ import { Photo } from '../Photo';
 import { Container } from './styles';
 
 export const UserPhotos = props => {
-  const showData = props.userPhotos && props.showPhotos && !props.isLoading;
+  const showData =
+    props.userPhotos.length > 0 && props.showPhotos && !props.isLoading;
 
   return (
     <Container>

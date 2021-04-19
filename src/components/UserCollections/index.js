@@ -3,18 +3,17 @@ import { Container } from './styles';
 
 export const UserCollections = props => {
   const showData =
-    props.userCollections && props.showCollections && !props.isLoading;
+    props.userCollections.length > 0 &&
+    props.showCollections &&
+    !props.isLoading;
 
   return (
-    <div>
+    <Container>
       {props.isLoading && <div>Loading collections...</div>}
-      {showData && (
-        <Container>
-          {props.userCollections.map(collection => {
-            return <Collection data={collection} key={collection.id} />;
-          })}
-        </Container>
-      )}
-    </div>
+      {showData &&
+        props.userCollections.map(collection => {
+          return <Collection data={collection} key={collection.id} />;
+        })}
+    </Container>
   );
 };
