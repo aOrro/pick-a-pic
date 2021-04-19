@@ -28,13 +28,14 @@ class Search extends React.Component {
       this.setState({
         isLoadingPhotos: true,
       });
+
       const { searchValue } = this.state;
       const { data } = await axios(
         `https://api.unsplash.com/search/photos?page=1&query=${searchValue}&client_id=${process.env.REACT_APP_API_KEY}`
       );
-      console.log(data);
+
       this.setState({
-        photosData: [...data.results],
+        photosData: data.results,
         showPhotos: true,
         showCollections: false,
         showUsers: false,
@@ -50,14 +51,14 @@ class Search extends React.Component {
       this.setState({
         isLoadingCollections: true,
       });
+
       const { searchValue } = this.state;
       const { data } = await axios(
         `https://api.unsplash.com/search/collections?page=1&query=${searchValue}&client_id=${process.env.REACT_APP_API_KEY}`
       );
-      console.log('collections', data);
 
       this.setState({
-        collectionsData: [...data.results],
+        collectionsData: data.results,
         showPhotos: false,
         showCollections: true,
         showUsers: false,
@@ -73,14 +74,14 @@ class Search extends React.Component {
       this.setState({
         isLoadingUsers: true,
       });
+
       const { searchValue } = this.state;
       const { data } = await axios(
         `https://api.unsplash.com/search/users?page=1&query=${searchValue}&client_id=${process.env.REACT_APP_API_KEY}`
       );
-      console.log(data);
 
       this.setState({
-        usersData: [...data.results],
+        usersData: data.results,
         showPhotos: false,
         showCollections: false,
         showUsers: true,

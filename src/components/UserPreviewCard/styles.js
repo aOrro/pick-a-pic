@@ -23,16 +23,20 @@ export const CardHeader = styled.div`
   height: auto;
   margin-bottom: 30px;
 
+  div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   h3 {
     margin: 5px 0 0 0;
     color: #000;
-    text-decoration: none;
   }
 
   span {
     color: #000;
     font-style: italic;
-    text-decoration: none;
   }
 `;
 
@@ -67,5 +71,4 @@ export const VisitButton = styled.button`
   margin-top: 15px;
   height: 35px;
   font-size: 16px;
-  text-decoration: none;
 `;
