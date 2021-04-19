@@ -89,6 +89,7 @@ class User extends React.Component {
       const { data } = await axios(
         `https://api.unsplash.com/users/${this.props.match.params.userName}/statistics?client_id=${process.env.REACT_APP_API_KEY}`
       );
+      console.log(data);
       this.setState({
         userStats: data,
         showPhotos: false,

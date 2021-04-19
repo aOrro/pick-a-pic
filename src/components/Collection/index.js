@@ -8,12 +8,15 @@ export const Collection = ({ data }) => {
   return (
     <Container>
       <img
-        src={data.cover_photo.urls.small}
-        alt={data.cover_photo.alt_description}
+        src={data.cover_photo && data.cover_photo.urls.small}
+        alt={data.cover_photo && data.cover_photo.alt_description}
       />
       <CollectionInfo>
         <h3>{data.title}</h3>
-        <span>{data.total_photos} photos</span>
+        <span>
+          {data.total_photos} photos &middot; Created by {data.user.first_name}{' '}
+          {data.user.last_name}
+        </span>
         {data.tags.length > 0 && (
           <Labels>
             <Label>{capitalizeFirstLetter(data.tags[0].title)}</Label>
