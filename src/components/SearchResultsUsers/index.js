@@ -13,7 +13,6 @@ export const SearchResultsUsers = ({
       {isLoadingUsers && <div>Loading photos...</div>}
       {showData &&
         usersData.map(user => {
-          console.log(user);
           return <UserPreviewCard userInfo={user} key={user.id} />;
         })}
     </Container>
