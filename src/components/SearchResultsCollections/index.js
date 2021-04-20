@@ -1,4 +1,4 @@
-import { Collection } from '../Collection';
+import { CollectionCard } from '../CollectionCard';
 import { Container } from './styles';
 
 export const SearchResultsCollections = ({
@@ -14,7 +14,7 @@ export const SearchResultsCollections = ({
       {isLoadingCollections && <div>Loading collections...</div>}
       {showData &&
         collectionsData.map(collection => {
-          return <Collection data={collection} key={collection.id} />;
+          return <CollectionCard data={collection} key={collection.id} />;
         })}
     </Container>
   );

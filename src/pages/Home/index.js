@@ -1,16 +1,17 @@
 import React from 'react';
 import Feed from '../../components/Feed';
-import { Suggested } from '../../components/Suggested';
+import { Featured } from '../../components/Featured';
+import { Container } from './styles';
 
 class Home extends React.Component {
   state = {};
 
   render() {
     return (
-      <div>
+      <Container>
         <Feed />
-        <Suggested />
-      </div>
+        <Featured />
+      </Container>
     );
   }
 }

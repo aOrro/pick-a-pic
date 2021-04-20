@@ -9,7 +9,6 @@ export const UserInfoContainer = styled.div`
 
 export const ProfileImage = styled.img`
   border-radius: 50%;
-  border: 3px solid #bf0000;
   margin: 0 50px;
 `;
 

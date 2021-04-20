@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  margin: 0 auto;
+  margin: 200px auto;
 `;
 
 export const ContentContainer = styled.div`
-  width: 65%;
+  width: 55%;
   margin: 100px auto;
 
   ul {

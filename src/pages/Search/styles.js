@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 65%;
-  margin: 0 auto;
+  width: 55%;
+  margin: 100px auto;
 `;
 
 export const SearchTabs = styled.ul`

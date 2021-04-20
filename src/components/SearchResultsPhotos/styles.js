@@ -6,3 +6,10 @@ export const Container = styled.div`
   align-items: flex-start;
   flex-wrap: wrap;
 `;
+
+export const StyledPhoto = styled.img`
+  width: 33%;
+  height: 250px;
+  object-fit: cover;
+  margin-bottom: 3px;
+`;

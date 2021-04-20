@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 export const PhotoCardContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 65%;
+  margin-bottom: 50px;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
 `;
 
 export const PhotoCardHeader = styled(Link)`
@@ -12,10 +16,10 @@ export const PhotoCardHeader = styled(Link)`
   text-decoration: none;
   color: #000;
   font-size: 18px;
+  margin-top: 5px;
 `;
 
 export const SmallProfilePicture = styled.img`
-  border: 2px solid #bf0000;
   border-radius: 50%;
   margin: 10px;
 `;
@@ -23,7 +27,7 @@ export const SmallProfilePicture = styled.img`
 export const PhotoCardFooter = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 10px 10px 50px 10px;
+  margin: 10px 10px 10px 10px;
 `;
 
 export const Likes = styled.div`
@@ -33,4 +37,11 @@ export const Likes = styled.div`
 
 export const StyledImage = styled.img`
   margin-right: 5px;
+  width: 25px;
+  height: 25px;
+`;
+
+export const AddIcon = styled.img`
+  width: 25px;
+  height: 25px;
 `;

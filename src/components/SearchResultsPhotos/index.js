@@ -1,5 +1,4 @@
-import { Photo } from '../Photo';
-import { Container } from './styles';
+import { Container, StyledPhoto } from './styles';
 
 export const SearchResultsPhotos = ({
   photosData,
@@ -14,7 +13,7 @@ export const SearchResultsPhotos = ({
       {showData &&
         photosData.map(item => {
           return (
-            <Photo
+            <StyledPhoto
               src={item.urls.small}
               alt={item.alt_description}
               key={item.id}
