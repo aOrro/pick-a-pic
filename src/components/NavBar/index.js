@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { SearchBar } from '../SearchBar';
 import logoImage from '../../assets/images/logo-project.png';
 import homeLogo from '../../assets/images/home-logo.png';
 import searchLogo from '../../assets/images/search-logo.png';
@@ -11,34 +12,41 @@ import {
   Logo,
   Icon,
 } from './styles';
+import React from 'react';
 
-export const NavBar = () => {
-  return (
-    <Container>
-      <HeaderMenu>
-        <div>
-          <Logo src={logoImage} alt='Pick a pic logo' />
-        </div>
-        <NavLinks>
-          <LinksList>
-            <li>
-              <Link to='/'>
-                <Icon src={homeLogo} alt='home logo' />
-              </Link>
-            </li>
-            <li>
-              <Link to='/search'>
-                <Icon src={searchLogo} alt='search logo' />
-              </Link>
-            </li>
-            <li>
-              <Link to='/users/me'>
-                <Icon src={userLogo} alt='user logo' />
-              </Link>
-            </li>
-          </LinksList>
-        </NavLinks>
-      </HeaderMenu>
-    </Container>
-  );
-};
+class NavBar extends React.Component {
+  state = {};
+
+  render() {
+    return (
+      <Container>
+        <HeaderMenu>
+          <div>
+            <Logo src={logoImage} alt='Pick a pic logo' />
+          </div>
+          <NavLinks>
+            <LinksList>
+              <li>
+                <Link to='/'>
+                  <Icon src={homeLogo} alt='home logo' />
+                </Link>
+              </li>
+              <li>
+                <Link to='/search'>
+                  <Icon src={searchLogo} alt='search logo' />
+                </Link>
+              </li>
+              <li>
+                <Link to='/users/me'>
+                  <Icon src={userLogo} alt='user logo' />
+                </Link>
+              </li>
+            </LinksList>
+          </NavLinks>
+        </HeaderMenu>
+      </Container>
+    );
+  }
+}
+
+export default NavBar;

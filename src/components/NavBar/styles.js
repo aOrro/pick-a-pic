@@ -31,7 +31,7 @@ export const LinksList = styled.ul`
 `;
 
 export const Logo = styled.img`
-  width: 40%;
+  width: 80px;
 `;
 
 export const Icon = styled.img`
