@@ -5,10 +5,7 @@ export const CollectionCard = ({ data }) => {
     return word.replace(/^\w/, word => word.toUpperCase());
   };
 
-  const getDataTags = () => {
-    const filterFirstThree = data.tags.filter((element, index) => index < 3);
-    return filterFirstThree;
-  };
+  const getDataTags = data.tags.filter((element, index) => index < 3);
 
   return (
     <Container>
@@ -24,7 +21,7 @@ export const CollectionCard = ({ data }) => {
         </span>
         {data.tags.length > 0 && (
           <Labels>
-            {getDataTags().map(element => (
+            {getDataTags.map(element => (
               <Label>{capitalizeFirstLetter(element.title)}</Label>
             ))}
           </Labels>
