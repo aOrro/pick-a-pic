@@ -4,8 +4,8 @@ export const Container = styled.div`
   margin: 0 5px 80px 5px;
 
   img {
-    height: 300px;
-    width: 400px;
+    width: 330px;
+    height: 220px;
     object-fit: cover;
     border-radius: 10px;
   }
@@ -29,4 +29,5 @@ export const Label = styled.span`
   margin-right: 20px;
   padding: 5px 10px;
   border-radius: 5px;
+  font-size: 14px;
 `;

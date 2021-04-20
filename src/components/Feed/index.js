@@ -50,7 +50,7 @@ class Feed extends React.Component {
             <PhotoCard
               userName={item.user.username}
               profileImage={item.user.profile_image.medium}
-              src={item.urls.small}
+              src={item.urls.regular}
               alt={item.alt_description}
               key={item.id}
               likes={item.likes}

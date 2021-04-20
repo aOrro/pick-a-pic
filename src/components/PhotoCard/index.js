@@ -1,4 +1,3 @@
-import { Photo } from '../Photo';
 import heartIcon from '../../assets/images/heart-icon.png';
 import addIcon from '../../assets/images/add-icon.png';
 import {
@@ -8,6 +7,7 @@ import {
   PhotoCardFooter,
   Likes,
   StyledImage,
+  AddIcon,
 } from './styles';
 
 export const PhotoCard = props => {
@@ -20,14 +20,14 @@ export const PhotoCard = props => {
         />
         {props.userName}
       </PhotoCardHeader>
-      <Photo src={props.src} alt={props.alt} />
+      <img src={props.src} alt={props.alt} />
       <PhotoCardFooter>
         <Likes>
           <StyledImage src={heartIcon} alt='heart' />
           {props.likes}
         </Likes>
         <div>
-          <img src={addIcon} alt='add' />
+          <AddIcon src={addIcon} alt='add' />
         </div>
       </PhotoCardFooter>
     </PhotoCardContainer>

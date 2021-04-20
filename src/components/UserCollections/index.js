@@ -1,4 +1,4 @@
-import { Collection } from '../Collection';
+import { CollectionCard } from '../CollectionCard';
 import { Container } from './styles';
 
 export const UserCollections = props => {
@@ -12,7 +12,7 @@ export const UserCollections = props => {
       {props.isLoading && <div>Loading collections...</div>}
       {showData &&
         props.userCollections.map(collection => {
-          return <Collection data={collection} key={collection.id} />;
+          return <CollectionCard data={collection} key={collection.id} />;
         })}
     </Container>
   );

@@ -4,12 +4,16 @@ export const HeaderMenu = styled.header`
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: 0 20px;
+  margin: 0 auto;
+  width: 55%;
+  border-bottom: 1px solid lightgrey;
 `;
 
 export const Container = styled.div`
-  margin: 0 auto;
-  width: 65%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background: #efefef;
 `;
 
 export const NavLinks = styled.nav`
@@ -27,7 +31,7 @@ export const LinksList = styled.ul`
 `;
 
 export const Logo = styled.img`
-  width: 50%;
+  width: 80px;
 `;
 
 export const Icon = styled.img`

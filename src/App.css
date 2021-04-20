@@ -1,5 +1,6 @@
 body {
   background: #efefef;
+  box-sizing: border-box;
 }
 
 .App {

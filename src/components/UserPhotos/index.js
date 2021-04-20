@@ -1,6 +1,5 @@
 import React from 'react';
-import { Photo } from '../Photo';
-import { Container } from './styles';
+import { Container, StyledPhoto } from './styles';
 
 export const UserPhotos = props => {
   const showData =
@@ -12,7 +11,7 @@ export const UserPhotos = props => {
       {showData &&
         props.userPhotos.map(photo => {
           return (
-            <Photo
+            <StyledPhoto
               src={photo.urls.small}
               alt={photo.alt_description}
               key={photo.id}

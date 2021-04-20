@@ -47,7 +47,6 @@ export const MainUserInfo = styled.div`
 export const ProfileImage = styled.img`
   border-radius: 50%;
   margin-right: 15px;
-  border: 2px solid #bf0000;
 `;
 
 export const FollowIcon = styled.img`
