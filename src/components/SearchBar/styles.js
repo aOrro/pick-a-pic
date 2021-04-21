@@ -1,14 +1,5 @@
 import styled from 'styled-components';
 
-export const MainSearchComponent = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  height: 250px;
-  width: 450px;
-  margin: 0 auto 100px auto;
-`;
-
 export const SearchInputElement = styled.input`
   background: #f1f1f1;
   width: 250px;

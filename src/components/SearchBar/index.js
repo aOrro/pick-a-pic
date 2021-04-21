@@ -1,12 +1,8 @@
-import bigSearchIcon from '../../assets/images/big-search-icon.png';
-import { MainSearchComponent, SearchInputElement } from './styles';
+import { SearchInputElement } from './styles';
 
 export const SearchBar = props => {
   return (
-    <MainSearchComponent>
-      <div>
-        <img src={bigSearchIcon} alt='big search icon' />
-      </div>
+    <div>
       <form onSubmit={props.handleSubmit}>
         <SearchInputElement
           type='text'
@@ -14,6 +10,6 @@ export const SearchBar = props => {
           value={props.value}
         />
       </form>
-    </MainSearchComponent>
+    </div>
   );
 };

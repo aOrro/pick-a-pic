@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { SearchBar } from '../../components/SearchBar';
 import { SearchResultsPhotos } from '../../components/SearchResultsPhotos';
 import { SearchResultsCollections } from '../../components/SearchResultsCollections';
 import { SearchResultsUsers } from '../../components/SearchResultsUsers';
@@ -11,7 +10,6 @@ import { Container, SearchTabs, Icon } from './styles';
 
 class Search extends React.Component {
   state = {
-    searchValue: '',
     photosData: [],
     collectionsData: [],
     usersData: [],
@@ -29,9 +27,8 @@ class Search extends React.Component {
         isLoadingPhotos: true,
       });
 
-      const { searchValue } = this.state;
       const { data } = await axios(
-        `https://api.unsplash.com/search/photos?page=1&query=${searchValue}&client_id=${process.env.REACT_APP_API_KEY}`
+        `https://api.unsplash.com/search/photos?page=1&query=${this.props.match.params.searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
       );
 
       this.setState({
@@ -52,9 +49,8 @@ class Search extends React.Component {
         isLoadingCollections: true,
       });
 
-      const { searchValue } = this.state;
       const { data } = await axios(
-        `https://api.unsplash.com/search/collections?page=1&query=${searchValue}&client_id=${process.env.REACT_APP_API_KEY}`
+        `https://api.unsplash.com/search/collections?page=1&query=${this.props.match.params.searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
       );
 
       this.setState({
@@ -75,9 +71,8 @@ class Search extends React.Component {
         isLoadingUsers: true,
       });
 
-      const { searchValue } = this.state;
       const { data } = await axios(
-        `https://api.unsplash.com/search/users?page=1&query=${searchValue}&client_id=${process.env.REACT_APP_API_KEY}`
+        `https://api.unsplash.com/search/users?page=1&query=${this.props.match.params.searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
       );
 
       this.setState({
@@ -92,30 +87,21 @@ class Search extends React.Component {
     }
   };
 
-  handleChange = e => {
-    this.setState({
-      searchValue: e.target.value,
-    });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.history.push(`/search/${this.state.searchValue}`);
+  componentDidMount() {
     this.getSearchPhotos();
-  };
+  }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.pageToLoad !== this.state.pageToLoad) this.fetchPhotos();
+    if (prevState.pageToLoad !== this.state.pageToLoad) this.getSearchPhotos();
+    if (
+      prevProps.match.params.searchTerm !== this.props.match.params.searchTerm
+    )
+      this.getSearchPhotos();
   }
 
   render() {
     return (
       <Container>
-        <SearchBar
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-          value={this.state.searchValue}
-        />
         <SearchTabs>
           <li onClick={this.getSearchPhotos}>
             <Icon src={photoIcon} alt='photos' />

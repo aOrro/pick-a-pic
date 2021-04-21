@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { SearchBar } from '../SearchBar';
 import logoImage from '../../assets/images/logo-project.png';
 import homeLogo from '../../assets/images/home-logo.png';
 import searchLogo from '../../assets/images/search-logo.png';
@@ -10,10 +12,22 @@ import {
   Logo,
   Icon,
 } from './styles';
-import React from 'react';
 
 class NavBar extends React.Component {
-  state = {};
+  state = {
+    searchValue: '',
+  };
+
+  handleChange = e => {
+    this.setState({
+      searchValue: e.target.value,
+    });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.history.push(`/search/${this.state.searchValue}`);
+  };
 
   render() {
     return (
@@ -22,6 +36,11 @@ class NavBar extends React.Component {
           <div>
             <Logo src={logoImage} alt='Pick a pic logo' />
           </div>
+          <SearchBar
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+            value={this.state.searchValue}
+          />
           <NavLinks>
             <LinksList>
               <li>
@@ -42,4 +61,4 @@ class NavBar extends React.Component {
   }
 }
 
-export default NavBar;
+export default withRouter(NavBar);

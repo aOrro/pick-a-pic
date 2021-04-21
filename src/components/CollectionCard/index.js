@@ -21,7 +21,7 @@ export const CollectionCard = ({ data }) => {
         {data.tags.length > 0 && (
           <Labels>
             {getDataTags.map(tag => (
-              <Label>{capitalizeFirstLetter(tag.title)}</Label>
+              <Label key={tag.title}>{capitalizeFirstLetter(tag.title)}</Label>
             ))}
           </Labels>
         )}
