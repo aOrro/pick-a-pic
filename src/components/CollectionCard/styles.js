@@ -26,7 +26,7 @@ export const Labels = styled.div`
 
 export const Label = styled.span`
   background: #dcdcdc;
-  margin-right: 20px;
+  margin-right: 10px;
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 14px;

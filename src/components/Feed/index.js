@@ -19,18 +19,12 @@ class Feed extends React.Component {
         `https://api.unsplash.com/photos?page=${this.state.pageToLoad}&client_id=${process.env.REACT_APP_API_KEY}`
       );
       this.setState({
-        photos: [...this.state.photos, ...data],
+        photos: data,
         isLoading: false,
       });
     } catch (error) {
       console.log(error);
     }
-  };
-
-  handleClick = () => {
-    this.setState({
-      pageToLoad: this.state.pageToLoad + 1,
-    });
   };
 
   componentDidMount() {
@@ -57,7 +51,6 @@ class Feed extends React.Component {
             />
           );
         })}
-        <button onClick={this.handleClick}>More photos</button>
       </Container>
     );
   }

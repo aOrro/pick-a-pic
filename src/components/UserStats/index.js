@@ -1,5 +1,5 @@
 export const UserStats = props => {
-  const showData = props.userStats && props.showStats && !props.isLoading;
+  const showData = !props.isLoading && props.userStats && props.showStats;
 
   return (
     <div>
