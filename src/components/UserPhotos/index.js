@@ -33,8 +33,7 @@ class UserPhotos extends React.Component {
   render() {
     const { userPhotos, isLoading } = this.state;
 
-    const readyToDisplay =
-      !isLoading && userPhotos.length > 0 && this.props.showPhotos;
+    const readyToDisplay = !isLoading && userPhotos.length > 0;
 
     return (
       <Container>

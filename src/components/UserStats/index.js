@@ -32,12 +32,12 @@ class UserStats extends React.Component {
   render() {
     const { userStats, isLoading } = this.state;
 
-    const readyToDisplay = !isLoading && userStats && this.props.showStats;
+    const readyToDisplay = !isLoading && userStats;
 
     return (
       <div>
         {isLoading && <div>Loading stats...</div>}
-        {readyToDisplay && userStats && (
+        {readyToDisplay && (
           <div>
             <span>
               {userStats.downloads.historical.change} total downloads in the

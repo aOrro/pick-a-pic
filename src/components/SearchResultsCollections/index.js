@@ -41,8 +41,7 @@ class SearchResultsCollections extends React.Component {
   render() {
     const { collectionsData, isLoading } = this.state;
 
-    const readyToDisplay =
-      !isLoading && collectionsData.length > 0 && this.props.showCollections;
+    const readyToDisplay = !isLoading && collectionsData.length > 0;
 
     return (
       <Container>

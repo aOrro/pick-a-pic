@@ -34,13 +34,12 @@ class UserCollections extends React.Component {
   render() {
     const { userCollections, isLoading } = this.state;
 
-    const showData =
-      !isLoading && userCollections.length > 0 && this.props.showCollections;
+    const readyToDisplay = !isLoading && userCollections.length > 0;
 
     return (
       <Container>
         {isLoading && <div>Loading collections...</div>}
-        {showData &&
+        {readyToDisplay &&
           userCollections.map(item => {
             return <CollectionCard data={item} key={item.id} />;
           })}

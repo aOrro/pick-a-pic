@@ -41,8 +41,7 @@ class SearchResultsUsers extends React.Component {
   render() {
     const { usersData, isLoading } = this.state;
 
-    const readyToDisplay =
-      !isLoading && usersData.length > 0 && this.props.showUsers;
+    const readyToDisplay = !isLoading && usersData.length > 0;
 
     return (
       <Container>

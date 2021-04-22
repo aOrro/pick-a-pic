@@ -9,57 +9,44 @@ import { Container, SearchTabs, Icon } from './styles';
 
 class Search extends React.Component {
   state = {
-    showPhotos: true,
-    showCollections: false,
-    showUsers: false,
+    dataToDisplay: '',
   };
 
-  handlePhotosClick = () => {
+  handleClick = chosenData => {
     this.setState({
-      showPhotos: true,
-      showCollections: false,
-      showUsers: false,
+      dataToDisplay: chosenData,
     });
   };
 
-  handleCollectionsClick = () => {
-    this.setState({
-      showPhotos: false,
-      showCollections: true,
-      showUsers: false,
-    });
-  };
-
-  handleUsersClick = () => {
-    this.setState({
-      showPhotos: false,
-      showCollections: false,
-      showUsers: true,
-    });
+  renderChosenTab = () => {
+    switch (this.state.dataToDisplay) {
+      case 'collections':
+        return <SearchResultsCollections />;
+      case 'users':
+        return <SearchResultsUsers />;
+      default:
+        return <SearchResultsPhotos />;
+    }
   };
 
   render() {
     return (
       <Container>
         <SearchTabs>
-          <li onClick={this.handlePhotosClick}>
+          <li onClick={() => this.handleClick('photos')}>
             <Icon src={photoIcon} alt='photos' />
             Photos
           </li>
-          <li onClick={this.handleCollectionsClick}>
+          <li onClick={() => this.handleClick('collections')}>
             <Icon src={collectionIcon} alt='collections' />
             Collections
           </li>
-          <li onClick={this.handleUsersClick}>
+          <li onClick={() => this.handleClick('users')}>
             <Icon src={userIcon} alt='users' />
             Users
           </li>
         </SearchTabs>
-        <SearchResultsPhotos showPhotos={this.state.showPhotos} />
-        <SearchResultsCollections
-          showCollections={this.state.showCollections}
-        />
-        <SearchResultsUsers showUsers={this.state.showUsers} />
+        {this.renderChosenTab()}
       </Container>
     );
   }

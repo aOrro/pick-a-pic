@@ -38,10 +38,9 @@ class SearchResultsPhotos extends React.Component {
   }
 
   render() {
-    const { isLoading, photosData } = this.state;
+    const { photosData, isLoading } = this.state;
 
-    const readyToDisplay =
-      !isLoading && photosData.length > 0 && this.props.showPhotos;
+    const readyToDisplay = !isLoading && photosData.length > 0;
 
     return (
       <Container>

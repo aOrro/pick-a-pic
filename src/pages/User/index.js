@@ -10,59 +10,46 @@ import { Container, ContentContainer, Icon } from './styles';
 
 class User extends React.Component {
   state = {
-    showPhotos: true,
-    showCollections: false,
-    showStats: false,
+    dataToDisplay: '',
   };
 
-  handlePhotosClick = () => {
+  handleClick = chosenData => {
     this.setState({
-      showPhotos: true,
-      showCollections: false,
-      showUsers: false,
+      dataToDisplay: chosenData,
     });
   };
 
-  handleCollectionsClick = () => {
-    this.setState({
-      showPhotos: false,
-      showCollections: true,
-      showUsers: false,
-    });
-  };
-
-  handleStatsClick = () => {
-    this.setState({
-      showPhotos: false,
-      showCollections: false,
-      showStats: true,
-    });
+  renderChosenTab = () => {
+    switch (this.state.dataToDisplay) {
+      case 'collections':
+        return <UserCollections />;
+      case 'stats':
+        return <UserStats />;
+      default:
+        return <UserPhotos />;
+    }
   };
 
   render() {
-    const { showPhotos, showCollections, showStats } = this.state;
-
     return (
       <Container>
         <UserHeader />
         <ContentContainer>
           <ul>
-            <li onClick={this.handlePhotosClick}>
+            <li onClick={() => this.handleClick('photos')}>
               <Icon src={photoIcon} alt='photos' />
               Photos
             </li>
-            <li onClick={this.handleCollectionsClick}>
+            <li onClick={() => this.handleClick('collections')}>
               <Icon src={collectionIcon} alt='collections' />
               Collections
             </li>
-            <li onClick={this.handleStatsClick}>
-              <Icon src={statsIcon} alt='Stats' />
+            <li onClick={() => this.handleClick('stats')}>
+              <Icon src={statsIcon} alt='stats' />
               Stats
             </li>
           </ul>
-          <UserPhotos showPhotos={showPhotos} />
-          <UserCollections showCollections={showCollections} />
-          <UserStats showStats={showStats} />
+          {this.renderChosenTab()}
         </ContentContainer>
       </Container>
     );
