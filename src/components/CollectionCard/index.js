@@ -9,10 +9,12 @@ export const CollectionCard = ({ data }) => {
 
   return (
     <Container>
-      <img
-        src={data.cover_photo && data.cover_photo.urls.small}
-        alt={data.cover_photo && data.cover_photo.alt_description}
-      />
+      {data.cover_photo && (
+        <img
+          src={data.cover_photo.urls.small}
+          alt={data.cover_photo.alt_description}
+        />
+      )}
       <CollectionInfo>
         <h3>{data.title ?? 'No Title'}</h3>
         <span>
