@@ -1,25 +1,56 @@
-export const UserStats = props => {
-  const showData = !props.isLoading && props.userStats && props.showStats;
+import React from 'react';
+import axios from 'axios';
+import { withRouter } from 'react-router';
 
-  return (
-    <div>
-      {props.isLoading && <div>Loading stats...</div>}
-      {showData && (
-        <div>
-          {props.userStats && (
-            <span>
-              {props.userStats.downloads.historical.change} total downloads in
-              the last 30 days
-            </span>
-          )}
+class UserStats extends React.Component {
+  state = {
+    userStats: null,
+    isLoading: false,
+  };
 
-          {props.userStats && (
+  getUserStats = async () => {
+    try {
+      this.setState({
+        isLoading: true,
+      });
+      const { data } = await axios(
+        `https://api.unsplash.com/users/${this.props.match.params.userName}/statistics?client_id=${process.env.REACT_APP_API_KEY}`
+      );
+      this.setState({
+        userStats: data,
+        isLoading: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  componentDidMount() {
+    this.getUserStats();
+  }
+
+  render() {
+    const { userStats, isLoading } = this.state;
+
+    const readyToDisplay = !isLoading && userStats && this.props.showStats;
+
+    return (
+      <div>
+        {isLoading && <div>Loading stats...</div>}
+        {readyToDisplay && userStats && (
+          <div>
             <span>
-              {props.userStats.downloads.historical.average} average downloads
+              {userStats.downloads.historical.change} total downloads in the
+              last 30 days
             </span>
-          )}
-        </div>
-      )}
-    </div>
-  );
-};
+            <span>
+              {userStats.downloads.historical.average} average downloads
+            </span>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
+
+export default withRouter(UserStats);

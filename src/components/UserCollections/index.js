@@ -1,19 +1,52 @@
+import React from 'react';
+import axios from 'axios';
+import { withRouter } from 'react-router';
 import { CollectionCard } from '../CollectionCard';
 import { Container } from './styles';
 
-export const UserCollections = props => {
-  const showData =
-    props.userCollections.length > 0 &&
-    props.showCollections &&
-    !props.isLoading;
+class UserCollections extends React.Component {
+  state = {
+    userCollections: [],
+    isLoading: false,
+  };
 
-  return (
-    <Container>
-      {props.isLoading && <div>Loading collections...</div>}
-      {showData &&
-        props.userCollections.map(collection => {
-          return <CollectionCard data={collection} key={collection.id} />;
-        })}
-    </Container>
-  );
-};
+  getUserCollections = async () => {
+    try {
+      this.setState({
+        isLoading: true,
+      });
+      const { data } = await axios(
+        `https://api.unsplash.com/users/${this.props.match.params.userName}/collections?page=1&per_page=10&client_id=${process.env.REACT_APP_API_KEY}`
+      );
+      this.setState({
+        userCollections: data,
+        isLoading: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  componentDidMount() {
+    this.getUserCollections();
+  }
+
+  render() {
+    const { userCollections, isLoading } = this.state;
+
+    const showData =
+      !isLoading && userCollections.length > 0 && this.props.showCollections;
+
+    return (
+      <Container>
+        {isLoading && <div>Loading collections...</div>}
+        {showData &&
+          userCollections.map(item => {
+            return <CollectionCard data={item} key={item.id} />;
+          })}
+      </Container>
+    );
+  }
+}
+
+export default withRouter(UserCollections);
