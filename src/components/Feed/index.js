@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { PhotoCard } from '../PhotoCard';
+import PhotoCard from '../PhotoCard';
 import { Container } from './styles';
 
 class Feed extends React.Component {
