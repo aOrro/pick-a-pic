@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { ReactComponent as HeartIcon } from '../../assets/images/heart-icon.svg';
+import { ReactComponent as AddIcon } from '../../assets/images/add-icon.svg';
 
 export const PhotoCardContainer = styled.div`
   display: flex;
@@ -27,7 +29,7 @@ export const SmallProfilePicture = styled.img`
 export const PhotoCardFooter = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 10px 10px 10px 10px;
+  margin: 5px 10px;
 `;
 
 export const Likes = styled.div`
@@ -41,7 +43,10 @@ export const StyledImage = styled.img`
   height: 25px;
 `;
 
-export const AddIcon = styled.img`
-  width: 25px;
-  height: 25px;
+export const StyledHeartIcon = styled(HeartIcon)`
+  padding-top: 8px;
+`;
+
+export const StyledAddIcon = styled(AddIcon)`
+  padding-top: 4px;
 `;

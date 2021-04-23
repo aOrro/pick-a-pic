@@ -1,9 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router';
-import followIcon from '../../assets/images/follow-icon.png';
-import globeIcon from '../../assets/images/globe-icon.png';
-import locationIcon from '../../assets/images/location-icon.png';
+import { ReactComponent as LocationIcon } from '../../assets/images/location-icon.svg';
+import { ReactComponent as WwwIcon } from '../../assets/images/www-icon.svg';
 import {
   ProfileImage,
   UserInfoContainer,
@@ -11,6 +10,8 @@ import {
   UserInfoIcon,
   UserStatsCount,
   UserMain,
+  W,
+  M,
 } from './styles.js';
 
 class UserHeader extends React.Component {
@@ -46,10 +47,10 @@ class UserHeader extends React.Component {
     const readyToDisplay = !isLoading && userInfo;
 
     return (
-      <UserInfoContainer>
+      <div>
         {isLoading && <div>Loading user info...</div>}
         {readyToDisplay && (
-          <div>
+          <UserInfoContainer>
             <ProfileImage
               src={userInfo.profile_image.large}
               alt='img description'
@@ -57,25 +58,28 @@ class UserHeader extends React.Component {
             <UserInfo>
               <UserMain>
                 <h2>{userInfo.name}</h2>
-                <img src={followIcon} alt='follow' />
               </UserMain>
               <span>
                 <i>@{userInfo.username}</i>
               </span>
               <span>{userInfo.bio}</span>
               {userInfo.location && (
-                <span>
-                  <UserInfoIcon src={locationIcon} alt='location' />
+                <W>
+                  <i>
+                    <LocationIcon />
+                  </i>
                   {userInfo.location}
-                </span>
+                </W>
               )}
               {userInfo.portfolio_url && (
-                <span>
-                  <UserInfoIcon src={globeIcon} alt='portfolio' />
+                <M>
+                  <i>
+                    <WwwIcon />
+                  </i>
                   <a href={userInfo.portfolio_url} target='blank'>
                     {userInfo.portfolio_url}
                   </a>
-                </span>
+                </M>
               )}
               <UserStatsCount>
                 <span>
@@ -89,9 +93,9 @@ class UserHeader extends React.Component {
                 </span>
               </UserStatsCount>
             </UserInfo>
-          </div>
+          </UserInfoContainer>
         )}
-      </UserInfoContainer>
+      </div>
     );
   }
 }

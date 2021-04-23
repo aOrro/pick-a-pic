@@ -1,15 +1,14 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import heartIcon from '../../assets/images/heart-icon.png';
-import addIcon from '../../assets/images/add-icon.png';
+import { ReactComponent as AddIcon } from '../../assets/images/add-icon.svg';
 import {
   PhotoCardContainer,
   SmallProfilePicture,
   PhotoCardHeader,
   PhotoCardFooter,
   Likes,
-  StyledImage,
-  AddIcon,
+  StyledHeartIcon,
+  StyledAddIcon,
 } from './styles';
 
 class PhotoCard extends React.Component {
@@ -26,11 +25,11 @@ class PhotoCard extends React.Component {
         <img src={this.props.src} alt={this.props.alt} />
         <PhotoCardFooter>
           <Likes>
-            <StyledImage src={heartIcon} alt='heart' />
+            <StyledHeartIcon />
             {this.props.likes}
           </Likes>
           <div>
-            <AddIcon src={addIcon} alt='add' />
+            <StyledAddIcon />
           </div>
         </PhotoCardFooter>
       </PhotoCardContainer>

@@ -1,17 +1,11 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { SearchBar } from '../SearchBar';
+import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg';
+import { ReactComponent as ExploreIcon } from '../../assets/images/explore-icon.svg';
+import { ReactComponent as SunIcon } from '../../assets/images/sun-icon.svg';
 import logoImage from '../../assets/images/logo-project.png';
-import homeLogo from '../../assets/images/home-logo.png';
-import searchLogo from '../../assets/images/search-logo.png';
-import {
-  Container,
-  HeaderMenu,
-  NavLinks,
-  LinksList,
-  Logo,
-  Icon,
-} from './styles';
+import { Container, HeaderMenu, NavLinks, LinksList, Logo } from './styles';
 
 class NavBar extends React.Component {
   state = {
@@ -45,13 +39,16 @@ class NavBar extends React.Component {
             <LinksList>
               <li>
                 <Link to='/'>
-                  <Icon src={homeLogo} alt='home logo' />
+                  <HomeIcon />
                 </Link>
               </li>
               <li>
-                <Link to='/search'>
-                  <Icon src={searchLogo} alt='search logo' />
+                <Link to='/explore'>
+                  <ExploreIcon />
                 </Link>
+              </li>
+              <li>
+                <SunIcon />
               </li>
             </LinksList>
           </NavLinks>
