@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
-import followIcon from '../../assets/images/follow-icon.png';
 import {
   Container,
   CardHeader,
   MainUserInfo,
   ProfileImage,
-  FollowIcon,
   ImagesPreview,
   CardImagePreview,
   VisitButton,
@@ -23,9 +21,6 @@ export const UserPreviewCard = ({ userInfo }) => {
               <span>@{userInfo.username}</span>
             </div>
           </MainUserInfo>
-          <div>
-            <FollowIcon src={followIcon} alt='follow' />
-          </div>
         </CardHeader>
         <ImagesPreview>
           {userInfo.photos.map(photo => (

@@ -45,13 +45,29 @@ export const UserInfo = styled.div`
   }
 `;
 
-export const UserInfoIcon = styled.img`
-  width: 15px;
-  margin-right: 5px;
-`;
-
 export const UserStatsCount = styled.div`
   width: 60%;
   display: flex;
   justify-content: space-between;
+  margin-top: 10px;
+`;
+
+export const W = styled.div`
+  display: flex;
+  align-items: center;
+
+  i {
+    margin-right: 3px;
+    padding: 3px 0 0 2px;
+  }
+`;
+
+export const M = styled.div`
+  display: flex;
+  align-items: center;
+
+  i {
+    padding: 10px 0 0 3px;
+    margin-right: 5px;
+  }
 `;

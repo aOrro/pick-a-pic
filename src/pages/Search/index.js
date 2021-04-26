@@ -2,9 +2,9 @@ import React from 'react';
 import SearchResultsPhotos from '../../components/SearchResultsPhotos';
 import SearchResultsCollections from '../../components/SearchResultsCollections';
 import SearchResultsUsers from '../../components/SearchResultsUsers';
-import photoIcon from '../../assets/images/photo-icon.png';
-import collectionIcon from '../../assets/images/collection-icon.png';
-import userIcon from '../../assets/images/user-logo.png';
+import { ReactComponent as PhotoIcon } from '../../assets/images/photo-icon.svg';
+import { ReactComponent as CollectionsIcon } from '../../assets/images/collections-icon.svg';
+import { ReactComponent as UserIcon } from '../../assets/images/user-icon.svg';
 import { Container, SearchTabs, Icon } from './styles';
 
 class Search extends React.Component {
@@ -34,15 +34,15 @@ class Search extends React.Component {
       <Container>
         <SearchTabs>
           <li onClick={() => this.handleClick('photos')}>
-            <Icon src={photoIcon} alt='photos' />
+            <PhotoIcon />
             Photos
           </li>
           <li onClick={() => this.handleClick('collections')}>
-            <Icon src={collectionIcon} alt='collections' />
+            <CollectionsIcon />
             Collections
           </li>
           <li onClick={() => this.handleClick('users')}>
-            <Icon src={userIcon} alt='users' />
+            <UserIcon />
             Users
           </li>
         </SearchTabs>
