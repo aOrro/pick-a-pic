@@ -7,7 +7,6 @@ import {
   ProfileImage,
   UserInfoContainer,
   UserInfo,
-  UserInfoIcon,
   UserStatsCount,
   UserMain,
   W,
