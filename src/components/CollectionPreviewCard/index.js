@@ -1,11 +1,8 @@
 import { Link } from 'react-router-dom';
+import capitalizeFirstLetter from '../../assets/capitalizeFirstLetter';
 import { Container, CollectionInfo, Labels, Label } from './styles';
 
 const CollectionPreviewCard = ({ data }) => {
-  const capitalizeFirstLetter = word => {
-    return word.replace(/^\w/, word => word.toUpperCase());
-  };
-
   const getDataTags = data.tags.filter((element, index) => index < 3);
 
   return (

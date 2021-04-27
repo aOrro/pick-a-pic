@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import capitalizeFirstLetter from '../../assets/capitalizeFirstLetter';
 import {
   Container,
   CollectionImage,
@@ -8,10 +9,6 @@ import {
 } from './styles';
 
 const CollectionHeader = props => {
-  const capitalizeFirstLetter = word => {
-    return word.replace(/^\w/, word => word.toUpperCase());
-  };
-
   return (
     <Container>
       <CollectionImage src={props.src} alt='img description' />
