@@ -4,6 +4,7 @@ import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Search from './pages/Search';
 import User from './pages/User';
+import Collection from './pages/Collection';
 import './App.css';
 
 function App() {
@@ -11,6 +12,11 @@ function App() {
     <Router>
       <NavBar />
       <Switch>
+        <Route
+          path='/collections/:collectionId'
+          exact
+          component={Collection}
+        ></Route>
         <Route path='/search' exact component={Search}></Route>
         <Route path='/search/:searchTerm' exact component={Search}></Route>
         <Route path='/users/:userName' exact component={User}></Route>

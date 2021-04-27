@@ -5,7 +5,7 @@ import SearchResultsUsers from '../../components/SearchResultsUsers';
 import { ReactComponent as PhotoIcon } from '../../assets/images/photo-icon.svg';
 import { ReactComponent as CollectionsIcon } from '../../assets/images/collections-icon.svg';
 import { ReactComponent as UserIcon } from '../../assets/images/user-icon.svg';
-import { Container, SearchTabs, Icon } from './styles';
+import { Container, SearchTabs } from './styles';
 
 class Search extends React.Component {
   state = {

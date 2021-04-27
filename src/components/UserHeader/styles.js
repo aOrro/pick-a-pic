@@ -4,7 +4,6 @@ export const UserInfoContainer = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  margin-top: 100px;
 `;
 
 export const ProfileImage = styled.img`

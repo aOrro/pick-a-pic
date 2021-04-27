@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router';
-import { CollectionCard } from '../CollectionCard';
+import CollectionPreviewCard from '../CollectionPreviewCard';
 import { Container } from './styles';
 
 class UserCollections extends React.Component {
@@ -41,7 +41,7 @@ class UserCollections extends React.Component {
         {isLoading && <div>Loading collections...</div>}
         {readyToDisplay &&
           userCollections.map(item => {
-            return <CollectionCard data={item} key={item.id} />;
+            return <CollectionPreviewCard data={item} key={item.id} />;
           })}
       </Container>
     );

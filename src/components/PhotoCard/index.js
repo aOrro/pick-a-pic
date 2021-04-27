@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import { ReactComponent as AddIcon } from '../../assets/images/add-icon.svg';
 import {
   PhotoCardContainer,
   SmallProfilePicture,
