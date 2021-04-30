@@ -3,9 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 55%;
   margin: 0 auto;
-`;
-
-export const PhotosContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: flex-start;

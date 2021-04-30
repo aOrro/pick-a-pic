@@ -9,8 +9,7 @@ import {
   UserInfo,
   UserStatsCount,
   UserMain,
-  W,
-  M,
+  IconDiv,
 } from './styles.js';
 
 class UserHeader extends React.Component {
@@ -61,24 +60,20 @@ class UserHeader extends React.Component {
               <span>
                 <i>@{userInfo.username}</i>
               </span>
-              <span>{userInfo.bio}</span>
+              {<span>{userInfo.bio ?? 'Pick a pic enthusiast.'}</span>}
               {userInfo.location && (
-                <W>
-                  <i>
-                    <LocationIcon />
-                  </i>
+                <IconDiv>
+                  <LocationIcon />
                   {userInfo.location}
-                </W>
+                </IconDiv>
               )}
               {userInfo.portfolio_url && (
-                <M>
-                  <i>
-                    <WwwIcon />
-                  </i>
+                <IconDiv>
+                  <WwwIcon />
                   <a href={userInfo.portfolio_url} target='blank'>
                     {userInfo.portfolio_url}
                   </a>
-                </M>
+                </IconDiv>
               )}
               <UserStatsCount>
                 <span>

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import PhotoCard from '../PhotoCard';
+import PhotoModal from '../PhotoModal';
 import { Container } from './styles';
 
 class Feed extends React.Component {
@@ -8,6 +9,7 @@ class Feed extends React.Component {
     photos: [],
     pageToLoad: 1,
     isLoading: false,
+    index: null,
   };
 
   getAllPhotos = async () => {
@@ -27,6 +29,18 @@ class Feed extends React.Component {
     }
   };
 
+  handlePhotoClick = photoIndex => {
+    this.setState({
+      index: photoIndex,
+    });
+  };
+
+  handleCloseClick = () => {
+    this.setState({
+      index: null,
+    });
+  };
+
   componentDidMount() {
     this.getAllPhotos();
   }
@@ -36,10 +50,13 @@ class Feed extends React.Component {
   }
 
   render() {
+    const { index, photos } = this.state;
+    const showModal = index === 0 || index > 0;
+
     return (
       <Container>
         {this.state.isLoading && <div>Loading photos...</div>}
-        {this.state.photos.map(item => {
+        {this.state.photos.map((item, index) => {
           return (
             <PhotoCard
               userName={item.user.username}
@@ -47,10 +64,19 @@ class Feed extends React.Component {
               src={item.urls.regular}
               alt={item.alt_description}
               key={item.id}
+              id={item.id}
               likes={item.likes}
+              handlePhotoClick={() => this.handlePhotoClick(index)}
             />
           );
         })}
+        {showModal && (
+          <PhotoModal
+            index={index}
+            arrayOfPhotos={photos}
+            handleCloseClick={this.handleCloseClick}
+          />
+        )}
       </Container>
     );
   }

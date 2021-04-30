@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   margin: 0 5px 80px 5px;
@@ -19,15 +20,22 @@ export const CollectionInfo = styled.div`
   }
 `;
 
+export const StyledLink = styled(Link)`
+  color: #000;
+  text-decoration: none;
+`;
+
 export const Labels = styled.div`
   display: flex;
   margin-top: 10px;
 `;
 
-export const Label = styled.span`
+export const Label = styled(Link)`
   background: #dcdcdc;
   margin-right: 10px;
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 14px;
+  text-decoration: none;
+  color: #000;
 `;
