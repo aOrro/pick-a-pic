@@ -8,7 +8,7 @@ class SearchResultsPhotos extends React.Component {
   state = {
     photosData: [],
     isLoading: false,
-    index: null,
+    index: -1,
   };
 
   getSearchPhotos = async () => {
@@ -28,15 +28,13 @@ class SearchResultsPhotos extends React.Component {
     }
   };
 
-  handlePhotoClick = photoIndex => {
-    this.setState({
-      index: photoIndex,
-    });
+  handlePhotoClick = index => {
+    this.setState({ index });
   };
 
   handleCloseClick = () => {
     this.setState({
-      index: null,
+      index: -1,
     });
   };
 
@@ -54,7 +52,7 @@ class SearchResultsPhotos extends React.Component {
   render() {
     const { index, photosData, isLoading } = this.state;
     const readyToDisplay = !isLoading && photosData.length > 0;
-    const showModal = index === 0 || index > 0;
+    const showModal = index > -1;
 
     return (
       <Container>

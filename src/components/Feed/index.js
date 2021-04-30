@@ -9,7 +9,7 @@ class Feed extends React.Component {
     photos: [],
     pageToLoad: 1,
     isLoading: false,
-    index: null,
+    index: -1,
   };
 
   getAllPhotos = async () => {
@@ -29,15 +29,13 @@ class Feed extends React.Component {
     }
   };
 
-  handlePhotoClick = photoIndex => {
-    this.setState({
-      index: photoIndex,
-    });
+  handlePhotoClick = index => {
+    this.setState({ index });
   };
 
   handleCloseClick = () => {
     this.setState({
-      index: null,
+      index: -1,
     });
   };
 
@@ -51,7 +49,7 @@ class Feed extends React.Component {
 
   render() {
     const { index, photos } = this.state;
-    const showModal = index === 0 || index > 0;
+    const showModal = index > -1;
 
     return (
       <Container>

@@ -8,7 +8,7 @@ class UserPhotos extends React.Component {
   state = {
     userPhotos: [],
     isLoading: false,
-    index: null,
+    index: -1,
   };
 
   getUserPhotos = async () => {
@@ -28,15 +28,13 @@ class UserPhotos extends React.Component {
     }
   };
 
-  handlePhotoClick = photoIndex => {
-    this.setState({
-      index: photoIndex,
-    });
+  handlePhotoClick = index => {
+    this.setState({ index });
   };
 
   handleCloseClick = () => {
     this.setState({
-      index: null,
+      index: -1,
     });
   };
 
@@ -47,7 +45,7 @@ class UserPhotos extends React.Component {
   render() {
     const { index, userPhotos, isLoading } = this.state;
     const readyToDisplay = !isLoading && userPhotos.length > 0;
-    const showModal = index === 0 || index > 0;
+    const showModal = index > -1;
 
     return (
       <Container>

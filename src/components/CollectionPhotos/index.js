@@ -7,7 +7,7 @@ class CollectionPhotos extends React.Component {
   state = {
     collectionPhotos: [],
     isLoading: false,
-    index: null,
+    index: -1,
   };
 
   getCollectionPhotos = async () => {
@@ -29,15 +29,13 @@ class CollectionPhotos extends React.Component {
     }
   };
 
-  handlePhotoClick = photoIndex => {
-    this.setState({
-      index: photoIndex,
-    });
+  handlePhotoClick = index => {
+    this.setState({ index });
   };
 
   handleCloseClick = () => {
     this.setState({
-      index: null,
+      index: -1,
     });
   };
 
@@ -48,7 +46,7 @@ class CollectionPhotos extends React.Component {
   render() {
     const { index, collectionPhotos, isLoading } = this.state;
     const readyToDisplay = !isLoading && collectionPhotos;
-    const showModal = index === 0 || index > 0;
+    const showModal = index > -1;
 
     return (
       <Container>
