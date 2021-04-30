@@ -51,22 +51,7 @@ export const UserStatsCount = styled.div`
   margin-top: 10px;
 `;
 
-export const W = styled.div`
+export const IconDiv = styled.div`
   display: flex;
   align-items: center;
-
-  i {
-    margin-right: 3px;
-    padding: 3px 0 0 2px;
-  }
-`;
-
-export const M = styled.div`
-  display: flex;
-  align-items: center;
-
-  i {
-    padding: 10px 0 0 3px;
-    margin-right: 5px;
-  }
 `;

@@ -17,11 +17,15 @@ class PhotoCard extends React.Component {
         <PhotoCardHeader to={`/users/${this.props.userName}`}>
           <SmallProfilePicture
             src={this.props.profileImage}
-            alt={`${this.props.userName}`}
+            alt={this.props.userName}
           />
           {this.props.userName}
         </PhotoCardHeader>
-        <img src={this.props.src} alt={this.props.alt} />
+        <img
+          onClick={this.props.handlePhotoClick}
+          src={this.props.src}
+          alt={this.props.alt}
+        />
         <PhotoCardFooter>
           <Likes>
             <StyledHeartIcon />

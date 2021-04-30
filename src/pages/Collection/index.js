@@ -42,7 +42,10 @@ class Collection extends React.Component {
         {readyToDisplay && (
           <div>
             <CollectionHeader
-              src={collectionData.cover_photo.urls.small}
+              src={
+                collectionData.cover_photo &&
+                collectionData.cover_photo.urls.small
+              }
               title={collectionData.title}
               description={collectionData.description}
               tags={collectionData.tags}

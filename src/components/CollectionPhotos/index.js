@@ -1,11 +1,13 @@
 import React from 'react';
 import axios from 'axios';
-import { Container, PhotosContainer, StyledPhoto } from './styles.js';
+import PhotoModal from '../PhotoModal';
+import { Container, StyledPhoto } from './styles.js';
 
 class CollectionPhotos extends React.Component {
   state = {
     collectionPhotos: [],
     isLoading: false,
+    index: -1,
   };
 
   getCollectionPhotos = async () => {
@@ -27,29 +29,45 @@ class CollectionPhotos extends React.Component {
     }
   };
 
+  handlePhotoClick = index => {
+    this.setState({ index });
+  };
+
+  handleCloseClick = () => {
+    this.setState({
+      index: -1,
+    });
+  };
+
   componentDidMount() {
     this.getCollectionPhotos();
   }
 
   render() {
-    const { collectionPhotos, isLoading } = this.state;
+    const { index, collectionPhotos, isLoading } = this.state;
     const readyToDisplay = !isLoading && collectionPhotos;
+    const showModal = index > -1;
 
     return (
       <Container>
         {isLoading && <div>Loading collection...</div>}
-        {readyToDisplay && (
-          <PhotosContainer>
-            {collectionPhotos.map(item => {
-              return (
-                <StyledPhoto
-                  src={item.urls.regular}
-                  alt={item.alt_description}
-                  key={item.id}
-                />
-              );
-            })}
-          </PhotosContainer>
+        {readyToDisplay &&
+          collectionPhotos.map((item, index) => {
+            return (
+              <StyledPhoto
+                src={item.urls.regular}
+                alt={item.alt_description}
+                key={item.id}
+                onClick={() => this.handlePhotoClick(index)}
+              />
+            );
+          })}
+        {showModal && (
+          <PhotoModal
+            index={index}
+            arrayOfPhotos={collectionPhotos}
+            handleCloseClick={this.handleCloseClick}
+          />
         )}
       </Container>
     );

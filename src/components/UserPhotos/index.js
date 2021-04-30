@@ -1,12 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router';
+import PhotoModal from '../PhotoModal';
 import { Container, StyledPhoto } from './styles';
 
 class UserPhotos extends React.Component {
   state = {
     userPhotos: [],
     isLoading: false,
+    index: -1,
   };
 
   getUserPhotos = async () => {
@@ -26,28 +28,46 @@ class UserPhotos extends React.Component {
     }
   };
 
+  handlePhotoClick = index => {
+    this.setState({ index });
+  };
+
+  handleCloseClick = () => {
+    this.setState({
+      index: -1,
+    });
+  };
+
   componentDidMount() {
     this.getUserPhotos();
   }
 
   render() {
-    const { userPhotos, isLoading } = this.state;
-
+    const { index, userPhotos, isLoading } = this.state;
     const readyToDisplay = !isLoading && userPhotos.length > 0;
+    const showModal = index > -1;
 
     return (
       <Container>
         {isLoading && <div>Loading photos...</div>}
         {readyToDisplay &&
-          userPhotos.map(photo => {
+          userPhotos.map((item, index) => {
             return (
               <StyledPhoto
-                src={photo.urls.small}
-                alt={photo.alt_description}
-                key={photo.id}
+                src={item.urls.small}
+                alt={item.alt_description}
+                key={item.id}
+                onClick={() => this.handlePhotoClick(index)}
               />
             );
           })}
+        {showModal && (
+          <PhotoModal
+            index={index}
+            arrayOfPhotos={userPhotos}
+            handleCloseClick={this.handleCloseClick}
+          />
+        )}
       </Container>
     );
   }

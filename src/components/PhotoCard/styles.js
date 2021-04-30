@@ -29,7 +29,7 @@ export const SmallProfilePicture = styled.img`
 export const PhotoCardFooter = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 5px 10px;
+  margin: 15px 10px;
 `;
 
 export const Likes = styled.div`
@@ -44,9 +44,7 @@ export const StyledImage = styled.img`
 `;
 
 export const StyledHeartIcon = styled(HeartIcon)`
-  padding-top: 8px;
+  margin-right: 5px;
 `;
 
-export const StyledAddIcon = styled(AddIcon)`
-  padding-top: 4px;
-`;
+export const StyledAddIcon = styled(AddIcon)``;
