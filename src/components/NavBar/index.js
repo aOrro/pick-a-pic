@@ -4,12 +4,14 @@ import { SearchBar } from '../SearchBar';
 import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg';
 import { ReactComponent as ExploreIcon } from '../../assets/images/explore-icon.svg';
 import { ReactComponent as SunIcon } from '../../assets/images/sun-icon.svg';
+import { ReactComponent as MoonIcon } from '../../assets/images/moon-icon.svg';
 import logoImage from '../../assets/images/logo-project.png';
 import { Container, HeaderMenu, NavLinks, LinksList, Logo } from './styles';
 
 class NavBar extends React.Component {
   state = {
     searchValue: '',
+    lightTheme: true,
   };
 
   handleChange = e => {
@@ -21,6 +23,15 @@ class NavBar extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.history.push(`/search/${this.state.searchValue}`);
+    this.setState({
+      searchValue: '',
+    });
+  };
+
+  handleThemeClick = () => {
+    this.setState({
+      lightTheme: !this.state.lightTheme,
+    });
   };
 
   render() {
@@ -47,8 +58,8 @@ class NavBar extends React.Component {
                   <ExploreIcon />
                 </Link>
               </li>
-              <li>
-                <SunIcon />
+              <li onClick={this.handleThemeClick}>
+                {this.state.lightTheme ? <MoonIcon /> : <SunIcon />}
               </li>
             </LinksList>
           </NavLinks>

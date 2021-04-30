@@ -41,7 +41,6 @@ class UserHeader extends React.Component {
 
   render() {
     const { userInfo, isLoading } = this.state;
-
     const readyToDisplay = !isLoading && userInfo;
 
     return (

@@ -2,10 +2,14 @@ import React from 'react';
 import SearchResultsPhotos from '../../components/SearchResultsPhotos';
 import SearchResultsCollections from '../../components/SearchResultsCollections';
 import SearchResultsUsers from '../../components/SearchResultsUsers';
-import { ReactComponent as PhotoIcon } from '../../assets/images/photo-icon.svg';
-import { ReactComponent as CollectionsIcon } from '../../assets/images/collections-icon.svg';
-import { ReactComponent as UserIcon } from '../../assets/images/user-icon.svg';
-import { Container, SearchTabs } from './styles';
+import {
+  Container,
+  SearchInfo,
+  SearchTabs,
+  StyledPhotoIcon,
+  StyledCollectionsIcon,
+  StyledUserIcon,
+} from './styles';
 
 class Search extends React.Component {
   state = {
@@ -32,17 +36,22 @@ class Search extends React.Component {
   render() {
     return (
       <Container>
+        <SearchInfo>
+          <i>
+            Results for "<strong>{this.props.match.params.searchTerm}</strong>"
+          </i>
+        </SearchInfo>
         <SearchTabs>
           <li onClick={() => this.handleClick('photos')}>
-            <PhotoIcon />
+            <StyledPhotoIcon />
             Photos
           </li>
           <li onClick={() => this.handleClick('collections')}>
-            <CollectionsIcon />
+            <StyledCollectionsIcon />
             Collections
           </li>
           <li onClick={() => this.handleClick('users')}>
-            <UserIcon />
+            <StyledUserIcon />
             Users
           </li>
         </SearchTabs>
