@@ -26,10 +26,12 @@ export const NavLinks = styled.nav`
 export const LinksList = styled.ul`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   list-style: none;
   width: 100px;
 `;
 
 export const Logo = styled.img`
   width: 80px;
+  margin-right: 120px;
 `;

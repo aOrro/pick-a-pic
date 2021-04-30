@@ -1,12 +1,21 @@
 import styled from 'styled-components';
 
+export const StyledForm = styled.form`
+  display: flex;
+  align-items: center;
+`;
+
 export const SearchInputElement = styled.input`
-  background: #f1f1f1;
+  background: #e6e6e6;
   width: 250px;
-  height: 30px;
-  padding: 5px 10px;
+  height: 40px;
+  padding: 0 15px;
   border: none;
-  border-radius: 10px;
-  box-shadow: inset 1px 1px 3px #e1e1e1, inset 2px 2px 6px #e1e1e1,
-    inset -2px -2px 4px rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  font-size: 14px;
+  position: relative;
+
+  &:focus {
+    outline: none;
+  }
 `;
