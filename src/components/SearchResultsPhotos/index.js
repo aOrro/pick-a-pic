@@ -19,7 +19,6 @@ class SearchResultsPhotos extends React.Component {
       const { data } = await axios(
         `https://api.unsplash.com/search/photos?page=1&query=${this.props.match.params.searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
       );
-      console.log(data);
       this.setState({
         photosData: data.results,
         isLoading: false,
