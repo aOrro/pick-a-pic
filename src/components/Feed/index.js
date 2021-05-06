@@ -68,6 +68,7 @@ class Feed extends React.Component {
             />
           );
         })}
+
         {showModal && (
           <PhotoModal
             index={index}

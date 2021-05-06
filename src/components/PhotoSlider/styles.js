@@ -12,7 +12,7 @@ export const Container = styled.div`
 `;
 
 export const StyledSlider = styled(Slider)`
-  height: 100%;
+  height: 75%;
 
   .slick-list {
     height: 100%;

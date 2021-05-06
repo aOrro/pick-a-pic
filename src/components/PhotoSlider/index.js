@@ -1,10 +1,10 @@
 import React from 'react';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import capitalizeFirstLetter from '../../assets/capitalizeFirstLetter';
 import { ReactComponent as CloseWindowIcon } from '../../assets/images/close-window-icon.svg';
 import { ReactComponent as HeartIcon } from '../../assets/images/heart-icon.svg';
 import { ReactComponent as AddIcon } from '../../assets/images/add-icon.svg';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import {
   Container,
   StyledSlider,
@@ -19,71 +19,87 @@ import {
   ModalFooter,
 } from './styles';
 
-const PhotoSlider = ({ index, arrayOfPhotos, handleCloseClick }) => {
-  const settings = {
-    dots: false,
-    infinite: true,
-    lazyLoad: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    initialSlide: index,
+class PhotoSlider extends React.Component {
+  state = {
+    currentIndex: this.props.index,
   };
 
-  return (
-    <Container>
-      <StyledSlider {...settings}>
-        {arrayOfPhotos.map(item => {
-          return (
-            <div key={item.id}>
-              <CenteringDiv>
-                <ModalDiv key={item.id}>
-                  <ModalHeader>
-                    <StyledLink to={`/users/${item.user.username}`}>
-                      <AuthorImage
-                        src={item.user.profile_image.medium}
-                        alt={item.user.username}
-                      />
-                      <span>{item.user.name}</span>
-                    </StyledLink>
-                    <div>
-                      <CloseWindowIcon onClick={handleCloseClick} />
-                    </div>
-                  </ModalHeader>
-                  <ModalMain>
-                    <div></div>
-                    <ImageDiv>
-                      <StyledModalPhoto
-                        src={item.urls.regular}
-                        alt={item.alt_description}
-                      />
-                    </ImageDiv>
-                    <div></div>
-                  </ModalMain>
-                  <ModalFooter>
-                    <span>
-                      <HeartIcon />
-                      {item.likes}
-                    </span>
-                    <span>
-                      <i>
-                        {capitalizeFirstLetter(
-                          item.alt_description ?? `${item.user.name} photo.`
-                        )}
-                      </i>
-                    </span>
-                    <div>
-                      <AddIcon />
-                    </div>
-                  </ModalFooter>
-                </ModalDiv>
-              </CenteringDiv>
-            </div>
-          );
-        })}
-      </StyledSlider>
-    </Container>
-  );
-};
+  handleAfterChange = index => {
+    this.setState({
+      currentIndex: index,
+    });
+  };
+
+  render() {
+    const sliderSettings = {
+      dots: false,
+      infinite: true,
+      lazyLoad: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      initialSlide: this.props.index,
+    };
+
+    const currentPhoto = this.props.arrayOfPhotos[this.state.currentIndex];
+
+    return (
+      <Container>
+        <ModalHeader>
+          <StyledLink to={`/users/${currentPhoto.user.username}`}>
+            <AuthorImage
+              src={currentPhoto.user.profile_image.medium}
+              alt={currentPhoto.user.username}
+            />
+            <span>{currentPhoto.user.name}</span>
+          </StyledLink>
+          <div>
+            <CloseWindowIcon onClick={this.props.handleCloseClick} />
+          </div>
+        </ModalHeader>
+        <StyledSlider
+          afterChange={index => this.handleAfterChange(index)}
+          {...sliderSettings}
+        >
+          {this.props.arrayOfPhotos.map(item => {
+            return (
+              <div key={item.id}>
+                <CenteringDiv>
+                  <ModalDiv key={item.id}>
+                    <ModalMain>
+                      <ImageDiv>
+                        <StyledModalPhoto
+                          src={item.urls.regular}
+                          alt={item.alt_description}
+                        />
+                      </ImageDiv>
+                    </ModalMain>
+                  </ModalDiv>
+                </CenteringDiv>
+              </div>
+            );
+          })}
+        </StyledSlider>
+        <ModalFooter>
+          <span>
+            <HeartIcon />
+            {currentPhoto.likes}
+          </span>
+          <span>
+            <i>
+              {capitalizeFirstLetter(
+                currentPhoto.alt_description ??
+                  `${currentPhoto.user.name} photo.`
+              )}
+            </i>
+          </span>
+          <div>
+            <AddIcon />
+          </div>
+        </ModalFooter>
+      </Container>
+    );
+  }
+}
 
 export default PhotoSlider;

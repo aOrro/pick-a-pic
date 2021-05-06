@@ -6,7 +6,7 @@ import { ReactComponent as AddIcon } from '../../assets/images/add-icon.svg';
 export const PhotoCardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 65%;
+  width: 95%;
   margin-bottom: 50px;
   border: 1px solid lightgrey;
   border-radius: 5px;
@@ -18,7 +18,7 @@ export const PhotoCardHeader = styled(Link)`
   text-decoration: none;
   color: #000;
   font-size: 18px;
-  margin-top: 5px;
+  margin: 5px 0;
 `;
 
 export const SmallProfilePicture = styled.img`
