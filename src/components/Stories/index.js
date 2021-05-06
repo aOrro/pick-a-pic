@@ -50,11 +50,11 @@ class Stories extends React.Component {
     if (
       prevState.currentOuterSliderIndex !== this.state.currentOuterSliderIndex
     ) {
-      const sliderToPlay = Object.keys(this.sliders).filter(
+      const currentSliderName = Object.keys(this.sliders).filter(
         (item, index) => index === this.state.currentOuterSliderIndex
       );
-      console.log(sliderToPlay);
-      sliderToPlay.autoplay = true;
+      console.log(this.sliders[currentSliderName]);
+      this.sliders[currentSliderName].current.slickPlay();
     }
   }
 
