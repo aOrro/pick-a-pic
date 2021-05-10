@@ -15,8 +15,6 @@ class Stories extends React.Component {
   state = {
     currentInnerSliderIndex: 0,
     currentOuterSliderIndex: 0,
-    autoPlayInnerSlider: false,
-    autoPlayOuterSlider: false,
   };
 
   handleInnerSliderAfterChange = index => {
@@ -50,17 +48,22 @@ class Stories extends React.Component {
     if (
       prevState.currentOuterSliderIndex !== this.state.currentOuterSliderIndex
     ) {
-      const currentSliderName = Object.keys(this.sliders).filter(
+      const currentInnerSlider = this.arrayOfRefs.find(
         (item, index) => index === this.state.currentOuterSliderIndex
       );
-      console.log(this.sliders[currentSliderName]);
-      this.sliders[currentSliderName].current.slickPlay();
+      console.log(currentInnerSlider);
+      currentInnerSlider.current.slickPlay();
     }
   }
 
-  sliders = this.props.arrayOfCollections.reduce((acc, curr) => {
+  innerSlider0 = React.createRef();
+  innerSlider1 = React.createRef();
+  innerSlider2 = React.createRef();
+  arrayOfRefs = [this.innerSlider0, this.innerSlider1, this.innerSlider2];
+
+  /*   sliders = this.props.arrayOfCollections.reduce((acc, curr) => {
     return { ...acc, [curr.title]: React.createRef() };
-  }, {});
+  }, {}); */
   outerSlider = React.createRef();
   innerSlider = React.createRef();
 
@@ -71,7 +74,6 @@ class Stories extends React.Component {
       infinite: true,
       slidesToShow: 1,
       slidesToScroll: 1,
-      autoplay: this.state.autoPlayOuterSlider,
       autoplaySpeed: 6000,
       pauseOnHover: false,
     };
@@ -101,7 +103,7 @@ class Stories extends React.Component {
                     <h2>{item.title}</h2>
                     <InnerSlider
                       {...innerSliderSettings}
-                      ref={this.sliders[item.title]}
+                      ref={this.arrayOfRefs.find((item, i) => i === index)}
                       afterChange={this.handleInnerSliderAfterChange}
                       autoplay={index === this.state.currentOuterSliderIndex}
                     >
