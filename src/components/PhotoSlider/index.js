@@ -23,6 +23,7 @@ class PhotoSlider extends React.Component {
   };
 
   handleAfterChange = index => {
+    console.log(index);
     this.setState({
       currentIndex: index,
     });
@@ -55,10 +56,7 @@ class PhotoSlider extends React.Component {
             <CloseWindowIcon onClick={this.props.handleCloseClick} />
           </div>
         </ModalHeader>
-        <StyledSlider
-          afterChange={index => this.handleAfterChange(index)}
-          {...sliderSettings}
-        >
+        <StyledSlider afterChange={this.handleAfterChange} {...sliderSettings}>
           {this.props.arrayOfPhotos.map(item => {
             return (
               <div key={item.id}>
