@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin: 200px 0;
+  margin: 100px auto;
+  display: flex;
+  width: 55%;
 `;
