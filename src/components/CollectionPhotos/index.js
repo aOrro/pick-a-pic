@@ -1,32 +1,34 @@
 import React from 'react';
 import axios from 'axios';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import PhotoModal from '../PhotoModal';
 import { Container, StyledPhoto } from './styles.js';
 
 class CollectionPhotos extends React.Component {
   state = {
     collectionPhotos: [],
-    isLoading: false,
+    pageToLoad: 1,
+    hasMore: true,
     index: -1,
   };
 
   getCollectionPhotos = async () => {
     try {
-      this.setState({
-        isLoading: true,
-      });
-
       const { data } = await axios(
-        `https://api.unsplash.com/collections/${this.props.collectionId}/photos?page=1&per_page=10&client_id=${process.env.REACT_APP_API_KEY}`
+        `https://api.unsplash.com/collections/${this.props.collectionId}/photos?page=${this.state.pageToLoad}&per_page=10&client_id=${process.env.REACT_APP_API_KEY}`
       );
-
-      this.setState({
-        collectionPhotos: data,
-        isLoading: false,
-      });
+      data
+        ? this.setState({
+            collectionPhotos: [...this.state.collectionPhotos, ...data],
+          })
+        : this.setState({ hasMore: false });
     } catch (error) {
       console.log(error);
     }
+  };
+
+  getMoreData = () => {
+    this.setState({ pageToLoad: this.state.pageToLoad + 1 });
   };
 
   handlePhotoClick = index => {
@@ -43,16 +45,24 @@ class CollectionPhotos extends React.Component {
     this.getCollectionPhotos();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.pageToLoad !== this.state.pageToLoad)
+      this.getCollectionPhotos();
+  }
+
   render() {
-    const { index, collectionPhotos, isLoading } = this.state;
-    const readyToDisplay = !isLoading && collectionPhotos;
+    const { index, collectionPhotos } = this.state;
     const showModal = index > -1;
 
     return (
       <Container>
-        {isLoading && <div>Loading collection...</div>}
-        {readyToDisplay &&
-          collectionPhotos.map((item, index) => {
+        <InfiniteScroll
+          dataLength={collectionPhotos.length}
+          next={this.getMoreData}
+          hasMore={this.state.hasMore}
+          loader={<div>Loading photos...</div>}
+        >
+          {collectionPhotos.map((item, index) => {
             return (
               <StyledPhoto
                 src={item.urls.regular}
@@ -62,6 +72,7 @@ class CollectionPhotos extends React.Component {
               />
             );
           })}
+        </InfiniteScroll>
         {showModal && (
           <PhotoModal
             index={index}

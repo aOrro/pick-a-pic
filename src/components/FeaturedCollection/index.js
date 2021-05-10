@@ -1,6 +1,4 @@
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
 const FeaturedCollection = props => {
   const settings = {
@@ -20,7 +18,7 @@ const FeaturedCollection = props => {
       <h4>{props.title}</h4>
       <Slider {...settings}>
         {props.collectionPhotos.map(item => {
-          return <div>{item}</div>;
+          return <div key={item}>{item}</div>;
         })}
       </Slider>
     </div>

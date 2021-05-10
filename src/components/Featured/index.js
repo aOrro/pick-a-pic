@@ -37,6 +37,7 @@ const Featured = props => {
             title={item.title}
             collectionPhotos={item.photos}
             handleClick={() => handleClick(index)}
+            key={item.title}
           />
         );
       })}
