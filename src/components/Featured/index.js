@@ -21,11 +21,11 @@ const Featured = props => {
     <Container>
       <h3>Featured</h3>
       <StyledSpan>
-        <StyledIcon onClick={e => props.handleSubmit(e)} />
-        <form onSubmit={e => props.handleSubmit(e)}>
+        <StyledIcon onClick={props.handleSubmit} />
+        <form onSubmit={props.handleSubmit}>
           <StyledInput
             type='text'
-            onChange={e => props.handleChange(e)}
+            onChange={props.handleChange}
             value={inputValue}
             placeholder='Add Collection...'
           />

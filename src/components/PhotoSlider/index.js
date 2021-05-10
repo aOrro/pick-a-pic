@@ -3,8 +3,6 @@ import capitalizeFirstLetter from '../../assets/capitalizeFirstLetter';
 import { ReactComponent as CloseWindowIcon } from '../../assets/images/close-window-icon.svg';
 import { ReactComponent as HeartIcon } from '../../assets/images/heart-icon.svg';
 import { ReactComponent as AddIcon } from '../../assets/images/add-icon.svg';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import {
   Container,
   StyledSlider,
