@@ -1,77 +1,60 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import FeaturedCollection from '../FeaturedCollection';
 import Stories from '../Stories';
+import {
+  handleChange,
+  handleClick,
+  handleSubmit,
+} from '../../store/featured/featuredActions';
 import { Container, StyledInput, StyledSpan, StyledIcon } from './styles';
 
-class Featured extends React.Component {
-  state = {
-    inputValue: '',
-    collections: [
-      { title: 'Collection A', photos: [1, 2, 3] },
-      { title: 'Collection B', photos: [4, 5, 6] },
-      { title: 'Collection C', photos: [7, 8, 9] },
-    ],
-    showStories: false,
-    collectionClicked: null,
-  };
+const Featured = props => {
+  const {
+    inputValue,
+    collections,
+    showStories,
+    collectionClicked,
+  } = props.featured;
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.setState({
-      inputValue: '',
-      collections: [
-        ...this.state.collections,
-        { title: this.state.inputValue, photos: [] },
-      ],
-    });
-  };
-
-  handleChange = e => {
-    this.setState({
-      inputValue: e.target.value,
-    });
-  };
-
-  handleClick = index => {
-    this.setState({
-      showStories: !this.state.showStories,
-      collectionClicked: index,
-    });
-  };
-
-  render() {
-    return (
-      <Container>
-        <h3>Featured</h3>
-        <StyledSpan>
-          <StyledIcon onClick={this.handleSubmit} />
-          <form onSubmit={this.handleSubmit}>
-            <StyledInput
-              type='text'
-              onChange={this.handleChange}
-              value={this.state.inputValue}
-              placeholder='Add Collection...'
-            />
-          </form>
-        </StyledSpan>
-        {this.state.collections.map((item, index) => {
-          return (
-            <FeaturedCollection
-              title={item.title}
-              collectionPhotos={item.photos}
-              handleClick={() => this.handleClick(index)}
-            />
-          );
-        })}
-        {this.state.showStories && (
-          <Stories
-            arrayOfCollections={this.state.collections}
-            index={this.state.collectionClicked}
+  return (
+    <Container>
+      <h3>Featured</h3>
+      <StyledSpan>
+        <StyledIcon onClick={e => props.handleSubmit(e)} />
+        <form onSubmit={e => props.handleSubmit(e)}>
+          <StyledInput
+            type='text'
+            onChange={e => props.handleChange(e)}
+            value={inputValue}
+            placeholder='Add Collection...'
           />
-        )}
-      </Container>
-    );
-  }
-}
+        </form>
+      </StyledSpan>
+      {collections.map((item, index) => {
+        return (
+          <FeaturedCollection
+            title={item.title}
+            collectionPhotos={item.photos}
+            handleClick={() => handleClick(index)}
+          />
+        );
+      })}
+      {showStories && (
+        <Stories arrayOfCollections={collections} index={collectionClicked} />
+      )}
+    </Container>
+  );
+};
 
-export default Featured;
+const mapStateToProps = state => ({
+  featured: state.featured,
+});
+
+const mapDispatchToProps = {
+  handleChange,
+  handleClick,
+  handleSubmit,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Featured);
