@@ -10,24 +10,19 @@ class SearchResultsPhotos extends React.Component {
     photosData: [],
     pageToLoad: 1,
     hasMore: true,
-    isLoading: false,
     index: -1,
   };
 
   getSearchPhotos = async () => {
     try {
-      this.setState({
-        isLoading: true,
-      });
       const { data } = await axios(
         `https://api.unsplash.com/search/photos?page=${this.state.pageToLoad}&query=${this.props.match.params.searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
       );
       data
         ? this.setState({
             photosData: [...this.state.photosData, ...data.results],
-            isLoading: false,
           })
-        : this.setState({ hasMore: false, isLoading: false });
+        : this.setState({ hasMore: false });
     } catch (error) {
       console.log(error);
     }
@@ -55,13 +50,14 @@ class SearchResultsPhotos extends React.Component {
     if (
       prevProps.match.params.searchTerm !== this.props.match.params.searchTerm
     ) {
+      this.setState({ photosData: [] });
       this.getSearchPhotos();
     }
+    if (prevState.pageToLoad !== this.state.pageToLoad) this.getSearchPhotos();
   }
 
   render() {
     const { index, photosData, isLoading } = this.state;
-    const readyToDisplay = !isLoading && photosData.length > 0;
     const showModal = index > -1;
 
     return (
@@ -73,17 +69,16 @@ class SearchResultsPhotos extends React.Component {
           hasMore={this.state.hasMore}
           loader={<div>Loading photos...</div>}
         >
-          {readyToDisplay &&
-            photosData.map((item, index) => {
-              return (
-                <StyledPhoto
-                  src={item.urls.small}
-                  alt={item.alt_description}
-                  key={item.id}
-                  onClick={() => this.handlePhotoClick(index)}
-                />
-              );
-            })}
+          {photosData.map((item, index) => {
+            return (
+              <StyledPhoto
+                src={item.urls.small}
+                alt={item.alt_description}
+                key={item.id}
+                onClick={() => this.handlePhotoClick(index)}
+              />
+            );
+          })}
         </InfiniteScroll>
         {showModal && (
           <PhotoModal

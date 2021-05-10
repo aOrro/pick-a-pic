@@ -10,23 +10,18 @@ class SearchResultsCollections extends React.Component {
     collectionsData: [],
     pageToLoad: 1,
     hasMore: true,
-    isLoading: false,
   };
 
   getSearchCollections = async () => {
     try {
-      this.setState({
-        isLoading: true,
-      });
       const { data } = await axios(
         `https://api.unsplash.com/search/collections?page=${this.state.pageToLoad}&query=${this.props.match.params.searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
       );
       data
         ? this.setState({
             collectionsData: [...this.state.collectionsData, ...data.results],
-            isLoading: false,
           })
-        : this.setState({ hasMore: false, isLoading: false });
+        : this.setState({ hasMore: false });
     } catch (error) {
       console.log(error);
     }
@@ -47,25 +42,25 @@ class SearchResultsCollections extends React.Component {
       this.setState({ collectionsData: [] });
       this.getSearchCollections();
     }
+
+    if (prevState.pageToLoad !== this.state.pageToLoad)
+      this.getSearchCollections();
   }
 
   render() {
-    const { collectionsData, isLoading } = this.state;
-    const readyToDisplay = !isLoading && collectionsData.length > 0;
+    const { collectionsData } = this.state;
 
     return (
       <Container>
-        {isLoading && <div>Loading collections...</div>}
         <InfiniteScroll
           dataLength={collectionsData.length}
           next={this.getMoreData}
           hasMore={this.state.hasMore}
           loader={<div>Loading photos...</div>}
         >
-          {readyToDisplay &&
-            collectionsData.map(item => {
-              return <CollectionPreviewCard data={item} key={item.id} />;
-            })}
+          {collectionsData.map(item => {
+            return <CollectionPreviewCard data={item} key={item.id} />;
+          })}
         </InfiniteScroll>
       </Container>
     );

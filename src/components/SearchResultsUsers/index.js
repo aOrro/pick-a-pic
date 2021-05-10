@@ -10,23 +10,18 @@ class SearchResultsUsers extends React.Component {
     usersData: [],
     pageToLoad: 1,
     hasMore: true,
-    isLoading: false,
   };
 
   getSearchUsers = async () => {
     try {
-      this.setState({
-        isLoading: true,
-      });
       const { data } = await axios(
         `https://api.unsplash.com/search/users?page=${this.state.pageToLoad}&query=${this.props.match.params.searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
       );
       data
         ? this.setState({
             usersData: [...this.state.usersData, ...data.results],
-            isLoading: false,
           })
-        : this.setState({ hasMore: false, isLoading: false });
+        : this.setState({ hasMore: false });
     } catch (error) {
       console.log(error);
     }
@@ -43,27 +38,28 @@ class SearchResultsUsers extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (
       prevProps.match.params.searchTerm !== this.props.match.params.searchTerm
-    )
+    ) {
+      this.setState({ usersData: [] });
       this.getSearchUsers();
+    }
+
+    if (prevState.pageToLoad !== this.state.pageToLoad) this.getSearchUsers();
   }
 
   render() {
-    const { usersData, isLoading } = this.state;
-    const readyToDisplay = !isLoading && usersData.length > 0;
+    const { usersData } = this.state;
 
     return (
       <Container>
-        {isLoading && <div>Loading photos...</div>}
         <InfiniteScroll
           dataLength={usersData.length}
           next={this.getMoreData}
           hasMore={this.state.hasMore}
           loader={<div>Loading photos...</div>}
         >
-          {readyToDisplay &&
-            usersData.map(item => {
-              return <UserPreviewCard userInfo={item} key={item.id} />;
-            })}
+          {usersData.map(item => {
+            return <UserPreviewCard userInfo={item} key={item.id} />;
+          })}
         </InfiniteScroll>
       </Container>
     );

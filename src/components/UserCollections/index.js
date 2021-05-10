@@ -10,23 +10,18 @@ class UserCollections extends React.Component {
     userCollections: [],
     pageToLoad: 1,
     hasMore: true,
-    isLoading: false,
   };
 
   getUserCollections = async () => {
     try {
-      this.setState({
-        isLoading: true,
-      });
       const { data } = await axios(
         `https://api.unsplash.com/users/${this.props.match.params.userName}/collections?page=${this.state.pageToLoad}&per_page=10&client_id=${process.env.REACT_APP_API_KEY}`
       );
       data
         ? this.setState({
             userCollections: [...this.state.userCollections, ...data],
-            isLoading: false,
           })
-        : this.setState({ hasMore: false, isLoading: false });
+        : this.setState({ hasMore: false });
     } catch (error) {
       console.log(error);
     }
@@ -40,23 +35,25 @@ class UserCollections extends React.Component {
     this.getUserCollections();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.pageToLoad !== this.state.pageToLoad)
+      this.getUserCollections();
+  }
+
   render() {
-    const { userCollections, isLoading } = this.state;
-    const readyToDisplay = !isLoading && userCollections.length > 0;
+    const { userCollections } = this.state;
 
     return (
       <Container>
-        {isLoading && <div>Loading collections...</div>}
         <InfiniteScroll
           dataLength={userCollections.length}
           next={this.getMoreData}
           hasMore={this.state.hasMore}
           loader={<div>Loading photos...</div>}
         >
-          {readyToDisplay &&
-            userCollections.map(item => {
-              return <CollectionPreviewCard data={item} key={item.id} />;
-            })}
+          {userCollections.map(item => {
+            return <CollectionPreviewCard data={item} key={item.id} />;
+          })}
         </InfiniteScroll>
       </Container>
     );

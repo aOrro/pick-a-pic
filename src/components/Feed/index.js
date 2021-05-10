@@ -10,7 +10,6 @@ class Feed extends React.Component {
     photos: [],
     pageToLoad: 1,
     hasMore: true,
-    isLoading: false,
     index: -1,
   };
 
@@ -25,9 +24,8 @@ class Feed extends React.Component {
       data
         ? this.setState({
             photos: [...this.state.photos, ...data],
-            isLoading: false,
           })
-        : this.setState({ hasMore: false, isLoading: false });
+        : this.setState({ hasMore: false });
     } catch (error) {
       console.log(error);
     }
@@ -56,7 +54,7 @@ class Feed extends React.Component {
   }
 
   render() {
-    const { index, photos, isLoading } = this.state;
+    const { index, photos } = this.state;
     const showModal = index > -1;
 
     return (
@@ -67,7 +65,6 @@ class Feed extends React.Component {
           hasMore={this.state.hasMore}
           loader={<div>Loading photos...</div>}
         >
-          {isLoading && <div>Loading photos...</div>}
           {photos.map((item, index) => {
             return (
               <PhotoCard

@@ -10,24 +10,19 @@ class UserPhotos extends React.Component {
     userPhotos: [],
     pageToLoad: 1,
     hasMore: true,
-    isLoading: false,
     index: -1,
   };
 
   getUserPhotos = async () => {
     try {
-      this.setState({
-        isLoading: true,
-      });
       const { data } = await axios(
         `https://api.unsplash.com/users/${this.props.match.params.userName}/photos?page=${this.state.pageToLoad}&per_page=10&order_by=latest&stats=false&client_id=${process.env.REACT_APP_API_KEY}`
       );
       data
         ? this.setState({
             userPhotos: [...this.state.userPhotos, ...data],
-            isLoading: false,
           })
-        : this.setState({ hasMore: false, isLoading: false });
+        : this.setState({ hasMore: false });
     } catch (error) {
       console.log(error);
     }
@@ -51,31 +46,32 @@ class UserPhotos extends React.Component {
     this.getUserPhotos();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.pageToLoad !== this.state.pageToLoad) this.getUserPhotos();
+  }
+
   render() {
-    const { index, userPhotos, isLoading } = this.state;
-    const readyToDisplay = !isLoading && userPhotos.length > 0;
+    const { index, userPhotos } = this.state;
     const showModal = index > -1;
 
     return (
       <Container>
-        {isLoading && <div>Loading photos...</div>}
         <InfiniteScroll
           dataLength={userPhotos.length}
           next={this.getMoreData}
           hasMore={this.state.hasMore}
           loader={<div>Loading photos...</div>}
         >
-          {readyToDisplay &&
-            userPhotos.map((item, index) => {
-              return (
-                <StyledPhoto
-                  src={item.urls.small}
-                  alt={item.alt_description}
-                  key={item.id}
-                  onClick={() => this.handlePhotoClick(index)}
-                />
-              );
-            })}
+          {userPhotos.map((item, index) => {
+            return (
+              <StyledPhoto
+                src={item.urls.small}
+                alt={item.alt_description}
+                key={item.id}
+                onClick={() => this.handlePhotoClick(index)}
+              />
+            );
+          })}
         </InfiniteScroll>
         {showModal && (
           <PhotoModal
