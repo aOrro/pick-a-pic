@@ -1,65 +1,41 @@
 import React from 'react';
-import axios from 'axios';
+
+import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { withRouter } from 'react-router';
+
 import PhotoModal from '../PhotoModal';
+
+import {
+  getUserPhotos,
+  getMorePhotos,
+  handlePhotoClick,
+  handleCloseClick,
+  clearDataForNewUser,
+} from '../../store/user/userActions';
+
 import { Container, StyledPhoto } from './styles';
 
 class UserPhotos extends React.Component {
-  state = {
-    userPhotos: [],
-    pageToLoad: 1,
-    hasMore: true,
-    index: -1,
-  };
-
-  getUserPhotos = async () => {
-    try {
-      const { data } = await axios(
-        `https://api.unsplash.com/users/${this.props.match.params.userName}/photos?page=${this.state.pageToLoad}&per_page=10&order_by=latest&stats=false&client_id=${process.env.REACT_APP_API_KEY}`
-      );
-      data
-        ? this.setState({
-            userPhotos: [...this.state.userPhotos, ...data],
-          })
-        : this.setState({ hasMore: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  getMoreData = () => {
-    this.setState({ pageToLoad: this.state.pageToLoad + 1 });
-  };
-
-  handlePhotoClick = index => {
-    this.setState({ index });
-  };
-
-  handleCloseClick = () => {
-    this.setState({
-      index: -1,
-    });
-  };
-
-  componentDidMount() {
-    this.getUserPhotos();
-  }
-
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.pageToLoad !== this.state.pageToLoad) this.getUserPhotos();
+    if (prevProps.match.params.userName !== this.props.match.params.userName) {
+      this.props.clearDataForNewUser();
+      this.props.getUserPhotos(this.props.match.params.userName);
+    }
+    if (prevProps.user.photosPageToLoad !== this.props.user.photosPageToLoad)
+      this.props.getUserPhotos(this.props.match.params.userName);
   }
 
   render() {
-    const { index, userPhotos } = this.state;
+    const { index, userPhotos, hasMorePhotos } = this.props.user;
     const showModal = index > -1;
 
     return (
       <Container>
         <InfiniteScroll
           dataLength={userPhotos.length}
-          next={this.getMoreData}
-          hasMore={this.state.hasMore}
+          next={this.props.getMorePhotos}
+          hasMore={hasMorePhotos}
           loader={<div>Loading photos...</div>}
         >
           {userPhotos.map((item, index) => {
@@ -68,7 +44,7 @@ class UserPhotos extends React.Component {
                 src={item.urls.small}
                 alt={item.alt_description}
                 key={item.id}
-                onClick={() => this.handlePhotoClick(index)}
+                onClick={() => this.props.handlePhotoClick(index)}
               />
             );
           })}
@@ -77,7 +53,7 @@ class UserPhotos extends React.Component {
           <PhotoModal
             index={index}
             arrayOfPhotos={userPhotos}
-            handleCloseClick={this.handleCloseClick}
+            handleCloseClick={this.props.handleCloseClick}
           />
         )}
       </Container>
@@ -85,4 +61,19 @@ class UserPhotos extends React.Component {
   }
 }
 
-export default withRouter(UserPhotos);
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = {
+  getUserPhotos,
+  getMorePhotos,
+  handlePhotoClick,
+  handleCloseClick,
+  clearDataForNewUser,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(UserPhotos));

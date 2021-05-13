@@ -1,8 +1,14 @@
 import React from 'react';
+
+import { connect } from 'react-redux';
+
 import UserHeader from '../../components/UserHeader';
 import UserPhotos from '../../components/UserPhotos';
 import UserCollections from '../../components/UserCollections';
 import UserStats from '../../components/UserStats';
+
+import { handleTabClick } from '../../store/user/userActions';
+
 import {
   Container,
   ContentContainer,
@@ -12,18 +18,13 @@ import {
 } from './styles';
 
 class User extends React.Component {
-  state = {
-    dataToDisplay: '',
-  };
-
-  handleClick = chosenData => {
-    this.setState({
-      dataToDisplay: chosenData,
-    });
-  };
+  componentDidMount() {
+    const username = this.props.match.params.userName;
+    this.props.handleTabClick('photos', username);
+  }
 
   renderChosenTab = () => {
-    switch (this.state.dataToDisplay) {
+    switch (this.props.user.chosenTab) {
       case 'collections':
         return <UserCollections />;
       case 'stats':
@@ -34,20 +35,24 @@ class User extends React.Component {
   };
 
   render() {
+    const username = this.props.match.params.userName;
+
     return (
       <Container>
         <UserHeader />
         <ContentContainer>
           <ul>
-            <li onClick={() => this.handleClick('photos')}>
+            <li onClick={() => this.props.handleTabClick('photos', username)}>
               <StyledPhotoIcon />
               Photos
             </li>
-            <li onClick={() => this.handleClick('collections')}>
+            <li
+              onClick={() => this.props.handleTabClick('collections', username)}
+            >
               <StyledCollectionsIcon />
               Collections
             </li>
-            <li onClick={() => this.handleClick('stats')}>
+            <li onClick={() => this.props.handleTabClick('stats', username)}>
               <StyledStatsIcon />
               Stats
             </li>
@@ -59,4 +64,12 @@ class User extends React.Component {
   }
 }
 
-export default User;
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = {
+  handleTabClick,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(User);

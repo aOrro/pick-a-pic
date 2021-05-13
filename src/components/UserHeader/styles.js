@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { ReactComponent as LocationIcon } from '../../assets/images/location-icon.svg';
+import { ReactComponent as WwwIcon } from '../../assets/images/www-icon.svg';
 
 export const UserInfoContainer = styled.div`
   display: flex;
@@ -9,19 +11,16 @@ export const UserInfoContainer = styled.div`
 export const ProfileImage = styled.img`
   border-radius: 50%;
   margin: 0 50px;
+  width: 150px;
+  height: auto;
 `;
 
 export const UserMain = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 600px;
-
-  img {
-    width: 28px;
-    height: 28px;
-    margin-right: 20px;
-  }
+  min-width: 500px;
+  max-width: 600px;
 `;
 
 export const UserInfo = styled.div`
@@ -54,4 +53,13 @@ export const UserStatsCount = styled.div`
 export const IconDiv = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 5px;
+`;
+
+export const StyledLocationIcon = styled(LocationIcon)`
+  margin-right: 5px;
+`;
+
+export const StyledWwwIcon = styled(WwwIcon)`
+  margin-right: 5px;
 `;

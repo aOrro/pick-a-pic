@@ -1,54 +1,41 @@
 import React from 'react';
-import axios from 'axios';
+
+import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { withRouter } from 'react-router';
+
 import CollectionPreviewCard from '../CollectionPreviewCard';
+
+import {
+  getUserCollections,
+  getMoreCollections,
+  clearDataForNewUser,
+} from '../../store/user/userActions';
+
 import { Container } from './styles';
 
 class UserCollections extends React.Component {
-  state = {
-    userCollections: [],
-    pageToLoad: 1,
-    hasMore: true,
-  };
-
-  getUserCollections = async () => {
-    try {
-      const { data } = await axios(
-        `https://api.unsplash.com/users/${this.props.match.params.userName}/collections?page=${this.state.pageToLoad}&per_page=10&client_id=${process.env.REACT_APP_API_KEY}`
-      );
-      data
-        ? this.setState({
-            userCollections: [...this.state.userCollections, ...data],
-          })
-        : this.setState({ hasMore: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  getMoreData = () => {
-    this.setState({ pageToLoad: this.state.pageToLoad + 1 });
-  };
-
-  componentDidMount() {
-    this.getUserCollections();
-  }
-
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.pageToLoad !== this.state.pageToLoad)
-      this.getUserCollections();
+    if (prevProps.match.params.userName !== this.props.match.params.userName) {
+      this.props.clearDataForNewUser();
+      this.props.getUserCollections(this.props.match.params.userName);
+    }
+    if (
+      prevProps.user.collectionsPageToLoad !==
+      this.props.user.collectionsPageToLoad
+    )
+      this.props.getUserCollections(this.props.match.params.userName);
   }
 
   render() {
-    const { userCollections } = this.state;
+    const { userCollections, hasMoreCollections } = this.props.user;
 
     return (
       <Container>
         <InfiniteScroll
           dataLength={userCollections.length}
-          next={this.getMoreData}
-          hasMore={this.state.hasMore}
+          next={this.props.getMoreCollections}
+          hasMore={hasMoreCollections}
           loader={<div>Loading photos...</div>}
         >
           {userCollections.map(item => {
@@ -60,4 +47,17 @@ class UserCollections extends React.Component {
   }
 }
 
-export default withRouter(UserCollections);
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = {
+  getUserCollections,
+  getMoreCollections,
+  clearDataForNewUser,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(UserCollections));

@@ -1,7 +1,13 @@
 import React from 'react';
+
+import { connect } from 'react-redux';
+
 import SearchResultsPhotos from '../../components/SearchResultsPhotos';
 import SearchResultsCollections from '../../components/SearchResultsCollections';
 import SearchResultsUsers from '../../components/SearchResultsUsers';
+
+import { handleTabClick } from '../../store/search/searchActions';
+
 import {
   Container,
   SearchInfo,
@@ -12,18 +18,8 @@ import {
 } from './styles';
 
 class Search extends React.Component {
-  state = {
-    dataToDisplay: '',
-  };
-
-  handleClick = chosenData => {
-    this.setState({
-      dataToDisplay: chosenData,
-    });
-  };
-
   renderChosenTab = () => {
-    switch (this.state.dataToDisplay) {
+    switch (this.props.search.chosenTab) {
       case 'collections':
         return <SearchResultsCollections />;
       case 'users':
@@ -34,6 +30,8 @@ class Search extends React.Component {
   };
 
   render() {
+    const { searchTerm } = this.props.match.params;
+
     return (
       <Container>
         <SearchInfo>
@@ -42,15 +40,17 @@ class Search extends React.Component {
           </i>
         </SearchInfo>
         <SearchTabs>
-          <li onClick={() => this.handleClick('photos')}>
+          <li onClick={() => this.props.handleTabClick('photos', searchTerm)}>
             <StyledPhotoIcon />
             Photos
           </li>
-          <li onClick={() => this.handleClick('collections')}>
+          <li
+            onClick={() => this.props.handleTabClick('collections', searchTerm)}
+          >
             <StyledCollectionsIcon />
             Collections
           </li>
-          <li onClick={() => this.handleClick('users')}>
+          <li onClick={() => this.props.handleTabClick('users', searchTerm)}>
             <StyledUserIcon />
             Users
           </li>
@@ -61,4 +61,12 @@ class Search extends React.Component {
   }
 }
 
-export default Search;
+const mapStateToProps = state => ({
+  search: state.search,
+});
+
+const mapDispatchToProps = {
+  handleTabClick,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

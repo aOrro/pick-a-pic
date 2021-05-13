@@ -1,68 +1,40 @@
 import React from 'react';
-import axios from 'axios';
+
+import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
+
 import PhotoCard from '../PhotoCard';
 import PhotoModal from '../PhotoModal';
+
+import {
+  getFeedPhotos,
+  getMoreData,
+  handlePhotoClick,
+  handleCloseClick,
+} from '../../store/feed/feedActions';
+
 import { Container } from './styles';
 
 class Feed extends React.Component {
-  state = {
-    photos: [],
-    pageToLoad: 1,
-    hasMore: true,
-    index: -1,
-  };
-
-  getAllPhotos = async () => {
-    try {
-      this.setState({
-        isLoading: true,
-      });
-      const { data } = await axios(
-        `https://api.unsplash.com/photos?page=${this.state.pageToLoad}&client_id=${process.env.REACT_APP_API_KEY}`
-      );
-      data
-        ? this.setState({
-            photos: [...this.state.photos, ...data],
-          })
-        : this.setState({ hasMore: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  getMoreData = () => {
-    this.setState({ pageToLoad: this.state.pageToLoad + 1 });
-  };
-
-  handlePhotoClick = index => {
-    this.setState({ index });
-  };
-
-  handleCloseClick = () => {
-    this.setState({
-      index: -1,
-    });
-  };
-
   componentDidMount() {
-    this.getAllPhotos();
+    this.props.getFeedPhotos();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.pageToLoad !== this.state.pageToLoad) this.getAllPhotos();
+    if (prevProps.feed.pageToLoad !== this.props.feed.pageToLoad)
+      this.props.getFeedPhotos();
   }
 
   render() {
-    const { index, photos } = this.state;
+    const { index, photos, hasMore } = this.props.feed;
     const showModal = index > -1;
 
     return (
       <Container>
         <InfiniteScroll
           dataLength={photos.length}
-          next={this.getMoreData}
-          hasMore={this.state.hasMore}
+          next={this.props.getMoreData}
+          hasMore={hasMore}
           loader={<div>Loading photos...</div>}
         >
           {photos.map((item, index) => {
@@ -75,7 +47,7 @@ class Feed extends React.Component {
                 key={item.id}
                 id={item.id}
                 likes={item.likes}
-                handlePhotoClick={() => this.handlePhotoClick(index)}
+                handlePhotoClick={() => this.props.handlePhotoClick(index)}
               />
             );
           })}
@@ -83,7 +55,7 @@ class Feed extends React.Component {
             <PhotoModal
               index={index}
               arrayOfPhotos={photos}
-              handleCloseClick={this.handleCloseClick}
+              handleCloseClick={this.props.handleCloseClick}
             />
           )}
         </InfiniteScroll>
@@ -92,4 +64,15 @@ class Feed extends React.Component {
   }
 }
 
-export default Feed;
+const mapStateToProps = state => ({
+  feed: state.feed,
+});
+
+const mapDispatchToProps = {
+  getFeedPhotos,
+  getMoreData,
+  handlePhotoClick,
+  handleCloseClick,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Feed);

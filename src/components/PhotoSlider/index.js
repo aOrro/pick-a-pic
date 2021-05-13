@@ -23,7 +23,6 @@ class PhotoSlider extends React.Component {
   };
 
   handleAfterChange = index => {
-    console.log(index);
     this.setState({
       currentIndex: index,
     });

@@ -1,0 +1,8 @@
+export const FETCH_FEED_PHOTOS_PENDING = 'FETCH_FEED_PHOTOS_PENDING';
+export const FETCH_FEED_PHOTOS_SUCCESS = 'FETCH_FEED_PHOTOS_SUCCESS';
+export const FETCH_FEED_PHOTOS_NO_DATA = 'FETCH_FEED_PHOTOS_NO_DATA';
+export const FETCH_FEED_PHOTOS_ERROR = 'FETCH_FEED_PHOTOS_ERROR';
+export const FETCH_NEW_PAGE = 'FETCH_NEW_PAGE';
+export const PHOTO_CLICK = 'PHOTO_CLICK';
+export const CLOSE_MODAL = 'CLOSE_MODAL';
+export const getPageToLoad = state => state.feed.pageToLoad;
