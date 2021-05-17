@@ -21,7 +21,7 @@ const CollectionPreviewCard = ({ data }) => {
           <h3>{data.title ?? 'No Title'}</h3>
         </StyledLink>
         <span>
-          {`${data.total_photos} photos · Created by ${data.user.first_name} ${data.user.last_name}`}
+          {`${data.total_photos} photos · Created by @${data.user.username}`}
         </span>
         {data.tags.length > 0 && (
           <Labels>

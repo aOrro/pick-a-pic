@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -16,17 +15,11 @@ import {
 import { Container } from './styles';
 
 class SearchResultsCollections extends React.Component {
-  componentDidMount() {
-    this.props.getSearchCollections(this.props.match.params.searchTerm);
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (
       prevProps.match.params.searchTerm !== this.props.match.params.searchTerm
-    ) {
+    )
       this.props.clearDataForNewSearch();
-      this.props.getSearchCollections(this.props.match.params.searchTerm);
-    }
 
     if (
       prevProps.search.collectionsPageToLoad !==

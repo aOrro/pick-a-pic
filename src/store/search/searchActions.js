@@ -26,16 +26,17 @@ import {
 
 export const handleTabClick =
   (chosenTab, searchTerm) => (dispatch, getState) => {
+    console.log(searchTerm);
     dispatch({ type: TAB_CLICK, payload: chosenTab });
 
-    /*     switch (chosenTab) {
+    switch (chosenTab) {
       case 'collections':
-        return getSearchCollections(searchTerm);
+        return dispatch(getSearchCollections(searchTerm));
       case 'users':
-        return getSearchUsers(searchTerm);
+        return dispatch(getSearchUsers(searchTerm));
       default:
-        return getSearchPhotos(searchTerm);
-    } */
+        return dispatch(getSearchPhotos(searchTerm));
+    }
   };
 
 export const clearDataForNewSearch = () => {
@@ -53,6 +54,7 @@ export const getSearchPhotos = searchTerm => async (dispatch, getState) => {
     const { data } = await axios(
       `https://api.unsplash.com/search/photos?page=${pageToLoad}&query=${searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
     );
+    console.log(data);
     data
       ? dispatch({ type: FETCH_SEARCH_PHOTOS_SUCCESS, payload: data.results })
       : dispatch({ type: FETCH_SEARCH_PHOTOS_NO_DATA });
@@ -109,7 +111,7 @@ export const getSearchUsers = searchTerm => async (dispatch, getState) => {
     data
       ? dispatch({
           type: FETCH_SEARCH_USERS_SUCCESS,
-          payload: data,
+          payload: data.results,
         })
       : dispatch({ type: FETCH_SEARCH_USERS_NO_DATA });
   } catch (error) {

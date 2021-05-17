@@ -15,17 +15,11 @@ import {
 import { Container } from './styles';
 
 class SearchResultsUsers extends React.Component {
-  componentDidMount() {
-    this.props.getSearchUsers(this.props.match.params.searchTerm);
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (
       prevProps.match.params.searchTerm !== this.props.match.params.searchTerm
-    ) {
+    )
       this.props.clearDataForNewSearch();
-      this.props.getSearchUsers(this.props.match.params.searchTerm);
-    }
 
     if (
       prevProps.search.collectionsPageToLoad !==

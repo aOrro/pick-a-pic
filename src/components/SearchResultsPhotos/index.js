@@ -28,6 +28,7 @@ class SearchResultsPhotos extends React.Component {
       this.props.clearDataForNewSearch();
       this.props.getSearchPhotos(this.props.match.params.searchTerm);
     }
+
     if (
       prevProps.search.photosPageToLoad !== this.props.search.photosPageToLoad
     )
@@ -52,7 +53,7 @@ class SearchResultsPhotos extends React.Component {
                 src={item.urls.small}
                 alt={item.alt_description}
                 key={item.id}
-                onClick={() => this.handlePhotoClick(index)}
+                onClick={() => this.props.handlePhotoClick(index)}
               />
             );
           })}
@@ -61,7 +62,7 @@ class SearchResultsPhotos extends React.Component {
           <PhotoModal
             index={index}
             arrayOfPhotos={photosData}
-            handleCloseClick={this.handleCloseClick}
+            handleCloseClick={this.props.handleCloseClick}
           />
         )}
       </Container>
