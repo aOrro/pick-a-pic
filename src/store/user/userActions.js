@@ -24,20 +24,11 @@ import {
   FETCH_USER_STATS_ERROR,
 } from './userTypes';
 
-export const handleTabClick = (chosenTab, username) => (dispatch, getState) => {
-  dispatch({
+export const handleTabClick = chosenTab => {
+  return {
     type: TAB_CLICK,
     payload: chosenTab,
-  });
-
-  switch (chosenTab) {
-    case 'collections':
-      return dispatch(getUserCollections(username));
-    case 'stats':
-      return dispatch(getUserStats(username));
-    default:
-      return dispatch(getUserPhotos(username));
-  }
+  };
 };
 
 export const clearDataForNewUser = () => {
@@ -61,7 +52,6 @@ export const getUserInfo = username => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: FETCH_USER_INFO_ERROR,
-      payload: error,
     });
   }
 };
@@ -80,7 +70,7 @@ export const getUserPhotos = username => async (dispatch, getState) => {
       : dispatch({ type: FETCH_USER_PHOTOS_NO_DATA });
   } catch (error) {
     console.log(error);
-    dispatch({ type: FETCH_USER_PHOTOS_ERROR, payload: error });
+    dispatch({ type: FETCH_USER_PHOTOS_ERROR });
   }
 };
 
@@ -115,7 +105,7 @@ export const getUserCollections = username => async (dispatch, getState) => {
       : dispatch({ type: FETCH_USER_COLLECTIONS_NO_DATA });
   } catch (error) {
     console.log(error);
-    dispatch({ type: FETCH_USER_COLLECTIONS_ERROR, payload: error });
+    dispatch({ type: FETCH_USER_COLLECTIONS_ERROR });
   }
 };
 

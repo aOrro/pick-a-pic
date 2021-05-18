@@ -18,8 +18,10 @@ class SearchResultsCollections extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (
       prevProps.match.params.searchTerm !== this.props.match.params.searchTerm
-    )
+    ) {
       this.props.clearDataForNewSearch();
+      this.props.getSearchCollections(this.props.match.params.searchTerm);
+    }
 
     if (
       prevProps.search.collectionsPageToLoad !==

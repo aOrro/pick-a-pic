@@ -18,11 +18,6 @@ import {
 } from './styles';
 
 class User extends React.Component {
-  componentDidMount() {
-    const username = this.props.match.params.userName;
-    this.props.handleTabClick('photos', username);
-  }
-
   renderChosenTab = () => {
     switch (this.props.user.chosenTab) {
       case 'collections':
@@ -35,24 +30,20 @@ class User extends React.Component {
   };
 
   render() {
-    const username = this.props.match.params.userName;
-
     return (
       <Container>
         <UserHeader />
         <ContentContainer>
           <ul>
-            <li onClick={() => this.props.handleTabClick('photos', username)}>
+            <li onClick={() => this.props.handleTabClick('photos')}>
               <StyledPhotoIcon />
               Photos
             </li>
-            <li
-              onClick={() => this.props.handleTabClick('collections', username)}
-            >
+            <li onClick={() => this.props.handleTabClick('collections')}>
               <StyledCollectionsIcon />
               Collections
             </li>
-            <li onClick={() => this.props.handleTabClick('stats', username)}>
+            <li onClick={() => this.props.handleTabClick('stats')}>
               <StyledStatsIcon />
               Stats
             </li>

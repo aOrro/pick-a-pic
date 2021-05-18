@@ -17,6 +17,10 @@ import {
 import { Container, StyledPhoto } from './styles';
 
 class UserPhotos extends React.Component {
+  componentDidMount() {
+    this.props.getUserPhotos(this.props.match.params.userName);
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.match.params.userName !== this.props.match.params.userName) {
       this.props.clearDataForNewUser();
