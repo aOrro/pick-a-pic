@@ -33,12 +33,12 @@ class Search extends React.Component {
     }
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  /*   componentDidUpdate(prevProps, prevState) {
     if (
       prevProps.match.params.searchTerm !== this.props.match.params.searchTerm
     )
       this.props.clearDataForNewSearch();
-  }
+  } */
 
   render() {
     const { searchTerm } = this.props.match.params;
@@ -51,28 +51,26 @@ class Search extends React.Component {
           </i>
         </SearchInfo>
         <SearchTabs>
-          <Link to={`/search/photos/${searchTerm}`}>
-            <li onClick={() => this.props.handleTabClick('photos', searchTerm)}>
-              <StyledPhotoIcon />
-              Photos
-            </li>
-          </Link>
-          <Link to={`/search/collections/${searchTerm}`}>
-            <li
-              onClick={() =>
-                this.props.handleTabClick('collections', searchTerm)
-              }
-            >
-              <StyledCollectionsIcon />
-              Collections
-            </li>
-          </Link>
-          <Link to={`/search/users/${searchTerm}`}>
-            <li onClick={() => this.props.handleTabClick('users', searchTerm)}>
-              <StyledUserIcon />
-              Users
-            </li>
-          </Link>
+          {/* <Link to={`/search/photos/${searchTerm}`}> */}
+          <li onClick={() => this.props.handleTabClick('photos', searchTerm)}>
+            <StyledPhotoIcon />
+            Photos
+          </li>
+          {/*           </Link>
+          <Link to={`/search/collections/${searchTerm}`}> */}
+          <li
+            onClick={() => this.props.handleTabClick('collections', searchTerm)}
+          >
+            <StyledCollectionsIcon />
+            Collections
+          </li>
+          {/*           </Link>
+          <Link to={`/search/users/${searchTerm}`}> */}
+          <li onClick={() => this.props.handleTabClick('users', searchTerm)}>
+            <StyledUserIcon />
+            Users
+          </li>
+          {/* </Link> */}
         </SearchTabs>
         {this.renderChosenTab()}
       </Container>
