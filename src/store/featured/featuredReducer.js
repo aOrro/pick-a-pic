@@ -37,6 +37,14 @@ function featuredReducer(state = initialState, action) {
           { title: state.inputValue, photos: [] },
         ],
       };
+    /*     case ADD_TO_COLLECTIONS:
+      return {
+        ...state,
+        collections: [
+          ...state.collections,
+          { title: state.inputValue, photos: [] },
+        ],
+      }; */
     default:
       return state;
   }

@@ -28,7 +28,7 @@ const CollectionHeader = props => {
         {props.tags.length > 0 && (
           <Labels>
             {props.tags.map(item => (
-              <Label to={`/search/${item.title}`} key={item.title}>
+              <Label to={`/search/photos/${item.title}`} key={item.title}>
                 {capitalizeFirstLetter(item.title)}
               </Label>
             ))}

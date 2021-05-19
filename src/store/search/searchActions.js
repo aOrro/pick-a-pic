@@ -26,7 +26,6 @@ import {
 
 export const handleTabClick =
   (chosenTab, searchTerm) => (dispatch, getState) => {
-    console.log(searchTerm);
     dispatch({ type: TAB_CLICK, payload: chosenTab });
 
     switch (chosenTab) {
@@ -39,10 +38,11 @@ export const handleTabClick =
     }
   };
 
-export const clearDataForNewSearch = () => {
-  return {
+export const clearDataForNewSearch = () => (dispatch, getState) => {
+  dispatch(handleCloseClick);
+  dispatch({
     type: CLEAR_PREVIOUS_DATA,
-  };
+  });
 };
 
 export const getSearchPhotos = searchTerm => async (dispatch, getState) => {

@@ -16,19 +16,19 @@ import { Container } from './styles';
 
 class UserCollections extends React.Component {
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.match.params.userName !== this.props.match.params.userName) {
-      this.props.clearDataForNewUser();
-      this.props.getUserCollections(this.props.match.params.userName);
-    }
     if (
-      prevProps.user.collectionsPageToLoad !==
-      this.props.user.collectionsPageToLoad
+      prevProps.collections.collectionsPageToLoad !==
+      this.props.collections.collectionsPageToLoad
     )
       this.props.getUserCollections(this.props.match.params.userName);
   }
 
+  componentWillUnmount() {
+    this.props.clearDataForNewUser();
+  }
+
   render() {
-    const { userCollections, hasMoreCollections } = this.props.user;
+    const { userCollections, hasMoreCollections } = this.props.collections;
 
     return (
       <Container>
@@ -48,7 +48,7 @@ class UserCollections extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user,
+  collections: state.user.collections,
 });
 
 const mapDispatchToProps = {

@@ -18,28 +18,31 @@ class SearchResultsUsers extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (
       prevProps.match.params.searchTerm !== this.props.match.params.searchTerm
-    )
+    ) {
       this.props.clearDataForNewSearch();
+      this.props.getSearchUsers(this.props.match.params.searchTerm);
+    }
 
-    if (
-      prevProps.search.collectionsPageToLoad !==
-      this.props.search.collectionsPageToLoad
-    )
+    if (prevProps.users.pageToLoad !== this.props.users.pageToLoad)
       this.props.getSearchUsers(this.props.match.params.searchTerm);
   }
 
+  componentWillUnmount() {
+    this.props.clearDataForNewSearch();
+  }
+
   render() {
-    const { usersData, hasMoreUsers } = this.props.search;
+    const { data, hasMore } = this.props.users;
 
     return (
       <Container>
         <InfiniteScroll
-          dataLength={usersData.length}
+          dataLength={data.length}
           next={this.props.getMoreSearchUsers}
-          hasMore={hasMoreUsers}
+          hasMore={hasMore}
           loader={<div>Loading photos...</div>}
         >
-          {usersData.map(item => {
+          {data.map(item => {
             return <UserPreviewCard userInfo={item} key={item.id} />;
           })}
         </InfiniteScroll>
@@ -49,7 +52,7 @@ class SearchResultsUsers extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  search: state.search,
+  users: state.search.users,
 });
 
 const mapDispatchToProps = {

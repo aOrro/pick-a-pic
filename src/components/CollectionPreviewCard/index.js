@@ -21,12 +21,12 @@ const CollectionPreviewCard = ({ data }) => {
           <h3>{data.title ?? 'No Title'}</h3>
         </StyledLink>
         <span>
-          {`${data.total_photos} photos · Created by @${data.user.username}`}
+          {`${data.total_photos} photos · Created by ${data.user.name}`}
         </span>
         {data.tags.length > 0 && (
           <Labels>
             {getDataTags.map(item => (
-              <Label to={`/search/${item.title}`} key={item.title}>
+              <Label to={`/search/photos/${item.title}`} key={item.title}>
                 {capitalizeFirstLetter(item.title)}
               </Label>
             ))}

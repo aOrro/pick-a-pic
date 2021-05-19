@@ -23,23 +23,27 @@ import {
 
 const initialState = {
   chosenTab: '',
-  userHeaderData: null,
-  isLoadingHeader: false,
-  userHeaderDataError: false,
-  userPhotos: [],
-  isLoadingPhotos: false,
-  photosPageToLoad: 1,
-  hasMorePhotos: true,
-  userPhotosError: false,
-  index: -1,
-  userCollections: [],
-  isLoadingCollections: false,
-  collectionsPageToLoad: 1,
-  hasMoreCollections: true,
-  userCollectionError: false,
-  userStats: null,
-  isLoadingStats: false,
-  userStatsError: false,
+  header: {
+    userHeaderData: null,
+    isLoadingHeader: false,
+    userHeaderDataError: false,
+  },
+  photos: {
+    userPhotos: [],
+    isLoadingPhotos: false,
+    photosPageToLoad: 1,
+    hasMorePhotos: true,
+    userPhotosError: false,
+    index: -1,
+  },
+  collections: {
+    userCollections: [],
+    isLoadingCollections: false,
+    collectionsPageToLoad: 1,
+    hasMoreCollections: true,
+    userCollectionError: false,
+  },
+  stats: { userStats: null, isLoadingStats: false, userStatsError: false },
 };
 
 function userReducer(state = initialState, action) {
@@ -52,103 +56,168 @@ function userReducer(state = initialState, action) {
     case CLEAR_PREVIOUS_DATA:
       return {
         ...state,
-        userPhotos: [],
-        userCollections: [],
-        userStats: null,
+        photos: {
+          ...state.photos,
+          userPhotos: [],
+        },
+        collections: {
+          ...state.collections,
+          userCollections: [],
+        },
+        stats: { ...state.stats, userStats: null },
       };
     case FETCH_USER_INFO_PENDING:
       return {
         ...state,
-        isLoadingHeader: true,
+        header: {
+          ...state.header,
+          isLoadingHeader: true,
+        },
       };
     case FETCH_USER_INFO_SUCCESS:
       return {
         ...state,
-        userHeaderData: action.payload,
-        isLoadingHeader: false,
+        header: {
+          ...state.header,
+          userHeaderData: action.payload,
+          isLoadingHeader: false,
+        },
       };
     case FETCH_USER_INFO_ERROR:
       return {
         ...state,
-        userHeaderDataError: true,
+        header: {
+          ...state.header,
+          userHeaderDataError: true,
+        },
       };
     case FETCH_USER_PHOTOS_PENDING:
       return {
         ...state,
-        isLoadingPhotos: true,
+        photos: {
+          ...state.photos,
+          isLoadingPhotos: true,
+        },
       };
     case FETCH_USER_PHOTOS_SUCCESS:
       return {
         ...state,
-        userPhotos: [...state.userPhotos, ...action.payload],
-        isLoadingPhotos: false,
+        photos: {
+          ...state.photos,
+          userPhotos: [...state.photos.userPhotos, ...action.payload],
+          isLoadingPhotos: false,
+        },
       };
     case FETCH_USER_PHOTOS_NO_DATA:
       return {
         ...state,
-        isLoadingPhotos: false,
-        hasMorePhotos: false,
+        photos: {
+          ...state.photos,
+          isLoadingPhotos: false,
+          hasMorePhotos: false,
+        },
       };
     case FETCH_USER_PHOTOS_ERROR:
       return {
         ...state,
-        userPhotosError: true,
+        photos: {
+          ...state.photos,
+          isLoadingPhotos: false,
+          userPhotosError: true,
+        },
       };
     case FETCH_MORE_PHOTOS:
       return {
         ...state,
-        photosPageToLoad: state.photosPageToLoad + 1,
+        photos: {
+          ...state.photos,
+          photosPageToLoad: state.photos.photosPageToLoad + 1,
+        },
       };
     case PHOTO_CLICK:
       return {
         ...state,
-        index: action.payload,
+        photos: {
+          ...state.photos,
+          index: action.payload,
+        },
       };
     case CLOSE_MODAL:
       return {
         ...state,
-        index: -1,
+        photos: {
+          ...state.photos,
+          index: -1,
+        },
       };
     case FETCH_USER_COLLECTIONS_PENDING:
       return {
         ...state,
-        isLoadingCollections: true,
+        collections: {
+          ...state.collections,
+          isLoadingCollections: true,
+        },
       };
     case FETCH_USER_COLLECTIONS_SUCCESS:
       return {
         ...state,
-        userCollections: [...state.userCollections, ...action.payload],
-        isLoadingCollections: false,
+        collections: {
+          ...state.collections,
+          userCollections: [
+            ...state.collections.userCollections,
+            ...action.payload,
+          ],
+          isLoadingCollections: false,
+        },
       };
     case FETCH_USER_COLLECTIONS_NO_DATA:
       return {
         ...state,
-        hasMoreCollections: false,
-        isLoadingCollections: false,
+        collections: {
+          ...state.collections,
+          hasMoreCollections: false,
+          isLoadingCollections: false,
+        },
       };
     case FETCH_USER_COLLECTIONS_ERROR:
       return {
         ...state,
-        userCollectionsError: true,
+        collections: {
+          ...state.collections,
+          userCollectionsError: true,
+        },
       };
     case FETCH_MORE_COLLECTIONS:
       return {
         ...state,
-        collectionsPageToLoad: state.collectionsPageToLoad + action.payload,
+        collections: {
+          ...state.collections,
+          collectionsPageToLoad: state.collections.collectionsPageToLoad + 1,
+        },
       };
     case FETCH_USER_STATS_PENDING:
       return {
-        isLoadingStats: true,
+        ...state,
+        stats: {
+          ...state.stats,
+          isLoadingStats: true,
+        },
       };
     case FETCH_USER_STATS_SUCCESS:
       return {
         ...state,
-        userStats: action.payload,
+        stats: {
+          ...state.stats,
+          userStats: action.payload,
+        },
       };
     case FETCH_USER_STATS_ERROR:
       return {
         ...state,
-        userStatsError: true,
+        stats: {
+          ...state.stats,
+          userStatsError: true,
+        },
       };
     default:
       return state;

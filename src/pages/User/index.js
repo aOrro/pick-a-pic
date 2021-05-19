@@ -7,7 +7,7 @@ import UserPhotos from '../../components/UserPhotos';
 import UserCollections from '../../components/UserCollections';
 import UserStats from '../../components/UserStats';
 
-import { handleTabClick } from '../../store/user/userActions';
+import { handleTabClick, handleCloseClick } from '../../store/user/userActions';
 
 import {
   Container,
@@ -29,21 +29,30 @@ class User extends React.Component {
     }
   };
 
+  componentDidMount() {
+    this.props.handleCloseClick();
+    this.props.handleTabClick('photos', this.props.match.params.userName);
+  }
+
   render() {
+    const { userName } = this.props.match.params;
+
     return (
       <Container>
         <UserHeader />
         <ContentContainer>
           <ul>
-            <li onClick={() => this.props.handleTabClick('photos')}>
+            <li onClick={() => this.props.handleTabClick('photos', userName)}>
               <StyledPhotoIcon />
               Photos
             </li>
-            <li onClick={() => this.props.handleTabClick('collections')}>
+            <li
+              onClick={() => this.props.handleTabClick('collections', userName)}
+            >
               <StyledCollectionsIcon />
               Collections
             </li>
-            <li onClick={() => this.props.handleTabClick('stats')}>
+            <li onClick={() => this.props.handleTabClick('stats', userName)}>
               <StyledStatsIcon />
               Stats
             </li>
@@ -61,6 +70,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   handleTabClick,
+  handleCloseClick,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(User);

@@ -22,7 +22,7 @@ class UserHeader extends React.Component {
   }
 
   render() {
-    const { userHeaderData, isLoadingHeader } = this.props.user;
+    const { userHeaderData, isLoadingHeader } = this.props.header;
     const readyToDisplay = !isLoadingHeader && userHeaderData;
 
     return (
@@ -76,7 +76,7 @@ class UserHeader extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user,
+  header: state.user.header,
 });
 
 const mapDispatchToProps = {

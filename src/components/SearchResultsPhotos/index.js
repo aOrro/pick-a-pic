@@ -29,25 +29,29 @@ class SearchResultsPhotos extends React.Component {
       this.props.getSearchPhotos(this.props.match.params.searchTerm);
     }
 
-    if (
-      prevProps.search.photosPageToLoad !== this.props.search.photosPageToLoad
-    )
+    if (prevProps.photos.pageToLoad !== this.props.photos.pageToLoad)
       this.props.getSearchPhotos(this.props.match.params.searchTerm);
   }
 
+  componentWillUnmount() {
+    this.props.handleCloseClick();
+    this.props.clearDataForNewSearch();
+  }
+
   render() {
-    const { index, photosData, hasMorePhotos } = this.props.search;
+    const { index, data, hasMore } = this.props.photos;
     const showModal = index > -1;
+    console.log(showModal);
 
     return (
       <Container>
         <InfiniteScroll
-          dataLength={photosData.length}
+          dataLength={data.length}
           next={this.props.getMoreSearchPhotos}
-          hasMore={hasMorePhotos}
+          hasMore={hasMore}
           loader={<div>Loading photos...</div>}
         >
-          {photosData.map((item, index) => {
+          {data.map((item, index) => {
             return (
               <StyledPhoto
                 src={item.urls.small}
@@ -61,7 +65,7 @@ class SearchResultsPhotos extends React.Component {
         {showModal && (
           <PhotoModal
             index={index}
-            arrayOfPhotos={photosData}
+            arrayOfPhotos={data}
             handleCloseClick={this.props.handleCloseClick}
           />
         )}
@@ -71,7 +75,7 @@ class SearchResultsPhotos extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  search: state.search,
+  photos: state.search.photos,
 });
 
 const mapDispatchToProps = {

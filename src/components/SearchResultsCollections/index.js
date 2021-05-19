@@ -23,25 +23,26 @@ class SearchResultsCollections extends React.Component {
       this.props.getSearchCollections(this.props.match.params.searchTerm);
     }
 
-    if (
-      prevProps.search.collectionsPageToLoad !==
-      this.props.search.collectionsPageToLoad
-    )
+    if (prevProps.collections.pageToLoad !== this.props.collections.pageToLoad)
       this.props.getSearchCollections(this.props.match.params.searchTerm);
   }
 
+  componentWillUnmount() {
+    this.props.clearDataForNewSearch();
+  }
+
   render() {
-    const { collectionsData, hasMoreCollections } = this.props.search;
+    const { data, hasMore } = this.props.collections;
 
     return (
       <Container>
         <InfiniteScroll
-          dataLength={collectionsData.length}
+          dataLength={data.length}
           next={this.props.getMoreCollections}
-          hasMore={hasMoreCollections}
+          hasMore={hasMore}
           loader={<div>Loading photos...</div>}
         >
-          {collectionsData.map(item => {
+          {data.map(item => {
             return <CollectionPreviewCard data={item} key={item.id} />;
           })}
         </InfiniteScroll>
@@ -51,7 +52,7 @@ class SearchResultsCollections extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  search: state.search,
+  collections: state.search.collections,
 });
 
 const mapDispatchToProps = {

@@ -40,13 +40,8 @@ class Feed extends React.Component {
           {photos.map((item, index) => {
             return (
               <PhotoCard
-                userName={item.user.username}
-                profileImage={item.user.profile_image.medium}
-                src={item.urls.regular}
-                alt={item.alt_description}
+                {...item}
                 key={item.id}
-                id={item.id}
-                likes={item.likes}
                 handlePhotoClick={() => this.props.handlePhotoClick(index)}
               />
             );

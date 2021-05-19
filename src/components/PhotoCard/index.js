@@ -14,17 +14,17 @@ class PhotoCard extends React.Component {
   render() {
     return (
       <PhotoCardContainer>
-        <PhotoCardHeader to={`/users/${this.props.userName}`}>
+        <PhotoCardHeader to={`/users/${this.props.user.username}`}>
           <SmallProfilePicture
-            src={this.props.profileImage}
-            alt={this.props.userName}
+            src={this.props.user.profile_image.medium}
+            alt={this.props.user.username}
           />
-          {this.props.userName}
+          {this.props.user.username}
         </PhotoCardHeader>
         <img
           onClick={this.props.handlePhotoClick}
-          src={this.props.src}
-          alt={this.props.alt}
+          src={this.props.urls.small}
+          alt={this.props.alt_description}
         />
         <PhotoCardFooter>
           <Likes>

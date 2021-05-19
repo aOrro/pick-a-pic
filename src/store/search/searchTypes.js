@@ -20,7 +20,8 @@ export const FETCH_SEARCH_USERS_SUCCESS = 'FETCH_SEARCH_USERS_SUCCESS';
 export const FETCH_SEARCH_USERS_NO_DATA = 'FETCH_SEARCH_USERS_NO_DATA';
 export const FETCH_SEARCH_USERS_ERROR = 'FETCH_SEARCH_USERS_ERROR';
 export const FETCH_MORE_SEARCH_USERS = 'FETCH_MORE_SEARCH_USERS';
-export const getSearchPhotosPageToLoad = state => state.search.photosPageToLoad;
+export const getSearchPhotosPageToLoad = state =>
+  state.search.photos.pageToLoad;
 export const getSearchCollectionsPageToLoad = state =>
-  state.search.collectionsPageToLoad;
-export const getSearchUsersPageToLoad = state => state.search.usersPageToLoad;
+  state.search.collections.pageToLoad;
+export const getSearchUsersPageToLoad = state => state.search.users.pageToLoad;

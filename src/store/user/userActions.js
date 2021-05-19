@@ -24,11 +24,20 @@ import {
   FETCH_USER_STATS_ERROR,
 } from './userTypes';
 
-export const handleTabClick = chosenTab => {
-  return {
+export const handleTabClick = (chosenTab, username) => (dispatch, getState) => {
+  dispatch({
     type: TAB_CLICK,
     payload: chosenTab,
-  };
+  });
+
+  switch (chosenTab) {
+    case 'collections':
+      return dispatch(getUserCollections(username));
+    case 'stats':
+      return dispatch(getUserStats(username));
+    default:
+      return dispatch(getUserPhotos(username));
+  }
 };
 
 export const clearDataForNewUser = () => {

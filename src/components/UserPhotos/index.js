@@ -17,21 +17,20 @@ import {
 import { Container, StyledPhoto } from './styles';
 
 class UserPhotos extends React.Component {
-  componentDidMount() {
-    this.props.getUserPhotos(this.props.match.params.userName);
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevProps.photos.photosPageToLoad !== this.props.photos.photosPageToLoad
+    )
+      this.props.getUserPhotos(this.props.match.params.userName);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.match.params.userName !== this.props.match.params.userName) {
-      this.props.clearDataForNewUser();
-      this.props.getUserPhotos(this.props.match.params.userName);
-    }
-    if (prevProps.user.photosPageToLoad !== this.props.user.photosPageToLoad)
-      this.props.getUserPhotos(this.props.match.params.userName);
+  componentWillUnmount() {
+    this.props.clearDataForNewUser();
   }
 
   render() {
-    const { index, userPhotos, hasMorePhotos } = this.props.user;
+    const { index, userPhotos, isLoadingPhotos, hasMorePhotos } =
+      this.props.photos;
     const showModal = index > -1;
 
     return (
@@ -66,7 +65,7 @@ class UserPhotos extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user,
+  photos: state.user.photos,
 });
 
 const mapDispatchToProps = {

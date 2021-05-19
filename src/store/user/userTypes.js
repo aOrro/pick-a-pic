@@ -11,14 +11,14 @@ export const FETCH_USER_PHOTOS_ERROR = 'FETCH_USER_PHOTOS_ERROR';
 export const FETCH_MORE_PHOTOS = 'FETCH_MORE_PHOTOS';
 export const PHOTO_CLICK = 'PHOTO_CLICK';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
-export const getPhotosPageToLoad = state => state.user.photosPageToLoad;
+export const getPhotosPageToLoad = state => state.user.photos.photosPageToLoad;
 export const FETCH_USER_COLLECTIONS_PENDING = 'FETCH_USER_COLLECTIONS_PENDING';
 export const FETCH_USER_COLLECTIONS_SUCCESS = 'FETCH_USER_COLLECTIONS_SUCCESS';
 export const FETCH_USER_COLLECTIONS_NO_DATA = 'FETCH_USER_COLLECTIONS_NO_DATA';
 export const FETCH_USER_COLLECTIONS_ERROR = 'FETCH_USER_COLLECTIONS_ERROR';
 export const FETCH_MORE_COLLECTIONS = 'FETCH_MORE_COLLECTIONS';
 export const getCollectionsPageToLoad = state =>
-  state.user.collectionsPageToLoad;
+  state.user.collections.collectionsPageToLoad;
 export const FETCH_USER_STATS_PENDING = 'FETCH_USER_STATS_PENDING';
 export const FETCH_USER_STATS_SUCCESS = 'FETCH_USER_STATS_SUCCESS';
 export const FETCH_USER_STATS_ERROR = 'FETCH_USER_STATS_ERROR';
