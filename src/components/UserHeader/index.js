@@ -1,8 +1,10 @@
 import React from 'react';
-import axios from 'axios';
+
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { ReactComponent as LocationIcon } from '../../assets/images/location-icon.svg';
-import { ReactComponent as WwwIcon } from '../../assets/images/www-icon.svg';
+
+import { getUserInfo } from '../../store/user/userActions';
+
 import {
   ProfileImage,
   UserInfoContainer,
@@ -10,87 +12,78 @@ import {
   UserStatsCount,
   UserMain,
   IconDiv,
+  StyledLocationIcon,
+  StyledWwwIcon,
 } from './styles.js';
 
 class UserHeader extends React.Component {
-  state = {
-    userInfo: null,
-    isLoading: false,
-  };
-
-  getUserInfo = async () => {
-    try {
-      this.setState({
-        isLoading: true,
-      });
-      const { data } = await axios(
-        `https://api.unsplash.com/users/${this.props.match.params.userName}?client_id=${process.env.REACT_APP_API_KEY}`
-      );
-      this.setState({
-        userInfo: data,
-        isLoading: false,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   componentDidMount() {
-    this.getUserInfo();
+    this.props.getUserInfo(this.props.match.params.userName);
   }
 
   render() {
-    const { userInfo, isLoading } = this.state;
-    const readyToDisplay = !isLoading && userInfo;
+    const { userHeaderData, isLoadingHeader } = this.props.header;
+    const readyToDisplay = !isLoadingHeader && userHeaderData;
 
     return (
-      <div>
-        {isLoading && <div>Loading user info...</div>}
+      <>
+        {isLoadingHeader && <div>Loading user info...</div>}
         {readyToDisplay && (
           <UserInfoContainer>
             <ProfileImage
-              src={userInfo.profile_image.large}
+              src={userHeaderData.profile_image.large}
               alt='img description'
             />
             <UserInfo>
               <UserMain>
-                <h2>{userInfo.name}</h2>
+                <h2>{userHeaderData.name}</h2>
               </UserMain>
               <span>
-                <i>@{userInfo.username}</i>
+                <i>@{userHeaderData.username}</i>
               </span>
-              {<span>{userInfo.bio ?? 'Pick a pic enthusiast.'}</span>}
-              {userInfo.location && (
+              {<span>{userHeaderData.bio ?? 'Pick a pic enthusiast.'}</span>}
+              {userHeaderData.location && (
                 <IconDiv>
-                  <LocationIcon />
-                  {userInfo.location}
+                  <StyledLocationIcon />
+                  {userHeaderData.location}
                 </IconDiv>
               )}
-              {userInfo.portfolio_url && (
+              {userHeaderData.portfolio_url && (
                 <IconDiv>
-                  <WwwIcon />
-                  <a href={userInfo.portfolio_url} target='blank'>
-                    {userInfo.portfolio_url}
+                  <StyledWwwIcon />
+                  <a href={userHeaderData.portfolio_url} target='blank'>
+                    {userHeaderData.portfolio_url}
                   </a>
                 </IconDiv>
               )}
               <UserStatsCount>
                 <span>
-                  <strong>{userInfo.total_photos}</strong> Photos
+                  <strong>{userHeaderData.total_photos}</strong> Photos
                 </span>
                 <span>
-                  <strong>{userInfo.followers_count}</strong> Followers
+                  <strong>{userHeaderData.followers_count}</strong> Followers
                 </span>
                 <span>
-                  <strong>{userInfo.following_count}</strong> Following
+                  <strong>{userHeaderData.following_count}</strong> Following
                 </span>
               </UserStatsCount>
             </UserInfo>
           </UserInfoContainer>
         )}
-      </div>
+      </>
     );
   }
 }
 
-export default withRouter(UserHeader);
+const mapStateToProps = state => ({
+  header: state.user.header,
+});
+
+const mapDispatchToProps = {
+  getUserInfo,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(UserHeader));

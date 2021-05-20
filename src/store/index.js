@@ -1,9 +1,15 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import feedReducer from './feed/feedReducer';
 import featuredReducer from './featured/featuredReducer';
+import userReducer from './user/userReducer';
+import searchReducer from './search/searchReducer';
 
 const rootReducer = combineReducers({
+  feed: feedReducer,
   featured: featuredReducer,
+  user: userReducer,
+  search: searchReducer,
 });
 
 const middleware = [thunk];

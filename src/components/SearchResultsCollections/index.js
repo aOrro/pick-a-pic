@@ -1,64 +1,48 @@
 import React from 'react';
-import axios from 'axios';
+
+import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { withRouter } from 'react-router';
+
 import CollectionPreviewCard from '../CollectionPreviewCard';
+
+import {
+  getSearchCollections,
+  getMoreCollections,
+  clearDataForNewSearch,
+} from '../../store/search/searchActions';
+
 import { Container } from './styles';
 
 class SearchResultsCollections extends React.Component {
-  state = {
-    collectionsData: [],
-    pageToLoad: 1,
-    hasMore: true,
-  };
-
-  getSearchCollections = async () => {
-    try {
-      const { data } = await axios(
-        `https://api.unsplash.com/search/collections?page=${this.state.pageToLoad}&query=${this.props.match.params.searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
-      );
-      data
-        ? this.setState({
-            collectionsData: [...this.state.collectionsData, ...data.results],
-          })
-        : this.setState({ hasMore: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  getMoreData = () => {
-    this.setState({ pageToLoad: this.state.pageToLoad + 1 });
-  };
-
-  componentDidMount() {
-    this.getSearchCollections();
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (
       prevProps.match.params.searchTerm !== this.props.match.params.searchTerm
     ) {
-      this.setState({ collectionsData: [] });
-      this.getSearchCollections();
+      this.props.clearDataForNewSearch();
+      this.props.getSearchCollections(this.props.match.params.searchTerm);
     }
 
-    if (prevState.pageToLoad !== this.state.pageToLoad)
-      this.getSearchCollections();
+    if (prevProps.collections.pageToLoad !== this.props.collections.pageToLoad)
+      this.props.getSearchCollections(this.props.match.params.searchTerm);
+  }
+
+  componentWillUnmount() {
+    this.props.clearDataForNewSearch();
   }
 
   render() {
-    const { collectionsData } = this.state;
+    const { data, hasMore } = this.props.collections;
 
     return (
       <Container>
         <InfiniteScroll
-          dataLength={collectionsData.length}
-          next={this.getMoreData}
-          hasMore={this.state.hasMore}
+          dataLength={data.length}
+          next={this.props.getMoreCollections}
+          hasMore={hasMore}
           loader={<div>Loading photos...</div>}
         >
-          {collectionsData.map(item => {
+          {data.map(item => {
             return <CollectionPreviewCard data={item} key={item.id} />;
           })}
         </InfiniteScroll>
@@ -67,4 +51,17 @@ class SearchResultsCollections extends React.Component {
   }
 }
 
-export default withRouter(SearchResultsCollections);
+const mapStateToProps = state => ({
+  collections: state.search.collections,
+});
+
+const mapDispatchToProps = {
+  getSearchCollections,
+  getMoreCollections,
+  clearDataForNewSearch,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(SearchResultsCollections));

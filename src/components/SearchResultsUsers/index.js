@@ -1,63 +1,48 @@
 import React from 'react';
-import axios from 'axios';
+
+import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { UserPreviewCard } from '../UserPreviewCard';
-import { Container } from './styles';
 import { withRouter } from 'react-router';
 
+import { UserPreviewCard } from '../UserPreviewCard';
+
+import {
+  getSearchUsers,
+  getMoreSearchUsers,
+  clearDataForNewSearch,
+} from '../../store/search/searchActions';
+
+import { Container } from './styles';
+
 class SearchResultsUsers extends React.Component {
-  state = {
-    usersData: [],
-    pageToLoad: 1,
-    hasMore: true,
-  };
-
-  getSearchUsers = async () => {
-    try {
-      const { data } = await axios(
-        `https://api.unsplash.com/search/users?page=${this.state.pageToLoad}&query=${this.props.match.params.searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
-      );
-      data
-        ? this.setState({
-            usersData: [...this.state.usersData, ...data.results],
-          })
-        : this.setState({ hasMore: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  getMoreData = () => {
-    this.setState({ pageToLoad: this.state.pageToLoad + 1 });
-  };
-
-  componentDidMount() {
-    this.getSearchUsers();
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (
       prevProps.match.params.searchTerm !== this.props.match.params.searchTerm
     ) {
-      this.setState({ usersData: [] });
-      this.getSearchUsers();
+      this.props.clearDataForNewSearch();
+      this.props.getSearchUsers(this.props.match.params.searchTerm);
     }
 
-    if (prevState.pageToLoad !== this.state.pageToLoad) this.getSearchUsers();
+    if (prevProps.users.pageToLoad !== this.props.users.pageToLoad)
+      this.props.getSearchUsers(this.props.match.params.searchTerm);
+  }
+
+  componentWillUnmount() {
+    this.props.clearDataForNewSearch();
   }
 
   render() {
-    const { usersData } = this.state;
+    const { data, hasMore } = this.props.users;
 
     return (
       <Container>
         <InfiniteScroll
-          dataLength={usersData.length}
-          next={this.getMoreData}
-          hasMore={this.state.hasMore}
+          dataLength={data.length}
+          next={this.props.getMoreSearchUsers}
+          hasMore={hasMore}
           loader={<div>Loading photos...</div>}
         >
-          {usersData.map(item => {
+          {data.map(item => {
             return <UserPreviewCard userInfo={item} key={item.id} />;
           })}
         </InfiniteScroll>
@@ -66,4 +51,17 @@ class SearchResultsUsers extends React.Component {
   }
 }
 
-export default withRouter(SearchResultsUsers);
+const mapStateToProps = state => ({
+  users: state.search.users,
+});
+
+const mapDispatchToProps = {
+  getSearchUsers,
+  getMoreSearchUsers,
+  clearDataForNewSearch,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(SearchResultsUsers));

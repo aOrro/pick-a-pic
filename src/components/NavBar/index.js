@@ -22,7 +22,7 @@ class NavBar extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.history.push(`/search/${this.state.searchValue}`);
+    this.props.history.push(`/search/photos/${this.state.searchValue}`);
     this.setState({
       searchValue: '',
     });

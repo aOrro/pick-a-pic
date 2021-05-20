@@ -1,81 +1,62 @@
 import React from 'react';
-import axios from 'axios';
+
+import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { withRouter } from 'react-router';
+
 import PhotoModal from '../PhotoModal';
+
+import {
+  getSearchPhotos,
+  getMoreSearchPhotos,
+  handlePhotoClick,
+  handleCloseClick,
+  clearDataForNewSearch,
+} from '../../store/search/searchActions';
+
 import { Container, StyledPhoto } from './styles';
 
 class SearchResultsPhotos extends React.Component {
-  state = {
-    photosData: [],
-    pageToLoad: 1,
-    hasMore: true,
-    index: -1,
-  };
-
-  getSearchPhotos = async () => {
-    try {
-      const { data } = await axios(
-        `https://api.unsplash.com/search/photos?page=${this.state.pageToLoad}&query=${this.props.match.params.searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
-      );
-      data
-        ? this.setState({
-            photosData: [...this.state.photosData, ...data.results],
-          })
-        : this.setState({ hasMore: false });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  getMoreData = () => {
-    this.setState({ pageToLoad: this.state.pageToLoad + 1 });
-  };
-
-  handlePhotoClick = index => {
-    this.setState({ index });
-  };
-
-  handleCloseClick = () => {
-    this.setState({
-      index: -1,
-    });
-  };
-
   componentDidMount() {
-    this.getSearchPhotos();
+    this.props.getSearchPhotos(this.props.match.params.searchTerm);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (
       prevProps.match.params.searchTerm !== this.props.match.params.searchTerm
     ) {
-      this.setState({ photosData: [] });
-      this.getSearchPhotos();
+      this.props.clearDataForNewSearch();
+      this.props.getSearchPhotos(this.props.match.params.searchTerm);
     }
-    if (prevState.pageToLoad !== this.state.pageToLoad) this.getSearchPhotos();
+
+    if (prevProps.photos.pageToLoad !== this.props.photos.pageToLoad)
+      this.props.getSearchPhotos(this.props.match.params.searchTerm);
+  }
+
+  componentWillUnmount() {
+    this.props.handleCloseClick();
+    this.props.clearDataForNewSearch();
   }
 
   render() {
-    const { index, photosData, isLoading } = this.state;
+    const { index, data, hasMore } = this.props.photos;
     const showModal = index > -1;
 
     return (
       <Container>
-        {isLoading && <div>Loading photos...</div>}
         <InfiniteScroll
-          dataLength={photosData.length}
-          next={this.getMoreData}
-          hasMore={this.state.hasMore}
+          dataLength={data.length}
+          next={this.props.getMoreSearchPhotos}
+          hasMore={hasMore}
           loader={<div>Loading photos...</div>}
         >
-          {photosData.map((item, index) => {
+          {data.map((item, index) => {
             return (
               <StyledPhoto
                 src={item.urls.small}
                 alt={item.alt_description}
                 key={item.id}
-                onClick={() => this.handlePhotoClick(index)}
+                onClick={() => this.props.handlePhotoClick(index)}
               />
             );
           })}
@@ -83,8 +64,8 @@ class SearchResultsPhotos extends React.Component {
         {showModal && (
           <PhotoModal
             index={index}
-            arrayOfPhotos={photosData}
-            handleCloseClick={this.handleCloseClick}
+            arrayOfPhotos={data}
+            handleCloseClick={this.props.handleCloseClick}
           />
         )}
       </Container>
@@ -92,4 +73,19 @@ class SearchResultsPhotos extends React.Component {
   }
 }
 
-export default withRouter(SearchResultsPhotos);
+const mapStateToProps = state => ({
+  photos: state.search.photos,
+});
+
+const mapDispatchToProps = {
+  getSearchPhotos,
+  getMoreSearchPhotos,
+  handlePhotoClick,
+  handleCloseClick,
+  clearDataForNewSearch,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(SearchResultsPhotos));

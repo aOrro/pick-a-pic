@@ -17,8 +17,22 @@ function App() {
           exact
           component={Collection}
         ></Route>
-        <Route path='/search' exact component={Search}></Route>
-        <Route path='/search/:searchTerm' exact component={Search}></Route>
+        {/* <Route path='/search' exact component={Search}></Route> */}
+        <Route
+          path='/search/photos/:searchTerm'
+          exact
+          component={Search}
+        ></Route>
+        <Route
+          path='/search/collections/:searchTerm'
+          exact
+          component={Search}
+        ></Route>
+        <Route
+          path='/search/users/:searchTerm'
+          exact
+          component={Search}
+        ></Route>
         <Route path='/users/:userName' exact component={User}></Route>
         <Route path='/'>
           <Home />

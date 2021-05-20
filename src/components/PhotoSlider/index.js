@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import capitalizeFirstLetter from '../../assets/capitalizeFirstLetter';
 import { ReactComponent as CloseWindowIcon } from '../../assets/images/close-window-icon.svg';
 import { ReactComponent as HeartIcon } from '../../assets/images/heart-icon.svg';
@@ -23,7 +24,6 @@ class PhotoSlider extends React.Component {
   };
 
   handleAfterChange = index => {
-    console.log(index);
     this.setState({
       currentIndex: index,
     });
@@ -42,9 +42,12 @@ class PhotoSlider extends React.Component {
 
     const currentPhoto = this.props.arrayOfPhotos[this.state.currentIndex];
 
+    if (!currentPhoto) return null;
+
     return (
       <Container>
         <ModalHeader>
+          {/*this.props.match.params.username === currentPhoto.user.username ? <div></div> : <StyledLink></StyledLink> */}
           <StyledLink to={`/users/${currentPhoto.user.username}`}>
             <AuthorImage
               src={currentPhoto.user.profile_image.medium}
@@ -98,4 +101,4 @@ class PhotoSlider extends React.Component {
   }
 }
 
-export default PhotoSlider;
+export default withRouter(PhotoSlider);
