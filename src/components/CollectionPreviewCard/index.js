@@ -3,7 +3,6 @@ import capitalizeFirstLetter from '../../assets/capitalizeFirstLetter';
 import { Container, CollectionInfo, StyledLink, Labels, Label } from './styles';
 
 const CollectionPreviewCard = ({ data }) => {
-  console.log('collectionPreviewCard', data, data.tags);
   const getDataTags = data.tags.filter((element, index) => index < 3);
 
   return (

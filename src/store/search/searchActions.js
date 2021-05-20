@@ -55,9 +55,12 @@ export const getSearchPhotos = searchTerm => async (dispatch, getState) => {
       `https://api.unsplash.com/search/photos?page=${pageToLoad}&query=${searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
     );
     console.log(data);
-    data
-      ? dispatch({ type: FETCH_SEARCH_PHOTOS_SUCCESS, payload: data.results })
-      : dispatch({ type: FETCH_SEARCH_PHOTOS_NO_DATA });
+    if (data)
+      dispatch({
+        type: FETCH_SEARCH_PHOTOS_SUCCESS,
+        payload: data.results,
+      });
+    else dispatch({ type: FETCH_SEARCH_PHOTOS_NO_DATA });
   } catch (error) {
     console.log(error);
     dispatch({ type: FETCH_SEARCH_PHOTOS_ERROR });
@@ -84,12 +87,12 @@ export const getSearchCollections =
       const { data } = await axios(
         `https://api.unsplash.com/search/collections?page=${pageToLoad}&query=${searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
       );
-      data
-        ? dispatch({
-            type: FETCH_SEARCH_COLLECTIONS_SUCCESS,
-            payload: data.results,
-          })
-        : dispatch({ type: FETCH_SEARCH_COLLECTIONS_NO_DATA });
+      if (data)
+        dispatch({
+          type: FETCH_SEARCH_COLLECTIONS_SUCCESS,
+          payload: data.results,
+        });
+      else dispatch({ type: FETCH_SEARCH_COLLECTIONS_NO_DATA });
     } catch (error) {
       console.log(error);
       dispatch({ type: FETCH_SEARCH_COLLECTIONS_ERROR });
@@ -108,12 +111,12 @@ export const getSearchUsers = searchTerm => async (dispatch, getState) => {
       `https://api.unsplash.com/search/users?page=${pageToLoad}&query=${searchTerm}&client_id=${process.env.REACT_APP_API_KEY}`
     );
     console.log(data);
-    data
-      ? dispatch({
-          type: FETCH_SEARCH_USERS_SUCCESS,
-          payload: data.results,
-        })
-      : dispatch({ type: FETCH_SEARCH_USERS_NO_DATA });
+    if (data)
+      dispatch({
+        type: FETCH_SEARCH_USERS_SUCCESS,
+        payload: data.results,
+      });
+    else dispatch({ type: FETCH_SEARCH_USERS_NO_DATA });
   } catch (error) {
     console.log(error);
     dispatch({ type: FETCH_SEARCH_USERS_ERROR });

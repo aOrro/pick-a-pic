@@ -19,14 +19,15 @@ export const getFeedPhotos = () => async (dispatch, getState) => {
     const { data } = await axios(
       `https://api.unsplash.com/photos?page=${pageToLoad}&client_id=${process.env.REACT_APP_API_KEY}`
     );
-    data
-      ? dispatch({
-          type: FETCH_FEED_PHOTOS_SUCCESS,
-          payload: data,
-        })
-      : dispatch({
-          type: FETCH_FEED_PHOTOS_NO_DATA,
-        });
+    if (data)
+      dispatch({
+        type: FETCH_FEED_PHOTOS_SUCCESS,
+        payload: data,
+      });
+    else
+      dispatch({
+        type: FETCH_FEED_PHOTOS_NO_DATA,
+      });
   } catch (error) {
     dispatch({
       type: FETCH_FEED_PHOTOS_ERROR,

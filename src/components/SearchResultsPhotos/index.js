@@ -41,7 +41,6 @@ class SearchResultsPhotos extends React.Component {
   render() {
     const { index, data, hasMore } = this.props.photos;
     const showModal = index > -1;
-    console.log(showModal);
 
     return (
       <Container>

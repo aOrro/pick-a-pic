@@ -74,9 +74,8 @@ export const getUserPhotos = username => async (dispatch, getState) => {
     const { data } = await axios(
       `https://api.unsplash.com/users/${username}/photos?page=${pageToLoad}&per_page=10&order_by=latest&stats=false&client_id=${process.env.REACT_APP_API_KEY}`
     );
-    data
-      ? dispatch({ type: FETCH_USER_PHOTOS_SUCCESS, payload: data })
-      : dispatch({ type: FETCH_USER_PHOTOS_NO_DATA });
+    if (data) dispatch({ type: FETCH_USER_PHOTOS_SUCCESS, payload: data });
+    else dispatch({ type: FETCH_USER_PHOTOS_NO_DATA });
   } catch (error) {
     console.log(error);
     dispatch({ type: FETCH_USER_PHOTOS_ERROR });
@@ -109,9 +108,12 @@ export const getUserCollections = username => async (dispatch, getState) => {
     const { data } = await axios(
       `https://api.unsplash.com/users/${username}/collections?page=${pageToLoad}&per_page=10&client_id=${process.env.REACT_APP_API_KEY}`
     );
-    data
-      ? dispatch({ type: FETCH_USER_COLLECTIONS_SUCCESS, payload: data })
-      : dispatch({ type: FETCH_USER_COLLECTIONS_NO_DATA });
+    if (data)
+      dispatch({
+        type: FETCH_USER_COLLECTIONS_SUCCESS,
+        payload: data,
+      });
+    else dispatch({ type: FETCH_USER_COLLECTIONS_NO_DATA });
   } catch (error) {
     console.log(error);
     dispatch({ type: FETCH_USER_COLLECTIONS_ERROR });
