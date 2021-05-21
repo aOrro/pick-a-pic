@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 import PhotoCard from '../PhotoCard';
 import PhotoModal from '../PhotoModal';
+import AddToCollectionModal from '../AddToCollectionModal';
 
 import {
   getFeedPhotos,
@@ -12,6 +13,8 @@ import {
   handlePhotoClick,
   handleCloseClick,
 } from '../../store/feed/feedActions';
+
+import { openCollectionModal } from '../../store/featured/featuredActions';
 
 import { Container } from './styles';
 
@@ -27,7 +30,8 @@ class Feed extends React.Component {
 
   render() {
     const { index, photos, hasMore } = this.props.feed;
-    const showModal = index > -1;
+    const { showCollectionsModal } = this.props.featured;
+    const showPhotoModal = index > -1;
 
     return (
       <Container>
@@ -43,16 +47,18 @@ class Feed extends React.Component {
                 {...item}
                 key={item.id}
                 handlePhotoClick={() => this.props.handlePhotoClick(index)}
+                openCollectionModal={() => this.props.openCollectionModal(item)}
               />
             );
           })}
-          {showModal && (
+          {showPhotoModal && (
             <PhotoModal
               index={index}
               arrayOfPhotos={photos}
               handleCloseClick={this.props.handleCloseClick}
             />
           )}
+          {showCollectionsModal && <AddToCollectionModal />}
         </InfiniteScroll>
       </Container>
     );
@@ -61,6 +67,7 @@ class Feed extends React.Component {
 
 const mapStateToProps = state => ({
   feed: state.feed,
+  featured: state.featured,
 });
 
 const mapDispatchToProps = {
@@ -68,6 +75,7 @@ const mapDispatchToProps = {
   getMoreData,
   handlePhotoClick,
   handleCloseClick,
+  openCollectionModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Feed);

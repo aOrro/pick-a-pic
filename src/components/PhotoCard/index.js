@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { withRouter } from 'react-router';
+
 import {
   PhotoCardContainer,
   SmallProfilePicture,
@@ -31,7 +33,7 @@ class PhotoCard extends React.Component {
             <StyledHeartIcon />
             {this.props.likes}
           </Likes>
-          <div>
+          <div onClick={this.props.openCollectionModal}>
             <StyledAddIcon />
           </div>
         </PhotoCardFooter>
