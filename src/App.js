@@ -17,7 +17,6 @@ function App() {
           exact
           component={Collection}
         ></Route>
-        {/* <Route path='/search' exact component={Search}></Route> */}
         <Route
           path='/search/photos/:searchTerm'
           exact

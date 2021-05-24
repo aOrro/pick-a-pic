@@ -2,12 +2,13 @@ import {
   HANDLE_INPUT_CHANGE,
   HANDLE_ICON_CLICK,
   HANDLE_FORM_SUBMIT,
-  OPEN_COLLECTIONS_MODAL,
+  OPEN_ADD_TO_COLLECTION_MODAL,
   ADD_PHOTO_TO_COLLECTION,
-  CLOSE_COLLECTIONS_MODAL,
-  COLLECTION_SELECTED,
-  FOCUS_ON_NEW_COLLECTION,
+  CLOSE_ADD_TO_COLLECTION_MODAL,
+  REMOVE_PHOTO_FROM_COLLECTION,
+  FOCUS_ON_CREATE_NEW_COLLECTION,
   CREATE_NEW_COLLECTION,
+  CLOSE_STORIES_MODAL,
 } from './featuredTypes';
 
 export const handleChange = e => {
@@ -18,6 +19,7 @@ export const handleChange = e => {
 };
 
 export const handleClick = index => {
+  console.log(index);
   return {
     type: HANDLE_ICON_CLICK,
     payload: index,
@@ -31,45 +33,57 @@ export const handleSubmit = e => {
   };
 };
 
-export const openCollectionModal = photoInfo => {
+export const openAddToCollectionModal = photoInfo => {
   return {
-    type: OPEN_COLLECTIONS_MODAL,
+    type: OPEN_ADD_TO_COLLECTION_MODAL,
     payload: photoInfo,
   };
 };
 
-export const closeCollectionModal = () => (dispatch, getState) => {
-  const state = getState();
-  if (state.inputValue !== '') {
-    const indexOfCollection = state.collections
-      .map(item => item.title)
-      .indexOf(state.modal.collectionSelected);
-    dispatch({
-      type: ADD_PHOTO_TO_COLLECTION,
-      payload: indexOfCollection,
-    });
-  }
-  dispatch({
-    type: CLOSE_COLLECTIONS_MODAL,
-  });
+export const closeCollectionModal = () => {
+  return {
+    type: CLOSE_ADD_TO_COLLECTION_MODAL,
+  };
 };
 
-export const saveCollectionSelected = e => {
-  return {
-    type: COLLECTION_SELECTED,
-    payload: e.target.value,
-  };
+export const addToCollection = e => (dispatch, getState) => {
+  const state = getState().featured;
+  const stateCollections = [...state.collections];
+  const collectionTitle = e.target.value;
+  let chosenCollection = stateCollections.find(
+    item => item.title === collectionTitle
+  );
+
+  if (e.target.checked) {
+    chosenCollection.photos.push(state.modal.photoInfo);
+    dispatch({
+      type: ADD_PHOTO_TO_COLLECTION,
+      payload: stateCollections,
+    });
+  } else {
+    let collectionPhotos = chosenCollection.photos;
+    collectionPhotos.splice(collectionPhotos.length - 1, 1);
+    dispatch({
+      type: REMOVE_PHOTO_FROM_COLLECTION,
+      payload: stateCollections,
+    });
+  }
 };
 
 export const handleFocus = () => {
   return {
-    type: FOCUS_ON_NEW_COLLECTION,
+    type: FOCUS_ON_CREATE_NEW_COLLECTION,
   };
 };
 
-export const createNewCollection = photoInfo => {
+export const createNewCollection = () => {
   return {
     type: CREATE_NEW_COLLECTION,
-    payload: photoInfo,
+  };
+};
+
+export const closeStoriesModal = () => {
+  return {
+    type: CLOSE_STORIES_MODAL,
   };
 };

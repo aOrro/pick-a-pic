@@ -2,27 +2,27 @@ import {
   HANDLE_INPUT_CHANGE,
   HANDLE_ICON_CLICK,
   HANDLE_FORM_SUBMIT,
-  OPEN_COLLECTIONS_MODAL,
+  OPEN_ADD_TO_COLLECTION_MODAL,
   ADD_PHOTO_TO_COLLECTION,
-  CLOSE_COLLECTIONS_MODAL,
-  COLLECTION_SELECTED,
-  FOCUS_ON_NEW_COLLECTION,
+  CLOSE_ADD_TO_COLLECTION_MODAL,
+  REMOVE_PHOTO_FROM_COLLECTION,
+  FOCUS_ON_CREATE_NEW_COLLECTION,
   CREATE_NEW_COLLECTION,
+  CLOSE_STORIES_MODAL,
 } from './featuredTypes';
 
 const initialState = {
   inputValue: '',
   collections: [
-    { title: 'Collection A', photos: [1, 2, 3] },
-    { title: 'Collection B', photos: [4, 5, 6] },
-    { title: 'Collection C', photos: [7, 8, 9] },
+    { title: 'Collection A', photos: [] },
+    { title: 'Collection B', photos: [] },
+    { title: 'Collection C', photos: [] },
   ],
   showStories: false,
   collectionClicked: null,
   modal: {
     photoInfo: null,
     showCollectionsModal: false,
-    collectionSelected: null,
     newCollection: false,
   },
 };
@@ -38,7 +38,7 @@ function featuredReducer(state = initialState, action) {
       return {
         ...state,
         showStories: !state.showStories,
-        collectionsClicked: action.payload,
+        collectionClicked: action.payload,
       };
     case HANDLE_FORM_SUBMIT:
       return {
@@ -49,7 +49,7 @@ function featuredReducer(state = initialState, action) {
           { title: state.inputValue, photos: [] },
         ],
       };
-    case OPEN_COLLECTIONS_MODAL:
+    case OPEN_ADD_TO_COLLECTION_MODAL:
       return {
         ...state,
         modal: {
@@ -61,18 +61,14 @@ function featuredReducer(state = initialState, action) {
     case ADD_PHOTO_TO_COLLECTION:
       return {
         ...state,
-        collections: [
-          ...state.collections,
-          {
-            title: state.inputValue,
-            photos: [
-              ...state.collections[action.payload].photos,
-              ...state.photoInfo,
-            ],
-          },
-        ],
+        collections: action.payload,
       };
-    case CLOSE_COLLECTIONS_MODAL:
+    case REMOVE_PHOTO_FROM_COLLECTION:
+      return {
+        ...state,
+        collections: action.payload,
+      };
+    case CLOSE_ADD_TO_COLLECTION_MODAL:
       return {
         ...state,
         modal: {
@@ -80,15 +76,7 @@ function featuredReducer(state = initialState, action) {
           showCollectionsModal: false,
         },
       };
-    case COLLECTION_SELECTED:
-      return {
-        ...state,
-        modal: {
-          ...state.modal,
-          collectionSelected: action.payload,
-        },
-      };
-    case FOCUS_ON_NEW_COLLECTION:
+    case FOCUS_ON_CREATE_NEW_COLLECTION:
       return {
         ...state,
         modal: {
@@ -99,10 +87,19 @@ function featuredReducer(state = initialState, action) {
     case CREATE_NEW_COLLECTION:
       return {
         ...state,
+        inputValue: '',
         collections: [
           ...state.collections,
-          { title: state.inputValue, photos: [action.payload] },
+          { title: state.inputValue, photos: [state.modal.photoInfo] },
         ],
+        modal: {
+          showCollectionsModal: false,
+        },
+      };
+    case CLOSE_STORIES_MODAL:
+      return {
+        ...state,
+        showStories: false,
       };
     default:
       return state;

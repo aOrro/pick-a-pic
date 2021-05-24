@@ -33,7 +33,7 @@ class PhotoCard extends React.Component {
             <StyledHeartIcon />
             {this.props.likes}
           </Likes>
-          <div onClick={this.props.openCollectionModal}>
+          <div onClick={this.props.openAddToCollectionModal}>
             <StyledAddIcon />
           </div>
         </PhotoCardFooter>

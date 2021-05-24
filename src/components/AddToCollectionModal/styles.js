@@ -14,7 +14,31 @@ export const Container = styled.div`
 export const BlurryDiv = styled.div`
   width: 100%;
   height: 100%;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(5px);
+`;
+
+export const Modal = styled.div`
+  width: 300px;
+  height: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+
+  button {
+    width: 100px;
+  }
+`;
+
+export const ModalHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const CollectionsList = styled.form`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const StyledInput = styled.input`

@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 
 import {
   closeCollectionModal,
-  saveCollectionSelected,
+  addToCollection,
+  handleChange,
   handleFocus,
   createNewCollection,
 } from '../../store/featured/featuredActions';
@@ -10,46 +11,55 @@ import {
 import {
   Container,
   BlurryDiv,
+  Modal,
+  ModalHeader,
+  CollectionsList,
   StyledInput,
   StyledCloseIcon,
   StyledAddIcon,
 } from './styles';
 
 const AddToCollectionModal = props => {
-  const { inputValue, collections, newCollection } = props.featured;
+  const { inputValue, collections } = props.featured;
+  const { newCollection } = props.featured.modal;
 
   return (
     <Container>
       <BlurryDiv></BlurryDiv>
-      <div>
-        <div>
+      <Modal>
+        <ModalHeader>
           <h3>Add to:</h3>
           <StyledCloseIcon onClick={props.closeCollectionModal} />
-        </div>
-        <form onChange={props.saveCollectionSelected}>
+        </ModalHeader>
+        <CollectionsList>
           {collections.map(item => {
             return (
-              <label for={item.title}>
-                <input type='checkbox' name={item.title} value={item.title} />
+              <label htmlFor={item.title} key={item.title}>
+                <input
+                  type='checkbox'
+                  name={item.title}
+                  defaultValue={item.title}
+                  onChange={props.addToCollection}
+                />
                 {item.title}
               </label>
             );
           })}
-        </form>
+        </CollectionsList>
         <StyledAddIcon onClick={props.handleFocus} />
         <form onSubmit={props.createNewCollection}>
           <StyledInput
             type='text'
             onFocus={props.handleFocus}
             onChange={props.handleChange}
-            value={inputValue}
-            placeholder='Add Collection...'
+            defaultValue={inputValue}
+            placeholder='New Collection'
           />
         </form>
         {newCollection && (
           <button onClick={props.createNewCollection}>Create collection</button>
         )}
-      </div>
+      </Modal>
     </Container>
   );
 };
@@ -60,7 +70,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   closeCollectionModal,
-  saveCollectionSelected,
+  addToCollection,
+  handleChange,
   handleFocus,
   createNewCollection,
 };

@@ -14,7 +14,7 @@ import {
   handleCloseClick,
 } from '../../store/feed/feedActions';
 
-import { openCollectionModal } from '../../store/featured/featuredActions';
+import { openAddToCollectionModal } from '../../store/featured/featuredActions';
 
 import { Container } from './styles';
 
@@ -30,7 +30,7 @@ class Feed extends React.Component {
 
   render() {
     const { index, photos, hasMore } = this.props.feed;
-    const { showCollectionsModal } = this.props.featured;
+    const { showCollectionsModal } = this.props.featured.modal;
     const showPhotoModal = index > -1;
 
     return (
@@ -47,7 +47,9 @@ class Feed extends React.Component {
                 {...item}
                 key={item.id}
                 handlePhotoClick={() => this.props.handlePhotoClick(index)}
-                openCollectionModal={() => this.props.openCollectionModal(item)}
+                openAddToCollectionModal={() =>
+                  this.props.openAddToCollectionModal(item)
+                }
               />
             );
           })}
@@ -75,7 +77,7 @@ const mapDispatchToProps = {
   getMoreData,
   handlePhotoClick,
   handleCloseClick,
-  openCollectionModal,
+  openAddToCollectionModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Feed);

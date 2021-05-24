@@ -1,13 +1,18 @@
 import React from 'react';
+
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+
+import { ReactComponent as CloseWindowIcon } from '../../assets/images/close-window-icon.svg';
+
 import {
   Container,
   BlurryDiv,
   OuterDiv,
   OuterSlider,
   CenteringDiv,
-  NumberDiv,
+  SliderHeader,
+  StyledImg,
   InnerSlider,
 } from './styles';
 
@@ -76,6 +81,7 @@ class Stories extends React.Component {
       slidesToScroll: 1,
       autoplaySpeed: 6000,
       pauseOnHover: false,
+      initialSlide: this.props.collectionClicked,
     };
 
     const innerSliderSettings = {
@@ -100,15 +106,24 @@ class Stories extends React.Component {
               return (
                 <CenteringDiv key={item.title}>
                   <div>
-                    <h2>{item.title}</h2>
+                    <SliderHeader>
+                      <h2>{item.title}</h2>
+                      <CloseWindowIcon onClick={this.props.handleCloseClick} />
+                    </SliderHeader>
                     <InnerSlider
                       {...innerSliderSettings}
                       ref={this.arrayOfRefs.find((item, i) => i === index)}
                       afterChange={this.handleInnerSliderAfterChange}
                       autoplay={index === this.state.currentOuterSliderIndex}
                     >
-                      {item.photos.map(photo => {
-                        return <NumberDiv>{photo}</NumberDiv>;
+                      {item.photos.map(item => {
+                        return (
+                          <StyledImg
+                            src={item.urls.regular}
+                            alt={item.alt_description}
+                            key={item.id}
+                          />
+                        );
                       })}
                     </InnerSlider>
                   </div>

@@ -1,21 +1,22 @@
 import React from 'react';
+
 import { connect } from 'react-redux';
+
 import FeaturedCollection from '../FeaturedCollection';
 import Stories from '../Stories';
+
 import {
   handleChange,
   handleClick,
   handleSubmit,
+  closeStoriesModal,
 } from '../../store/featured/featuredActions';
+
 import { Container, StyledInput, StyledSpan, StyledIcon } from './styles';
 
 const Featured = props => {
-  const {
-    inputValue,
-    collections,
-    showStories,
-    collectionClicked,
-  } = props.featured;
+  const { inputValue, collections, showStories, collectionClicked } =
+    props.featured;
 
   return (
     <Container>
@@ -36,13 +37,17 @@ const Featured = props => {
           <FeaturedCollection
             title={item.title}
             collectionPhotos={item.photos}
-            handleClick={() => handleClick(index)}
+            handleClick={() => props.handleClick(index)}
             key={item.title}
           />
         );
       })}
       {showStories && (
-        <Stories arrayOfCollections={collections} index={collectionClicked} />
+        <Stories
+          arrayOfCollections={collections}
+          collectionClicked={collectionClicked}
+          handleCloseClick={props.closeStoriesModal}
+        />
       )}
     </Container>
   );
@@ -56,6 +61,7 @@ const mapDispatchToProps = {
   handleChange,
   handleClick,
   handleSubmit,
+  closeStoriesModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Featured);

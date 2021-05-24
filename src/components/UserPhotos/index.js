@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { withRouter } from 'react-router';
 
 import PhotoModal from '../PhotoModal';
+import AddToCollectionModal from '../AddToCollectionModal';
 
 import {
   getUserPhotos,
@@ -13,6 +14,8 @@ import {
   handleCloseClick,
   clearDataForNewUser,
 } from '../../store/user/userActions';
+
+import { openAddToCollectionModal } from '../../store/featured/featuredActions';
 
 import { Container, StyledPhoto } from './styles';
 
@@ -31,6 +34,7 @@ class UserPhotos extends React.Component {
   render() {
     const { index, userPhotos, isLoadingPhotos, hasMorePhotos } =
       this.props.photos;
+    const { showCollectionsModal } = this.props.featured.modal;
     const showModal = index > -1;
 
     return (
@@ -59,6 +63,7 @@ class UserPhotos extends React.Component {
             handleCloseClick={this.props.handleCloseClick}
           />
         )}
+        {showCollectionsModal && <AddToCollectionModal />}
       </Container>
     );
   }
@@ -66,6 +71,7 @@ class UserPhotos extends React.Component {
 
 const mapStateToProps = state => ({
   photos: state.user.photos,
+  featured: state.featured,
 });
 
 const mapDispatchToProps = {
@@ -74,6 +80,7 @@ const mapDispatchToProps = {
   handlePhotoClick,
   handleCloseClick,
   clearDataForNewUser,
+  openAddToCollectionModal,
 };
 
 export default connect(
