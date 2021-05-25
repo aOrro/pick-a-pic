@@ -32,8 +32,7 @@ class UserPhotos extends React.Component {
   }
 
   render() {
-    const { index, userPhotos, isLoadingPhotos, hasMorePhotos } =
-      this.props.photos;
+    const { index, userPhotos, hasMorePhotos } = this.props.photos;
     const { showCollectionsModal } = this.props.featured.modal;
     const showModal = index > -1;
 
