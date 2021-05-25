@@ -27,7 +27,7 @@ const FeaturedCollection = props => {
             <StyledImg
               src={item.urls.small}
               alt={item.alt_description}
-              key={item}
+              key={item.id}
             />
           );
         })}

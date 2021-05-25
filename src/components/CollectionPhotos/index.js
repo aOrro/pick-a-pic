@@ -27,7 +27,7 @@ class CollectionPhotos extends React.Component {
 
   render() {
     const { index, collectionPhotos, hasMore } = this.props.collection;
-    const { showCollectionsModal } = this.props.featured;
+    const { showCollectionsModal } = this.props.featured.modal;
     const showModal = index > -1;
 
     return (

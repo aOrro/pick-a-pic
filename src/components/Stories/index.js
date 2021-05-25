@@ -91,6 +91,7 @@ class Stories extends React.Component {
       slidesToScroll: 1,
       autoplaySpeed: 2000,
       pauseOnHover: false,
+      initialSlide: 0,
     };
 
     return (

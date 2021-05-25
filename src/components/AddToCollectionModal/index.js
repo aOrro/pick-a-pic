@@ -39,7 +39,9 @@ const AddToCollectionModal = props => {
                   type='checkbox'
                   name={item.title}
                   defaultValue={item.title}
-                  onChange={props.addToCollection}
+                  onChange={e =>
+                    props.addToCollection(e.target.checked, e.target.value)
+                  }
                 />
                 {item.title}
               </label>

@@ -19,7 +19,6 @@ export const handleChange = e => {
 };
 
 export const handleClick = index => {
-  console.log(index);
   return {
     type: HANDLE_ICON_CLICK,
     payload: index,
@@ -46,29 +45,29 @@ export const closeCollectionModal = () => {
   };
 };
 
-export const addToCollection = e => (dispatch, getState) => {
-  const state = getState().featured;
-  const stateCollections = [...state.collections];
-  const collectionTitle = e.target.value;
-  let chosenCollection = stateCollections.find(
-    item => item.title === collectionTitle
-  );
+export const addToCollection =
+  (isChecked, checkboxValue) => (dispatch, getState) => {
+    const state = getState().featured;
+    const stateCollections = [...state.collections];
+    let chosenCollection = stateCollections.find(
+      item => item.title === checkboxValue
+    );
 
-  if (e.target.checked) {
-    chosenCollection.photos.push(state.modal.photoInfo);
-    dispatch({
-      type: ADD_PHOTO_TO_COLLECTION,
-      payload: stateCollections,
-    });
-  } else {
-    let collectionPhotos = chosenCollection.photos;
-    collectionPhotos.splice(collectionPhotos.length - 1, 1);
-    dispatch({
-      type: REMOVE_PHOTO_FROM_COLLECTION,
-      payload: stateCollections,
-    });
-  }
-};
+    if (isChecked) {
+      chosenCollection.photos.push(state.modal.photoInfo);
+      dispatch({
+        type: ADD_PHOTO_TO_COLLECTION,
+        payload: stateCollections,
+      });
+    } else {
+      let collectionPhotos = chosenCollection.photos;
+      collectionPhotos.splice(collectionPhotos.length - 1, 1);
+      dispatch({
+        type: REMOVE_PHOTO_FROM_COLLECTION,
+        payload: stateCollections,
+      });
+    }
+  };
 
 export const handleFocus = () => {
   return {
