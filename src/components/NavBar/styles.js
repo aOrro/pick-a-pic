@@ -1,5 +1,13 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background: #efefef;
+  z-index: 1;
+`;
+
 export const HeaderMenu = styled.header`
   align-items: center;
   display: flex;
@@ -7,13 +15,6 @@ export const HeaderMenu = styled.header`
   margin: 0 auto;
   width: 55%;
   border-bottom: 1px solid lightgrey;
-`;
-
-export const Container = styled.div`
-  width: 100%;
-  position: fixed;
-  top: 0;
-  background: #efefef;
 `;
 
 export const NavLinks = styled.nav`

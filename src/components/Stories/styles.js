@@ -13,12 +13,17 @@ export const Container = styled.div`
 export const BlurryDiv = styled.div`
   width: 100%;
   height: 100%;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(5px);
 `;
 
 export const CenteringDiv = styled.div`
   width: 100%;
   height: 100%;
+`;
+
+export const SliderHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const OuterSlider = styled(Slider)`
@@ -34,7 +39,7 @@ export const OuterSlider = styled(Slider)`
 `;
 
 export const OuterDiv = styled.div`
-  width: 80%;
+  width: 60%;
   height: 100%;
   position: absolute;
   top: 50%;
@@ -57,6 +62,10 @@ export const InnerSlider = styled(Slider)`
     width: 100%;
   }
 
+  .slick-slide {
+    width: 500px;
+  }
+
   .slick-prev {
     left: 15%;
   }
@@ -66,8 +75,7 @@ export const InnerSlider = styled(Slider)`
   }
 `;
 
-export const NumberDiv = styled.div`
-  background: blue;
+export const StyledImg = styled.img`
   height: 500px;
-  width: 300px !important;
+  width: auto !important;
 `;

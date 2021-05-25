@@ -1,4 +1,6 @@
-import Slider from 'react-slick';
+import { ReactComponent as BinIcon } from '../../assets/images/bin-icon.svg';
+
+import { Container, HeaderDiv, StyledSlider, StyledImg } from './styles';
 
 const FeaturedCollection = props => {
   const settings = {
@@ -14,14 +16,23 @@ const FeaturedCollection = props => {
   };
 
   return (
-    <div onClick={props.handleClick}>
-      <h4>{props.title}</h4>
-      <Slider {...settings}>
+    <Container onClick={props.handleClick}>
+      <HeaderDiv>
+        <h4>{props.title}</h4>
+        <BinIcon />
+      </HeaderDiv>
+      <StyledSlider {...settings}>
         {props.collectionPhotos.map(item => {
-          return <div key={item}>{item}</div>;
+          return (
+            <StyledImg
+              src={item.urls.small}
+              alt={item.alt_description}
+              key={item.id}
+            />
+          );
         })}
-      </Slider>
-    </div>
+      </StyledSlider>
+    </Container>
   );
 };
 

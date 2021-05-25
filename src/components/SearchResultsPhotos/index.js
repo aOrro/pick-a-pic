@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { withRouter } from 'react-router';
 
 import PhotoModal from '../PhotoModal';
+import AddToCollectionModal from '../AddToCollectionModal';
 
 import {
   getSearchPhotos,
@@ -40,6 +41,7 @@ class SearchResultsPhotos extends React.Component {
 
   render() {
     const { index, data, hasMore } = this.props.photos;
+    const { showCollectionsModal } = this.props.featured.modal;
     const showModal = index > -1;
 
     return (
@@ -68,6 +70,7 @@ class SearchResultsPhotos extends React.Component {
             handleCloseClick={this.props.handleCloseClick}
           />
         )}
+        {showCollectionsModal && <AddToCollectionModal />}
       </Container>
     );
   }
@@ -75,6 +78,7 @@ class SearchResultsPhotos extends React.Component {
 
 const mapStateToProps = state => ({
   photos: state.search.photos,
+  featured: state.featured,
 });
 
 const mapDispatchToProps = {

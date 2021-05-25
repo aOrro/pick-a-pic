@@ -1,9 +1,16 @@
 import React from 'react';
+
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+
 import capitalizeFirstLetter from '../../assets/capitalizeFirstLetter';
+
 import { ReactComponent as CloseWindowIcon } from '../../assets/images/close-window-icon.svg';
 import { ReactComponent as HeartIcon } from '../../assets/images/heart-icon.svg';
 import { ReactComponent as AddIcon } from '../../assets/images/add-icon.svg';
+
+import { openAddToCollectionModal } from '../../store/featured/featuredActions';
+
 import {
   Container,
   StyledSlider,
@@ -92,7 +99,9 @@ class PhotoSlider extends React.Component {
               )}
             </i>
           </span>
-          <div>
+          <div
+            onClick={() => this.props.openAddToCollectionModal(currentPhoto)}
+          >
             <AddIcon />
           </div>
         </ModalFooter>
@@ -101,4 +110,15 @@ class PhotoSlider extends React.Component {
   }
 }
 
-export default withRouter(PhotoSlider);
+const mapStateToProps = state => ({
+  featured: state.featured,
+});
+
+const mapDispatchToProps = {
+  openAddToCollectionModal,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(PhotoSlider));
