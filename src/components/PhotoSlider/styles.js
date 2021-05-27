@@ -1,18 +1,23 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
+import { ReactComponent as HeartIcon } from '../../assets/images/heart-icon.svg';
 
 export const Container = styled.div`
-  width: 80%;
-  height: 100%;
+  width: 850px;
+  height: 600px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 10px;
 `;
 
 export const StyledSlider = styled(Slider)`
-  height: 75%;
+  height: 400px;
+  width: 730px;
+  margin: 0 auto;
 
   .slick-list {
     height: 100%;
@@ -20,6 +25,19 @@ export const StyledSlider = styled(Slider)`
 
   .slick-track {
     height: 100%;
+  }
+
+  .slick-arrow:before {
+    color: #000;
+    font-size: 25px;
+  }
+
+  .slick-arrow {
+    width: 20px;
+  }
+
+  .slick-prev {
+    z-index: 10;
   }
 `;
 
@@ -36,9 +54,11 @@ export const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 90px;
+  height: 100px;
+  width: 770px;
   top: 0;
   padding: 0 20px;
+  margin: 0 auto;
 `;
 
 export const StyledLink = styled(Link)`
@@ -46,7 +66,7 @@ export const StyledLink = styled(Link)`
   align-items: center;
   text-decoration: none;
   color: #000;
-  font-size: 20px;
+  font-size: 18px;
 `;
 
 export const AuthorImage = styled.img`
@@ -64,12 +84,23 @@ export const ImageDiv = styled.div`
 `;
 
 export const StyledModalPhoto = styled.img`
-  height: 75vh;
+  height: 400px;
+  border-radius: 5px;
 `;
 
 export const ModalFooter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  width: 770px;
+  margin: 35px auto;
+`;
+
+export const Likes = styled.span`
+  display: flex;
+  align-items: center;
+`;
+
+export const StyledHeartIcon = styled(HeartIcon)`
+  margin-right: 5px;
 `;

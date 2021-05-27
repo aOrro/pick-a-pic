@@ -2,32 +2,38 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { withRouter } from 'react-router';
 
 import PhotoModal from '../PhotoModal';
 import AddToCollectionModal from '../../components/AddToCollectionModal';
 
 import {
   getCollectionPhotos,
+  getMorePhotos,
   handlePhotoClick,
   handleCloseClick,
+  deletePreviousData,
 } from '../../store/collection/collectionActions';
 
 import { Container, StyledPhoto } from './styles.js';
 
 class CollectionPhotos extends React.Component {
-  componentDidMount() {
-    this.props.getCollectionPhotos(this.props.collectionId);
-  }
-
   componentDidUpdate(prevProps, prevState) {
+    const { collectionId } = this.props.match.params;
+
     if (prevProps.collection.pageToLoad !== this.props.collection.pageToLoad)
-      this.props.getCollectionPhotos(this.props.collectionId);
+      this.props.getCollectionPhotos(collectionId);
+
+    if (prevProps.match.params.collectionId !== collectionId) {
+      this.props.deletePreviousData();
+      this.props.handleTabClick('photos', collectionId);
+    }
   }
 
   render() {
     const { index, collectionPhotos, hasMore } = this.props.collection;
     const { showCollectionsModal } = this.props.featured.modal;
-    const showModal = index > -1;
+    const showPhotoModal = index > -1;
 
     return (
       <Container>
@@ -48,7 +54,7 @@ class CollectionPhotos extends React.Component {
             );
           })}
         </InfiniteScroll>
-        {showModal && (
+        {showPhotoModal && (
           <PhotoModal
             index={index}
             arrayOfPhotos={collectionPhotos}
@@ -68,8 +74,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   getCollectionPhotos,
+  getMorePhotos,
   handlePhotoClick,
   handleCloseClick,
+  deletePreviousData,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CollectionPhotos);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(CollectionPhotos));

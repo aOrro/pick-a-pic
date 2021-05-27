@@ -8,7 +8,8 @@ import {
   REMOVE_PHOTO_FROM_COLLECTION,
   FOCUS_ON_CREATE_NEW_COLLECTION,
   CREATE_NEW_COLLECTION,
-  CLOSE_STORIES_MODAL,
+  OPEN_COLLECTION_MODAL,
+  CLOSE_COLLECTION_MODAL,
 } from './featuredTypes';
 
 export const handleChange = e => {
@@ -39,7 +40,7 @@ export const openAddToCollectionModal = photoInfo => {
   };
 };
 
-export const closeCollectionModal = () => {
+export const closeAddToCollectionModal = () => {
   return {
     type: CLOSE_ADD_TO_COLLECTION_MODAL,
   };
@@ -81,8 +82,15 @@ export const createNewCollection = () => {
   };
 };
 
-export const closeStoriesModal = () => {
+export const handleCollectionClick = index => {
   return {
-    type: CLOSE_STORIES_MODAL,
+    type: OPEN_COLLECTION_MODAL,
+    payload: index,
+  };
+};
+
+export const closeCollectionModal = () => {
+  return {
+    type: CLOSE_COLLECTION_MODAL,
   };
 };

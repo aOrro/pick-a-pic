@@ -44,7 +44,7 @@ function feedReducer(state = initialState, action) {
     case FETCH_NEW_PAGE:
       return {
         ...state,
-        pageToLoad: state.pageToLoad + action.payload,
+        pageToLoad: state.pageToLoad + 1,
       };
     case PHOTO_CLICK:
       return {
@@ -54,7 +54,7 @@ function feedReducer(state = initialState, action) {
     case CLOSE_MODAL:
       return {
         ...state,
-        index: action.payload,
+        index: -1,
       };
     default:
       return state;

@@ -13,7 +13,12 @@ function App() {
       <NavBar />
       <Switch>
         <Route
-          path='/collections/:collectionId'
+          path='/collections/:collectionId/photos'
+          exact
+          component={Collection}
+        ></Route>
+        <Route
+          path='/collections/:collectionId/related'
           exact
           component={Collection}
         ></Route>
