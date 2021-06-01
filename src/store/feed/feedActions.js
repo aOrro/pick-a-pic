@@ -38,7 +38,6 @@ export const getFeedPhotos = () => async (dispatch, getState) => {
 export const getMoreData = () => {
   return {
     type: FETCH_NEW_PAGE,
-    payload: 1,
   };
 };
 
@@ -52,6 +51,5 @@ export const handlePhotoClick = index => {
 export const handleCloseClick = () => {
   return {
     type: CLOSE_MODAL,
-    payload: -1,
   };
 };

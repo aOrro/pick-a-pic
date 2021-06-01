@@ -1,5 +1,13 @@
+import React from 'react';
+
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+
 import capitalizeFirstLetter from '../../assets/capitalizeFirstLetter';
+
+import { getCollectionData } from '../../store/collection/collectionActions';
+
 import {
   Container,
   CollectionImage,
@@ -8,35 +16,74 @@ import {
   Label,
 } from './styles';
 
-const CollectionHeader = props => {
-  return (
-    <Container>
-      <CollectionImage src={props.src} alt='img description' />
-      <CollectionInfo>
-        <div>
-          <h2>{props.title ?? 'No title'}</h2>
-        </div>
-        {props.description ?? (
-          <span>
-            {`${props.totalPhotos} photos by `}
-            <Link to={`/users/${props.author.username}`}>
-              @{props.author.username}
-            </Link>
-          </span>
-        )}
+class CollectionHeader extends React.Component {
+  componentDidMount() {
+    this.props.getCollectionData(this.props.match.params.collectionId);
+  }
 
-        {props.tags.length > 0 && (
-          <Labels>
-            {props.tags.map(item => (
-              <Label to={`/search/photos/${item.title}`} key={item.title}>
-                {capitalizeFirstLetter(item.title)}
-              </Label>
-            ))}
-          </Labels>
+  componentDidUpdate(prevProps, prevState) {
+    const { collectionId } = this.props.match.params;
+
+    if (prevProps.match.params.collectionId !== collectionId) {
+      this.props.getCollectionData(collectionId);
+    }
+  }
+
+  render() {
+    const { collectionData, isLoadingCollection } = this.props.collection;
+    const readyToDisplay = !isLoadingCollection && collectionData;
+
+    return (
+      <>
+        {isLoadingCollection && <div>Loading user info...</div>}
+        {readyToDisplay && (
+          <Container>
+            <CollectionImage
+              src={
+                collectionData.cover_photo &&
+                collectionData.cover_photo.urls.small
+              }
+              alt='img description'
+            />
+            <CollectionInfo>
+              <div>
+                <h2>{collectionData.title ?? 'No title'}</h2>
+              </div>
+              {collectionData.description ?? (
+                <span>
+                  {`${collectionData.total_photos} photos by `}
+                  <Link to={`/users/${collectionData.user.username}`}>
+                    @{collectionData.user.username}
+                  </Link>
+                </span>
+              )}
+
+              {collectionData.tags.length > 0 && (
+                <Labels>
+                  {collectionData.tags.map(item => (
+                    <Label to={`/search/photos/${item.title}`} key={item.title}>
+                      {capitalizeFirstLetter(item.title)}
+                    </Label>
+                  ))}
+                </Labels>
+              )}
+            </CollectionInfo>
+          </Container>
         )}
-      </CollectionInfo>
-    </Container>
-  );
+      </>
+    );
+  }
+}
+
+const mapsStateToProps = state => ({
+  collection: state.collection,
+});
+
+const mapDispatchToProps = {
+  getCollectionData,
 };
 
-export default CollectionHeader;
+export default connect(
+  mapsStateToProps,
+  mapDispatchToProps
+)(withRouter(CollectionHeader));

@@ -8,7 +8,8 @@ import {
   REMOVE_PHOTO_FROM_COLLECTION,
   FOCUS_ON_CREATE_NEW_COLLECTION,
   CREATE_NEW_COLLECTION,
-  CLOSE_STORIES_MODAL,
+  OPEN_COLLECTION_MODAL,
+  CLOSE_COLLECTION_MODAL,
 } from './featuredTypes';
 
 const initialState = {
@@ -18,8 +19,9 @@ const initialState = {
     { title: 'Collection B', photos: [] },
     { title: 'Collection C', photos: [] },
   ],
-  showStories: false,
+  openCollectionModal: false,
   collectionClicked: null,
+  index: -1,
   modal: {
     photoInfo: null,
     showCollectionsModal: false,
@@ -37,7 +39,6 @@ function featuredReducer(state = initialState, action) {
     case HANDLE_ICON_CLICK:
       return {
         ...state,
-        showStories: !state.showStories,
         collectionClicked: action.payload,
       };
     case HANDLE_FORM_SUBMIT:
@@ -96,10 +97,17 @@ function featuredReducer(state = initialState, action) {
           showCollectionsModal: false,
         },
       };
-    case CLOSE_STORIES_MODAL:
+    case OPEN_COLLECTION_MODAL:
       return {
         ...state,
-        showStories: false,
+        openCollectionModal: true,
+        collectionClicked: action.payload,
+      };
+    case CLOSE_COLLECTION_MODAL:
+      return {
+        ...state,
+        openCollectionModal: false,
+        collectionClicked: -1,
       };
     default:
       return state;

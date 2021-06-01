@@ -6,7 +6,6 @@ import { withRouter } from 'react-router';
 import capitalizeFirstLetter from '../../assets/capitalizeFirstLetter';
 
 import { ReactComponent as CloseWindowIcon } from '../../assets/images/close-window-icon.svg';
-import { ReactComponent as HeartIcon } from '../../assets/images/heart-icon.svg';
 import { ReactComponent as AddIcon } from '../../assets/images/add-icon.svg';
 
 import { openAddToCollectionModal } from '../../store/featured/featuredActions';
@@ -23,6 +22,8 @@ import {
   ImageDiv,
   StyledModalPhoto,
   ModalFooter,
+  Likes,
+  StyledHeartIcon,
 } from './styles';
 
 class PhotoSlider extends React.Component {
@@ -55,7 +56,10 @@ class PhotoSlider extends React.Component {
       <Container>
         <ModalHeader>
           {/*this.props.match.params.username === currentPhoto.user.username ? <div></div> : <StyledLink></StyledLink> */}
-          <StyledLink to={`/users/${currentPhoto.user.username}`}>
+          <StyledLink
+            to={`/users/${currentPhoto.user.username}`}
+            onClick={this.props.handleCloseClick}
+          >
             <AuthorImage
               src={currentPhoto.user.profile_image.medium}
               alt={currentPhoto.user.username}
@@ -87,10 +91,10 @@ class PhotoSlider extends React.Component {
           })}
         </StyledSlider>
         <ModalFooter>
-          <span>
-            <HeartIcon />
+          <Likes>
+            <StyledHeartIcon />
             {currentPhoto.likes}
-          </span>
+          </Likes>
           <span>
             <i>
               {capitalizeFirstLetter(

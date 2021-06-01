@@ -8,7 +8,7 @@ const CollectionPreviewCard = ({ data }) => {
   return (
     <Container>
       {data.cover_photo && (
-        <Link to={`/collections/${data.id}`}>
+        <Link to={`/collections/${data.id}/photos`}>
           <img
             src={data.cover_photo.urls.small}
             alt={data.cover_photo.alt_description}
@@ -16,7 +16,7 @@ const CollectionPreviewCard = ({ data }) => {
         </Link>
       )}
       <CollectionInfo>
-        <StyledLink to={`/collections/${data.id}`}>
+        <StyledLink to={`/collections/${data.id}/photos`}>
           <h3>{data.title ?? 'No Title'}</h3>
         </StyledLink>
         <span>

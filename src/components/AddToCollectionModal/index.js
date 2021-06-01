@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import {
-  closeCollectionModal,
+  closeAddToCollectionModal,
   addToCollection,
   handleChange,
   handleFocus,
@@ -29,7 +29,7 @@ const AddToCollectionModal = props => {
       <Modal>
         <ModalHeader>
           <h3>Add to:</h3>
-          <StyledCloseIcon onClick={props.closeCollectionModal} />
+          <StyledCloseIcon onClick={props.closeAddToCollectionModal} />
         </ModalHeader>
         <CollectionsList>
           {collections.map(item => {
@@ -71,7 +71,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  closeCollectionModal,
+  closeAddToCollectionModal,
   addToCollection,
   handleChange,
   handleFocus,

@@ -23,6 +23,11 @@ export const CollectionInfo = styled.div`
 export const StyledLink = styled(Link)`
   color: #000;
   text-decoration: none;
+
+  h3 {
+    max-width: 300px;
+    text-overflow: ellipsis;
+  }
 `;
 
 export const Labels = styled.div`
