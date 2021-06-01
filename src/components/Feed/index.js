@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -18,54 +18,55 @@ import { openAddToCollectionModal } from '../../store/featured/featuredActions';
 
 import { Container } from './styles';
 
-class Feed extends React.Component {
-  componentDidMount() {
-    this.props.getFeedPhotos();
-  }
+const Feed = props => {
+  useEffect(() => {
+    props.getFeedPhotos();
+    //eslint-disable-next-line
+  }, []);
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.feed.pageToLoad !== this.props.feed.pageToLoad)
-      this.props.getFeedPhotos();
-  }
+  const { pageToLoad } = props.feed;
 
-  render() {
-    const { index, photos, hasMore } = this.props.feed;
-    const { showCollectionsModal } = this.props.featured.modal;
-    const showPhotoModal = index > -1;
+  useEffect(() => {
+    props.getFeedPhotos();
+    //eslint-disable-next-line
+  }, [pageToLoad]);
 
-    return (
-      <Container>
-        <InfiniteScroll
-          dataLength={photos.length}
-          next={this.props.getMoreData}
-          hasMore={hasMore}
-          loader={<div>Loading photos...</div>}
-        >
-          {photos.map((item, index) => {
-            return (
-              <PhotoCard
-                {...item}
-                key={item.id}
-                handlePhotoClick={() => this.props.handlePhotoClick(index)}
-                openAddToCollectionModal={() =>
-                  this.props.openAddToCollectionModal(item)
-                }
-              />
-            );
-          })}
-          {showPhotoModal && (
-            <PhotoModal
-              index={index}
-              arrayOfPhotos={photos}
-              handleCloseClick={this.props.handleCloseClick}
+  const { index, photos, hasMore } = props.feed;
+  const { showCollectionsModal } = props.featured.modal;
+  const showPhotoModal = index > -1;
+
+  return (
+    <Container>
+      <InfiniteScroll
+        dataLength={photos.length}
+        next={props.getMoreData}
+        hasMore={hasMore}
+        loader={<div>Loading photos...</div>}
+      >
+        {photos.map((item, index) => {
+          return (
+            <PhotoCard
+              {...item}
+              key={item.id}
+              handlePhotoClick={() => props.handlePhotoClick(index)}
+              openAddToCollectionModal={() =>
+                props.openAddToCollectionModal(item)
+              }
             />
-          )}
-          {showCollectionsModal && <AddToCollectionModal />}
-        </InfiniteScroll>
-      </Container>
-    );
-  }
-}
+          );
+        })}
+        {showPhotoModal && (
+          <PhotoModal
+            index={index}
+            arrayOfPhotos={photos}
+            handleCloseClick={props.handleCloseClick}
+          />
+        )}
+        {showCollectionsModal && <AddToCollectionModal />}
+      </InfiniteScroll>
+    </Container>
+  );
+};
 
 const mapStateToProps = state => ({
   feed: state.feed,

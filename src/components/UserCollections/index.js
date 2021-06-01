@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -14,38 +14,38 @@ import {
 
 import { Container } from './styles';
 
-class UserCollections extends React.Component {
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevProps.collections.collectionsPageToLoad !==
-      this.props.collections.collectionsPageToLoad
-    )
-      this.props.getUserCollections(this.props.match.params.userName);
-  }
+const UserCollections = props => {
+  const { userName } = props.match.params;
+  const { userCollections, hasMoreCollections, collectionsPageToLoad } =
+    props.collections;
 
-  componentWillUnmount() {
-    this.props.clearDataForNewUser();
-  }
+  useEffect(() => {
+    props.getUserCollections(userName);
+    //eslint-disable-next-line
+  }, [collectionsPageToLoad]);
 
-  render() {
-    const { userCollections, hasMoreCollections } = this.props.collections;
+  useEffect(() => {
+    return function cleanup() {
+      props.clearDataForNewUser();
+    };
+    //eslint-disable-next-line
+  }, []);
 
-    return (
-      <Container>
-        <InfiniteScroll
-          dataLength={userCollections.length}
-          next={this.props.getMoreCollections}
-          hasMore={hasMoreCollections}
-          loader={<div>Loading photos...</div>}
-        >
-          {userCollections.map(item => {
-            return <CollectionPreviewCard data={item} key={item.id} />;
-          })}
-        </InfiniteScroll>
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <InfiniteScroll
+        dataLength={userCollections.length}
+        next={props.getMoreCollections}
+        hasMore={hasMoreCollections}
+        loader={<div>Loading photos...</div>}
+      >
+        {userCollections.map(item => {
+          return <CollectionPreviewCard data={item} key={item.id} />;
+        })}
+      </InfiniteScroll>
+    </Container>
+  );
+};
 
 const mapStateToProps = state => ({
   collections: state.user.collections,

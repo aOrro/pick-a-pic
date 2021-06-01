@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { SearchBar } from '../SearchBar';
+import SearchBar from '../SearchBar';
 import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg';
 import { ReactComponent as ExploreIcon } from '../../assets/images/explore-icon.svg';
 import { ReactComponent as SunIcon } from '../../assets/images/sun-icon.svg';

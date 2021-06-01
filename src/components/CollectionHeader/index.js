@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -16,64 +16,63 @@ import {
   Label,
 } from './styles';
 
-class CollectionHeader extends React.Component {
-  componentDidMount() {
-    this.props.getCollectionData(this.props.match.params.collectionId);
-  }
+const CollectionHeader = props => {
+  const { collectionId } = props.match.params;
 
-  componentDidUpdate(prevProps, prevState) {
-    const { collectionId } = this.props.match.params;
+  useEffect(() => {
+    props.getCollectionData(collectionId);
+    //eslint-disable-next-line
+  }, []);
 
-    if (prevProps.match.params.collectionId !== collectionId) {
-      this.props.getCollectionData(collectionId);
-    }
-  }
+  useEffect(() => {
+    props.getCollectionData(collectionId);
+    //eslint-disable-next-line
+  }, [collectionId]);
 
-  render() {
-    const { collectionData, isLoadingCollection } = this.props.collection;
-    const readyToDisplay = !isLoadingCollection && collectionData;
+  const { collectionData, isLoadingCollection } = props.collection;
+  const readyToDisplay = !isLoadingCollection && collectionData;
 
-    return (
-      <>
-        {isLoadingCollection && <div>Loading user info...</div>}
-        {readyToDisplay && (
-          <Container>
-            <CollectionImage
-              src={
-                collectionData.cover_photo &&
-                collectionData.cover_photo.urls.small
-              }
-              alt='img description'
-            />
-            <CollectionInfo>
-              <div>
-                <h2>{collectionData.title ?? 'No title'}</h2>
-              </div>
-              {collectionData.description ?? (
-                <span>
-                  {`${collectionData.total_photos} photos by `}
-                  <Link to={`/users/${collectionData.user.username}`}>
-                    @{collectionData.user.username}
-                  </Link>
-                </span>
-              )}
+  return (
+    <>
+      {isLoadingCollection && <div>Loading user info...</div>}
+      {readyToDisplay && (
+        <Container>
+          <CollectionImage
+            src={
+              collectionData.cover_photo &&
+              collectionData.cover_photo.urls.small
+            }
+            alt='img description'
+          />
+          <CollectionInfo>
+            <div>
+              <h2>{collectionData.title ?? 'No title'}</h2>
+            </div>
 
-              {collectionData.tags.length > 0 && (
-                <Labels>
-                  {collectionData.tags.map(item => (
-                    <Label to={`/search/photos/${item.title}`} key={item.title}>
-                      {capitalizeFirstLetter(item.title)}
-                    </Label>
-                  ))}
-                </Labels>
-              )}
-            </CollectionInfo>
-          </Container>
-        )}
-      </>
-    );
-  }
-}
+            {collectionData.description ?? (
+              <span>
+                {`${collectionData.total_photos} photos by `}
+                <Link to={`/users/${collectionData.user.username}`}>
+                  @{collectionData.user.username}
+                </Link>
+              </span>
+            )}
+
+            {collectionData.tags.length > 0 && (
+              <Labels>
+                {collectionData.tags.map(item => (
+                  <Label to={`/search/photos/${item.title}`} key={item.title}>
+                    {capitalizeFirstLetter(item.title)}
+                  </Label>
+                ))}
+              </Labels>
+            )}
+          </CollectionInfo>
+        </Container>
+      )}
+    </>
+  );
+};
 
 const mapsStateToProps = state => ({
   collection: state.collection,

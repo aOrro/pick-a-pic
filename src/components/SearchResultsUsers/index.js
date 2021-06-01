@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { withRouter } from 'react-router';
 
-import { UserPreviewCard } from '../UserPreviewCard';
+import UserPreviewCard from '../UserPreviewCard';
 
 import {
   getSearchUsers,
@@ -14,42 +14,43 @@ import {
 
 import { Container } from './styles';
 
-class SearchResultsUsers extends React.Component {
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevProps.match.params.searchTerm !== this.props.match.params.searchTerm
-    ) {
-      this.props.clearDataForNewSearch();
-      this.props.getSearchUsers(this.props.match.params.searchTerm);
-    }
+const SearchResultsUsers = props => {
+  const { searchTerm } = props.match.params;
+  const { data, hasMore, pageToLoad } = props.users;
 
-    if (prevProps.users.pageToLoad !== this.props.users.pageToLoad)
-      this.props.getSearchUsers(this.props.match.params.searchTerm);
-  }
+  useEffect(() => {
+    props.clearDataForNewSearch();
+    props.getSearchUsers(searchTerm);
+    //eslint-disable-next-line
+  }, [searchTerm]);
 
-  componentWillUnmount() {
-    this.props.clearDataForNewSearch();
-  }
+  useEffect(() => {
+    props.getSearchUsers(searchTerm);
+    //eslint-disable-next-line
+  }, [pageToLoad]);
 
-  render() {
-    const { data, hasMore } = this.props.users;
+  useEffect(() => {
+    return function cleanup() {
+      props.clearDataForNewSearch();
+    };
+    //eslint-disable-next-line
+  }, []);
 
-    return (
-      <Container>
-        <InfiniteScroll
-          dataLength={data.length}
-          next={this.props.getMoreSearchUsers}
-          hasMore={hasMore}
-          loader={<div>Loading photos...</div>}
-        >
-          {data.map(item => {
-            return <UserPreviewCard userInfo={item} key={item.id} />;
-          })}
-        </InfiniteScroll>
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <InfiniteScroll
+        dataLength={data.length}
+        next={props.getMoreSearchUsers}
+        hasMore={hasMore}
+        loader={<div>Loading photos...</div>}
+      >
+        {data.map(item => {
+          return <UserPreviewCard userInfo={item} key={item.id} />;
+        })}
+      </InfiniteScroll>
+    </Container>
+  );
+};
 
 const mapStateToProps = state => ({
   users: state.search.users,

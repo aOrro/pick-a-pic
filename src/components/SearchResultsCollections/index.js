@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -14,42 +14,45 @@ import {
 
 import { Container } from './styles';
 
-class SearchResultsCollections extends React.Component {
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevProps.match.params.searchTerm !== this.props.match.params.searchTerm
-    ) {
-      this.props.clearDataForNewSearch();
-      this.props.getSearchCollections(this.props.match.params.searchTerm);
-    }
+const SearchResultsCollections = props => {
+  const { searchTerm } = props.match.params;
+  const { pageToLoad } = props.collections;
 
-    if (prevProps.collections.pageToLoad !== this.props.collections.pageToLoad)
-      this.props.getSearchCollections(this.props.match.params.searchTerm);
-  }
+  useEffect(() => {
+    props.clearDataForNewSearch();
+    props.getSearchCollections(searchTerm);
+    //eslint-disable-next-line
+  }, [searchTerm]);
 
-  componentWillUnmount() {
-    this.props.clearDataForNewSearch();
-  }
+  useEffect(() => {
+    props.getSearchCollections(searchTerm);
+    //eslint-disable-next-line
+  }, [pageToLoad]);
 
-  render() {
-    const { data, hasMore } = this.props.collections;
+  useEffect(() => {
+    return function cleanup() {
+      props.clearDataForNewSearch();
+    };
+    //eslint-disable-next-line
+  }, []);
 
-    return (
-      <Container>
-        <InfiniteScroll
-          dataLength={data.length}
-          next={this.props.getMoreCollections}
-          hasMore={hasMore}
-          loader={<div>Loading photos...</div>}
-        >
-          {data.map(item => {
-            return <CollectionPreviewCard data={item} key={item.id} />;
-          })}
-        </InfiniteScroll>
-      </Container>
-    );
-  }
-}
+  const { data, hasMore } = props.collections;
+
+  return (
+    <Container>
+      <InfiniteScroll
+        dataLength={data.length}
+        next={props.getMoreCollections}
+        hasMore={hasMore}
+        loader={<div>Loading photos...</div>}
+      >
+        {data.map(item => {
+          return <CollectionPreviewCard data={item} key={item.id} />;
+        })}
+      </InfiniteScroll>
+    </Container>
+  );
+};
 
 const mapStateToProps = state => ({
   collections: state.search.collections,

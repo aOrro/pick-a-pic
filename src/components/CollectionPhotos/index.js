@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -8,6 +8,7 @@ import PhotoModal from '../PhotoModal';
 import AddToCollectionModal from '../../components/AddToCollectionModal';
 
 import {
+  handleTabClick,
   getCollectionPhotos,
   getMorePhotos,
   handlePhotoClick,
@@ -17,55 +18,54 @@ import {
 
 import { Container, StyledPhoto } from './styles.js';
 
-class CollectionPhotos extends React.Component {
-  componentDidUpdate(prevProps, prevState) {
-    const { collectionId } = this.props.match.params;
+const CollectionPhotos = props => {
+  const { collectionId } = props.match.params;
+  const { index, collectionPhotos, hasMore, pageToLoad } = props.collection;
 
-    if (prevProps.collection.pageToLoad !== this.props.collection.pageToLoad)
-      this.props.getCollectionPhotos(collectionId);
+  useEffect(() => {
+    props.getCollectionPhotos(collectionId);
+    //eslint-disable-next-line
+  }, [pageToLoad]);
 
-    if (prevProps.match.params.collectionId !== collectionId) {
-      this.props.deletePreviousData();
-      this.props.handleTabClick('photos', collectionId);
-    }
-  }
+  useEffect(() => {
+    props.deletePreviousData();
+    props.handleTabClick('photos', collectionId);
+    //eslint-disable-next-line
+  }, [collectionId]);
 
-  render() {
-    const { index, collectionPhotos, hasMore } = this.props.collection;
-    const { showCollectionsModal } = this.props.featured.modal;
-    const showPhotoModal = index > -1;
+  const { showCollectionsModal } = props.featured.modal;
+  const showPhotoModal = index > -1;
 
-    return (
-      <Container>
-        <InfiniteScroll
-          dataLength={collectionPhotos.length}
-          next={this.props.getMorePhotos}
-          hasMore={hasMore}
-          loader={<div>Loading photos...</div>}
-        >
-          {collectionPhotos.map((item, index) => {
-            return (
-              <StyledPhoto
-                src={item.urls.regular}
-                alt={item.alt_description}
-                key={item.id}
-                onClick={() => this.props.handlePhotoClick(index)}
-              />
-            );
-          })}
-        </InfiniteScroll>
-        {showPhotoModal && (
-          <PhotoModal
-            index={index}
-            arrayOfPhotos={collectionPhotos}
-            handleCloseClick={this.props.handleCloseClick}
-          />
-        )}
-        {showCollectionsModal && <AddToCollectionModal />}
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <InfiniteScroll
+        dataLength={collectionPhotos.length}
+        next={props.getMorePhotos}
+        hasMore={hasMore}
+        loader={<div>Loading photos...</div>}
+      >
+        {collectionPhotos.map((item, index) => {
+          return (
+            <StyledPhoto
+              src={item.urls.regular}
+              alt={item.alt_description}
+              key={item.id}
+              onClick={() => props.handlePhotoClick(index)}
+            />
+          );
+        })}
+      </InfiniteScroll>
+      {showPhotoModal && (
+        <PhotoModal
+          index={index}
+          arrayOfPhotos={collectionPhotos}
+          handleCloseClick={props.handleCloseClick}
+        />
+      )}
+      {showCollectionsModal && <AddToCollectionModal />}
+    </Container>
+  );
+};
 
 const mapStateToProps = state => ({
   collection: state.collection,
@@ -73,6 +73,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  handleTabClick,
   getCollectionPhotos,
   getMorePhotos,
   handlePhotoClick,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -21,9 +21,22 @@ import {
   StyledUserIcon,
 } from './styles';
 
-class Search extends React.Component {
-  renderChosenTab = () => {
-    switch (this.props.search.chosenTab) {
+const Search = props => {
+  const { searchTerm } = props.match.params;
+
+  useEffect(() => {
+    props.handleTabClick('photos', searchTerm);
+    //eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    props.handleTabClick('photos', searchTerm);
+    //eslint-disable-next-line
+  }, [searchTerm]);
+
+  const renderChosenTab = () => {
+    const { chosenTab } = props.search;
+    switch (chosenTab) {
       case 'collections':
         return <SearchResultsCollections />;
       case 'users':
@@ -33,56 +46,37 @@ class Search extends React.Component {
     }
   };
 
-  componentDidMount() {
-    this.props.handleTabClick('photos', this.props.match.params.searchTerm);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevProps.match.params.searchTerm !== this.props.match.params.searchTerm
-    )
-      this.props.handleTabClick('photos', this.props.match.params.searchTerm);
-  }
-
-  render() {
-    const { searchTerm } = this.props.match.params;
-
-    return (
-      <Container>
-        <SearchInfo>
-          <i>
-            Results for "<strong>{searchTerm}</strong>"
-          </i>
-        </SearchInfo>
-        <SearchTabs>
-          <Link to={`/search/photos/${searchTerm}`}>
-            <li onClick={() => this.props.handleTabClick('photos', searchTerm)}>
-              <StyledPhotoIcon />
-              Photos
-            </li>
-          </Link>
-          <Link to={`/search/collections/${searchTerm}`}>
-            <li
-              onClick={() =>
-                this.props.handleTabClick('collections', searchTerm)
-              }
-            >
-              <StyledCollectionsIcon />
-              Collections
-            </li>
-          </Link>
-          <Link to={`/search/users/${searchTerm}`}>
-            <li onClick={() => this.props.handleTabClick('users', searchTerm)}>
-              <StyledUserIcon />
-              Users
-            </li>
-          </Link>
-        </SearchTabs>
-        {this.renderChosenTab()}
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <SearchInfo>
+        <i>
+          Results for "<strong>{searchTerm}</strong>"
+        </i>
+      </SearchInfo>
+      <SearchTabs>
+        <Link to={`/search/photos/${searchTerm}`}>
+          <li onClick={() => props.handleTabClick('photos', searchTerm)}>
+            <StyledPhotoIcon />
+            Photos
+          </li>
+        </Link>
+        <Link to={`/search/collections/${searchTerm}`}>
+          <li onClick={() => props.handleTabClick('collections', searchTerm)}>
+            <StyledCollectionsIcon />
+            Collections
+          </li>
+        </Link>
+        <Link to={`/search/users/${searchTerm}`}>
+          <li onClick={() => props.handleTabClick('users', searchTerm)}>
+            <StyledUserIcon />
+            Users
+          </li>
+        </Link>
+      </SearchTabs>
+      {renderChosenTab()}
+    </Container>
+  );
+};
 
 const mapStateToProps = state => ({
   search: state.search,

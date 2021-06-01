@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -17,64 +17,61 @@ import {
 
 import { Container, StyledPhoto } from './styles';
 
-class SearchResultsPhotos extends React.Component {
-  componentDidMount() {
-    this.props.getSearchPhotos(this.props.match.params.searchTerm);
-  }
+const SearchResultsPhotos = props => {
+  const { searchTerm } = props.match.params;
+  const { index, data, hasMore, pageToLoad } = props.photos;
 
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevProps.match.params.searchTerm !== this.props.match.params.searchTerm
-    ) {
-      this.props.clearDataForNewSearch();
-      this.props.getSearchPhotos(this.props.match.params.searchTerm);
-    }
+  useEffect(() => {
+    props.clearDataForNewSearch();
+    props.getSearchPhotos(searchTerm);
+    //eslint-disable-next-line
+  }, [searchTerm]);
 
-    if (prevProps.photos.pageToLoad !== this.props.photos.pageToLoad)
-      this.props.getSearchPhotos(this.props.match.params.searchTerm);
-  }
+  useEffect(() => {
+    props.getSearchPhotos(searchTerm);
+    //eslint-disable-next-line
+  }, [pageToLoad]);
 
-  componentWillUnmount() {
-    this.props.handleCloseClick();
-    this.props.clearDataForNewSearch();
-  }
+  useEffect(() => {
+    return function cleanup() {
+      props.clearDataForNewSearch();
+    };
+    //eslint-disable-next-line
+  }, []);
 
-  render() {
-    const { index, data, hasMore } = this.props.photos;
-    const { showCollectionsModal } = this.props.featured.modal;
-    const showModal = index > -1;
+  const { showCollectionsModal } = props.featured.modal;
+  const showModal = index > -1;
 
-    return (
-      <Container>
-        <InfiniteScroll
-          dataLength={data.length}
-          next={this.props.getMoreSearchPhotos}
-          hasMore={hasMore}
-          loader={<div>Loading photos...</div>}
-        >
-          {data.map((item, index) => {
-            return (
-              <StyledPhoto
-                src={item.urls.small}
-                alt={item.alt_description}
-                key={item.id}
-                onClick={() => this.props.handlePhotoClick(index)}
-              />
-            );
-          })}
-        </InfiniteScroll>
-        {showModal && (
-          <PhotoModal
-            index={index}
-            arrayOfPhotos={data}
-            handleCloseClick={this.props.handleCloseClick}
-          />
-        )}
-        {showCollectionsModal && <AddToCollectionModal />}
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <InfiniteScroll
+        dataLength={data.length}
+        next={props.getMoreSearchPhotos}
+        hasMore={hasMore}
+        loader={<div>Loading photos...</div>}
+      >
+        {data.map((item, index) => {
+          return (
+            <StyledPhoto
+              src={item.urls.small}
+              alt={item.alt_description}
+              key={item.id}
+              onClick={() => props.handlePhotoClick(index)}
+            />
+          );
+        })}
+      </InfiniteScroll>
+      {showModal && (
+        <PhotoModal
+          index={index}
+          arrayOfPhotos={data}
+          handleCloseClick={props.handleCloseClick}
+        />
+      )}
+      {showCollectionsModal && <AddToCollectionModal />}
+    </Container>
+  );
+};
 
 const mapStateToProps = state => ({
   photos: state.search.photos,

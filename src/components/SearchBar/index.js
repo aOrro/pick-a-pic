@@ -1,7 +1,7 @@
 import { ReactComponent as SearchIcon } from '../../assets/images/search-icon.svg';
 import { StyledForm, SearchInputElement } from './styles';
 
-export const SearchBar = props => {
+const SearchBar = props => {
   return (
     <div>
       <StyledForm onSubmit={props.handleSubmit}>
@@ -16,3 +16,5 @@ export const SearchBar = props => {
     </div>
   );
 };
+
+export default SearchBar;
