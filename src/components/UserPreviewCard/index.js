@@ -9,7 +9,7 @@ import {
   VisitButton,
 } from './styles';
 
-export const UserPreviewCard = ({ userInfo }) => {
+const UserPreviewCard = ({ userInfo }) => {
   return (
     <Link to={`/users/${userInfo.username}`}>
       <Container>
@@ -36,3 +36,5 @@ export const UserPreviewCard = ({ userInfo }) => {
     </Link>
   );
 };
+
+export default UserPreviewCard;

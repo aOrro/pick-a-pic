@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -17,9 +17,18 @@ import {
   StyledStatsIcon,
 } from './styles';
 
-class User extends React.Component {
-  renderChosenTab = () => {
-    switch (this.props.user.chosenTab) {
+const User = props => {
+  const { userName } = props.match.params;
+
+  useEffect(() => {
+    props.handleCloseClick();
+    props.handleTabClick('photos', userName);
+    //eslint-disable-next-line
+  }, []);
+
+  const renderChosenTab = () => {
+    const { chosenTab } = props.user;
+    switch (chosenTab) {
       case 'collections':
         return <UserCollections />;
       case 'stats':
@@ -29,40 +38,29 @@ class User extends React.Component {
     }
   };
 
-  componentDidMount() {
-    this.props.handleCloseClick();
-    this.props.handleTabClick('photos', this.props.match.params.userName);
-  }
-
-  render() {
-    const { userName } = this.props.match.params;
-
-    return (
-      <Container>
-        <UserHeader />
-        <ContentContainer>
-          <ul>
-            <li onClick={() => this.props.handleTabClick('photos', userName)}>
-              <StyledPhotoIcon />
-              Photos
-            </li>
-            <li
-              onClick={() => this.props.handleTabClick('collections', userName)}
-            >
-              <StyledCollectionsIcon />
-              Collections
-            </li>
-            <li onClick={() => this.props.handleTabClick('stats', userName)}>
-              <StyledStatsIcon />
-              Stats
-            </li>
-          </ul>
-          {this.renderChosenTab()}
-        </ContentContainer>
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <UserHeader />
+      <ContentContainer>
+        <ul>
+          <li onClick={() => props.handleTabClick('photos', userName)}>
+            <StyledPhotoIcon />
+            Photos
+          </li>
+          <li onClick={() => props.handleTabClick('collections', userName)}>
+            <StyledCollectionsIcon />
+            Collections
+          </li>
+          <li onClick={() => props.handleTabClick('stats', userName)}>
+            <StyledStatsIcon />
+            Stats
+          </li>
+        </ul>
+        {renderChosenTab()}
+      </ContentContainer>
+    </Container>
+  );
+};
 
 const mapStateToProps = state => ({
   user: state.user,
