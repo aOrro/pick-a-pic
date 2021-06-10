@@ -26,11 +26,14 @@ export const handleClick = index => {
   };
 };
 
-export const handleSubmit = e => {
+export const handleSubmit = e => (dispatch, getState) => {
   e.preventDefault();
-  return {
-    type: HANDLE_FORM_SUBMIT,
-  };
+  const state = getState().featured;
+  if (state.inputValue === '') return;
+  else
+    dispatch({
+      type: HANDLE_FORM_SUBMIT,
+    });
 };
 
 export const openAddToCollectionModal = photoInfo => {

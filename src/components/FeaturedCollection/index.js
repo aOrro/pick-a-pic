@@ -1,6 +1,10 @@
-import { ReactComponent as BinIcon } from '../../assets/images/bin-icon.svg';
-
-import { Container, HeaderDiv, StyledSlider, StyledImg } from './styles';
+import {
+  Container,
+  HeaderDiv,
+  StyledBinIcon,
+  StyledSlider,
+  StyledImg,
+} from './styles';
 
 const FeaturedCollection = props => {
   const settings = {
@@ -19,7 +23,7 @@ const FeaturedCollection = props => {
     <Container onClick={props.handleClick}>
       <HeaderDiv>
         <h4>{props.title}</h4>
-        <BinIcon />
+        <StyledBinIcon />
       </HeaderDiv>
       <StyledSlider {...settings}>
         {props.collectionPhotos.map(item => {

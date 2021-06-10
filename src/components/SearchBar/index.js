@@ -1,11 +1,10 @@
-import { ReactComponent as SearchIcon } from '../../assets/images/search-icon.svg';
-import { StyledForm, SearchInputElement } from './styles';
+import { StyledForm, StyledSearchIcon, SearchInputElement } from './styles';
 
 const SearchBar = props => {
   return (
     <div>
       <StyledForm onSubmit={props.handleSubmit}>
-        <SearchIcon />
+        <StyledSearchIcon />
         <SearchInputElement
           type='text'
           onChange={props.handleChange}

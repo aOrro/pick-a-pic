@@ -5,7 +5,7 @@ import { ReactComponent as StatsIcon } from '../../assets/images/stats-icon.svg'
 
 export const Container = styled.div`
   width: 100%;
-  margin: 200px auto;
+  margin: 85px auto 0 auto;
 `;
 
 export const ContentContainer = styled.div`
@@ -17,7 +17,7 @@ export const ContentContainer = styled.div`
     display: flex;
     list-style: none;
     padding: 5px 0;
-    border-bottom: 1px solid lightgrey;
+    border-bottom: 1px solid ${props => props.theme.borders};
   }
 
   li {
@@ -31,12 +31,21 @@ export const ContentContainer = styled.div`
 export const StyledPhotoIcon = styled(PhotoIcon)`
   margin-right: 5px;
   padding-top: 3px;
+  & path {
+    fill: ${props => props.theme.secondary};
+  }
 `;
 
 export const StyledCollectionsIcon = styled(CollectionsIcon)`
   margin-right: 5px;
+  & path {
+    fill: ${props => props.theme.secondary};
+  }
 `;
 
 export const StyledStatsIcon = styled(StatsIcon)`
   margin-right: 5px;
+  & path {
+    fill: ${props => props.theme.secondary};
+  }
 `;

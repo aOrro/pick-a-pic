@@ -5,9 +5,6 @@ import { withRouter } from 'react-router';
 
 import capitalizeFirstLetter from '../../assets/capitalizeFirstLetter';
 
-import { ReactComponent as CloseWindowIcon } from '../../assets/images/close-window-icon.svg';
-import { ReactComponent as AddIcon } from '../../assets/images/add-icon.svg';
-
 import { openAddToCollectionModal } from '../../store/featured/featuredActions';
 
 import {
@@ -24,6 +21,8 @@ import {
   ModalFooter,
   Likes,
   StyledHeartIcon,
+  StyledAddIcon,
+  StyledCloseWindowIcon,
 } from './styles';
 
 const PhotoSlider = props => {
@@ -42,7 +41,6 @@ const PhotoSlider = props => {
   };
 
   const currentPhoto = props.arrayOfPhotos[photoIndex];
-
   if (!currentPhoto) return null;
 
   return (
@@ -60,7 +58,7 @@ const PhotoSlider = props => {
           <span>{currentPhoto.user.name}</span>
         </StyledLink>
         <div>
-          <CloseWindowIcon onClick={props.handleCloseClick} />
+          <StyledCloseWindowIcon onClick={props.handleCloseClick} />
         </div>
       </ModalHeader>
       <StyledSlider afterChange={handleAfterChange} {...sliderSettings}>
@@ -96,7 +94,7 @@ const PhotoSlider = props => {
           </i>
         </span>
         <div onClick={() => this.props.openAddToCollectionModal(currentPhoto)}>
-          <AddIcon />
+          <StyledAddIcon />
         </div>
       </ModalFooter>
     </Container>

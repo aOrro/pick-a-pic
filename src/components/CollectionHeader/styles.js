@@ -5,7 +5,8 @@ export const Container = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  margin: 200px 0 150px 0;
+  margin: 85px 0 150px 0;
+  padding-top: 100px;
 `;
 
 export const CollectionImage = styled.img`
@@ -27,7 +28,7 @@ export const CollectionInfo = styled.div`
 
   a {
     text-decoration: none;
-    color: #000;
+    color: ${props => props.theme.secondary};
   }
 `;
 
@@ -35,9 +36,10 @@ export const Labels = styled.div`
   margin-top: 20px;
 `;
 export const Label = styled(Link)`
-  background: #dcdcdc;
+  background: ${props => props.theme.third};
   margin-right: 10px;
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 14px;
+  color: ${props => props.theme.secondary};
 `;

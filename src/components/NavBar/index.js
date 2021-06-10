@@ -1,72 +1,86 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+
 import SearchBar from '../SearchBar';
-import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg';
-import { ReactComponent as ExploreIcon } from '../../assets/images/explore-icon.svg';
-import { ReactComponent as SunIcon } from '../../assets/images/sun-icon.svg';
-import { ReactComponent as MoonIcon } from '../../assets/images/moon-icon.svg';
+
 import logoImage from '../../assets/images/logo-project.png';
-import { Container, HeaderMenu, NavLinks, LinksList, Logo } from './styles';
+import lightLogoImage from '../../assets/images/logo-light.png';
 
-class NavBar extends React.Component {
-  state = {
-    searchValue: '',
-    lightTheme: true,
-  };
+import { handleThemeChange } from '../../store/settings/settingsActions';
 
-  handleChange = e => {
-    this.setState({
-      searchValue: e.target.value,
-    });
-  };
+import {
+  Container,
+  HeaderMenu,
+  NavLinks,
+  LinksList,
+  Logo,
+  LightLogo,
+  StyledHomeIcon,
+  StyledExploreIcon,
+  StyledSunIcon,
+  StyledMoonIcon,
+} from './styles';
 
-  handleSubmit = e => {
+const NavBar = props => {
+  const [searchValue, setSearchValue] = useState('');
+
+  const handleChange = e => setSearchValue(e.target.value);
+
+  const handleSubmit = e => {
     e.preventDefault();
-    this.props.history.push(`/search/photos/${this.state.searchValue}`);
-    this.setState({
-      searchValue: '',
-    });
+    props.history.push(`/search/photos/${searchValue}`);
+    setSearchValue('');
   };
 
-  handleThemeClick = () => {
-    this.setState({
-      lightTheme: !this.state.lightTheme,
-    });
-  };
-
-  render() {
-    return (
-      <Container>
-        <HeaderMenu>
-          <div>
+  return (
+    <Container>
+      <HeaderMenu>
+        <div>
+          {props.settings.lightTheme ? (
             <Logo src={logoImage} alt='Pick a pic logo' />
-          </div>
-          <SearchBar
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-            value={this.state.searchValue}
-          />
-          <NavLinks>
-            <LinksList>
-              <li>
-                <Link to='/'>
-                  <HomeIcon />
-                </Link>
-              </li>
-              <li>
-                <Link to='/explore'>
-                  <ExploreIcon />
-                </Link>
-              </li>
-              <li onClick={this.handleThemeClick}>
-                {this.state.lightTheme ? <MoonIcon /> : <SunIcon />}
-              </li>
-            </LinksList>
-          </NavLinks>
-        </HeaderMenu>
-      </Container>
-    );
-  }
-}
+          ) : (
+            <LightLogo src={lightLogoImage} alt='Pick a pic logo' />
+          )}
+        </div>
+        <SearchBar
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          value={searchValue}
+        />
+        <NavLinks>
+          <LinksList>
+            <li>
+              <Link to='/'>
+                <StyledHomeIcon />
+              </Link>
+            </li>
+            <li>
+              <Link to='/explore'>
+                <StyledExploreIcon />
+              </Link>
+            </li>
+            <li onClick={props.handleThemeChange}>
+              {props.settings.lightTheme ? (
+                <StyledMoonIcon />
+              ) : (
+                <StyledSunIcon />
+              )}
+            </li>
+          </LinksList>
+        </NavLinks>
+      </HeaderMenu>
+    </Container>
+  );
+};
 
-export default withRouter(NavBar);
+const mapStateToProps = state => ({
+  settings: state.settings,
+});
+
+const mapDispatchToProps = {
+  handleThemeChange,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(NavBar));

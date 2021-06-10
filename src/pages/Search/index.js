@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import SearchResultsPhotos from '../../components/SearchResultsPhotos';
@@ -16,6 +15,7 @@ import {
   Container,
   SearchInfo,
   SearchTabs,
+  StyledLink,
   StyledPhotoIcon,
   StyledCollectionsIcon,
   StyledUserIcon,
@@ -54,24 +54,24 @@ const Search = props => {
         </i>
       </SearchInfo>
       <SearchTabs>
-        <Link to={`/search/photos/${searchTerm}`}>
+        <StyledLink to={`/search/photos/${searchTerm}`}>
           <li onClick={() => props.handleTabClick('photos', searchTerm)}>
             <StyledPhotoIcon />
             Photos
           </li>
-        </Link>
-        <Link to={`/search/collections/${searchTerm}`}>
+        </StyledLink>
+        <StyledLink to={`/search/collections/${searchTerm}`}>
           <li onClick={() => props.handleTabClick('collections', searchTerm)}>
             <StyledCollectionsIcon />
             Collections
           </li>
-        </Link>
-        <Link to={`/search/users/${searchTerm}`}>
+        </StyledLink>
+        <StyledLink to={`/search/users/${searchTerm}`}>
           <li onClick={() => props.handleTabClick('users', searchTerm)}>
             <StyledUserIcon />
             Users
           </li>
-        </Link>
+        </StyledLink>
       </SearchTabs>
       {renderChosenTab()}
     </Container>

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Slider from 'react-slick';
+import { ReactComponent as BinIcon } from '../../assets/images/bin-icon.svg';
 
 export const Container = styled.div`
   margin-bottom: 10px;
@@ -13,6 +14,12 @@ export const HeaderDiv = styled.div`
 
   h4 {
     margin-bottom: 15px;
+  }
+`;
+
+export const StyledBinIcon = styled(BinIcon)`
+  & path {
+    fill: ${props => props.theme.secondary};
   }
 `;
 

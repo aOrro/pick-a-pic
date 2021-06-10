@@ -21,7 +21,7 @@ export const CollectionInfo = styled.div`
 `;
 
 export const StyledLink = styled(Link)`
-  color: #000;
+  color: ${props => props.theme.secondary};
   text-decoration: none;
 
   h3 {

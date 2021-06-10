@@ -1,11 +1,18 @@
 import styled from 'styled-components';
+import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg';
+import { ReactComponent as ExploreIcon } from '../../assets/images/explore-icon.svg';
+import { ReactComponent as SunIcon } from '../../assets/images/sun-icon.svg';
+import { ReactComponent as MoonIcon } from '../../assets/images/moon-icon.svg';
 
 export const Container = styled.div`
   width: 100%;
+  height: 85px;
   position: fixed;
   top: 0;
-  background: #efefef;
+  background: ${props => props.theme.main};
   z-index: 1;
+  box-shadow: 0 1px 8px -1px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid ${props => props.theme.borders};
 `;
 
 export const HeaderMenu = styled.header`
@@ -14,7 +21,6 @@ export const HeaderMenu = styled.header`
   justify-content: space-between;
   margin: 0 auto;
   width: 55%;
-  border-bottom: 1px solid lightgrey;
 `;
 
 export const NavLinks = styled.nav`
@@ -35,4 +41,31 @@ export const LinksList = styled.ul`
 export const Logo = styled.img`
   width: 80px;
   margin-right: 120px;
+`;
+
+export const LightLogo = styled.img`
+  width: 80px;
+  margin-right: 120px;
+`;
+
+export const StyledHomeIcon = styled(HomeIcon)`
+  margin-top: 5px;
+  & path {
+    fill: ${props => props.theme.secondary};
+  }
+`;
+
+export const StyledExploreIcon = styled(ExploreIcon)`
+  margin-top: 6px;
+  & path {
+    fill: ${props => props.theme.secondary};
+  }
+`;
+
+export const StyledSunIcon = styled(SunIcon)`
+  margin-top: 5px;
+`;
+
+export const StyledMoonIcon = styled(MoonIcon)`
+  margin-top: 5px;
 `;

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import {
@@ -40,4 +41,8 @@ const PhotoCard = props => {
   );
 };
 
-export default withRouter(PhotoCard);
+const mapDispatchToProps = state => ({
+  settings: state.settings,
+});
+
+export default connect(mapDispatchToProps)(withRouter(PhotoCard));
