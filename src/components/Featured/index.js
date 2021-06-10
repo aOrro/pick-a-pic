@@ -19,12 +19,17 @@ const Featured = props => {
   const { inputValue, collections, openCollectionModal, collectionClicked } =
     props.featured;
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    props.handleSubmit();
+  };
+
   return (
     <Container>
       <h3>Featured</h3>
       <StyledSpan>
-        <StyledIcon onClick={props.handleSubmit} />
-        <form onSubmit={props.handleSubmit}>
+        <StyledIcon onClick={handleSubmit} />
+        <form onSubmit={handleSubmit}>
           <StyledInput
             type='text'
             onChange={props.handleChange}

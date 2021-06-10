@@ -6,7 +6,7 @@ export const Container = styled.div`
   color: ${props => props.theme.secondary};
 `;
 
-export const LightTheme = {
+export const lightThemeStyles = {
   main: '#efefef',
   secondary: '#0e0e0e',
   third: '#e6e6e6',
@@ -15,7 +15,7 @@ export const LightTheme = {
   borders: 'lightgrey',
 };
 
-export const DarkTheme = {
+export const darkThemeStyles = {
   main: '#1b1b1b',
   secondary: '#efefef',
   third: '#343434',

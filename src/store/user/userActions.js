@@ -19,9 +19,6 @@ import {
   FETCH_USER_COLLECTIONS_ERROR,
   FETCH_MORE_COLLECTIONS,
   getCollectionsPageToLoad,
-  FETCH_USER_STATS_PENDING,
-  FETCH_USER_STATS_SUCCESS,
-  FETCH_USER_STATS_ERROR,
 } from './userTypes';
 
 export const handleTabClick = (chosenTab, username) => (dispatch, getState) => {

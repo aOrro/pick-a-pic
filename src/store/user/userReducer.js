@@ -16,9 +16,6 @@ import {
   FETCH_USER_COLLECTIONS_NO_DATA,
   FETCH_USER_COLLECTIONS_ERROR,
   FETCH_MORE_COLLECTIONS,
-  FETCH_USER_STATS_PENDING,
-  FETCH_USER_STATS_SUCCESS,
-  FETCH_USER_STATS_ERROR,
 } from './userTypes';
 
 const initialState = {
@@ -193,30 +190,6 @@ function userReducer(state = initialState, action) {
         collections: {
           ...state.collections,
           collectionsPageToLoad: state.collections.collectionsPageToLoad + 1,
-        },
-      };
-    case FETCH_USER_STATS_PENDING:
-      return {
-        ...state,
-        stats: {
-          ...state.stats,
-          isLoadingStats: true,
-        },
-      };
-    case FETCH_USER_STATS_SUCCESS:
-      return {
-        ...state,
-        stats: {
-          ...state.stats,
-          userStats: action.payload,
-        },
-      };
-    case FETCH_USER_STATS_ERROR:
-      return {
-        ...state,
-        stats: {
-          ...state.stats,
-          userStatsError: true,
         },
       };
     default:

@@ -10,13 +10,13 @@ import Search from './pages/Search';
 import User from './pages/User';
 import Collection from './pages/Collection';
 
-import { Container, LightTheme, DarkTheme } from './App.styles';
+import { Container, lightThemeStyles, darkThemeStyles } from './App.styles';
 
 const App = props => {
   const { lightTheme } = props.settings;
 
   return (
-    <ThemeProvider theme={lightTheme ? LightTheme : DarkTheme}>
+    <ThemeProvider theme={lightTheme ? lightThemeStyles : darkThemeStyles}>
       <Container>
         <Router>
           <NavBar />
