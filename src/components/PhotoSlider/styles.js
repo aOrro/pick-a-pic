@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
+import { ReactComponent as CloseWindowIcon } from '../../assets/images/close-window-icon.svg';
+import { ReactComponent as AddIcon } from '../../assets/images/add-icon.svg';
 import { ReactComponent as HeartIcon } from '../../assets/images/heart-icon.svg';
 
 export const Container = styled.div`
@@ -10,7 +12,7 @@ export const Container = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #fff;
+  background: ${props => props.theme.third};
   border-radius: 10px;
 `;
 
@@ -28,7 +30,7 @@ export const StyledSlider = styled(Slider)`
   }
 
   .slick-arrow:before {
-    color: #000;
+    color: ${props => props.theme.secondary};
     font-size: 25px;
   }
 
@@ -59,6 +61,10 @@ export const ModalHeader = styled.div`
   top: 0;
   padding: 0 20px;
   margin: 0 auto;
+
+  span {
+    color: ${props => props.theme.secondary};
+  }
 `;
 
 export const StyledLink = styled(Link)`
@@ -103,4 +109,19 @@ export const Likes = styled.span`
 
 export const StyledHeartIcon = styled(HeartIcon)`
   margin-right: 5px;
+  & path {
+    fill: ${props => props.theme.secondary};
+  }
+`;
+
+export const StyledAddIcon = styled(AddIcon)`
+  & path {
+    fill: ${props => props.theme.secondary};
+  }
+`;
+
+export const StyledCloseWindowIcon = styled(CloseWindowIcon)`
+  & path {
+    fill: ${props => props.theme.secondary};
+  }
 `;

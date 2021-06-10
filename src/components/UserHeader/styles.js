@@ -6,6 +6,7 @@ export const UserInfoContainer = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  padding-top: 100px;
 `;
 
 export const ProfileImage = styled.img`
@@ -39,7 +40,7 @@ export const UserInfo = styled.div`
 
   a {
     text-decoration: none;
-    color: #000;
+    color: ${props => props.theme.secondary};
   }
 `;
 
@@ -58,8 +59,14 @@ export const IconDiv = styled.div`
 
 export const StyledLocationIcon = styled(LocationIcon)`
   margin-right: 5px;
+  & path {
+    fill: ${props => props.theme.secondary};
+  }
 `;
 
 export const StyledWwwIcon = styled(WwwIcon)`
   margin-right: 5px;
+  & path {
+    fill: ${props => props.theme.secondary};
+  }
 `;

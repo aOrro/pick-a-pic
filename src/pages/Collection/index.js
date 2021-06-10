@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import CollectionHeader from '../../components/CollectionHeader';
@@ -12,7 +11,7 @@ import {
   deletePreviousData,
 } from '../../store/collection/collectionActions';
 
-import { Container, SearchTabs } from './styles';
+import { Container, SearchTabs, StyledLink } from './styles';
 
 const Collection = props => {
   const { collectionId } = props.match.params;
@@ -48,16 +47,16 @@ const Collection = props => {
     <Container>
       <CollectionHeader />
       <SearchTabs>
-        <Link to={`/collections/${collectionId}/photos`}>
+        <StyledLink to={`/collections/${collectionId}/photos`}>
           <li onClick={() => props.handleTabClick('photos', collectionId)}>
             Photos
           </li>
-        </Link>
-        <Link to={`/collections/${collectionId}/related`}>
+        </StyledLink>
+        <StyledLink to={`/collections/${collectionId}/related`}>
           <li onClick={() => props.handleTabClick('related', collectionId)}>
             Related
           </li>
-        </Link>
+        </StyledLink>
       </SearchTabs>
       {renderChosenTab()}
     </Container>

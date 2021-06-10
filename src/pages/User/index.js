@@ -28,14 +28,7 @@ const User = props => {
 
   const renderChosenTab = () => {
     const { chosenTab } = props.user;
-    switch (chosenTab) {
-      case 'collections':
-        return <UserCollections />;
-      case 'stats':
-        return <UserStats />;
-      default:
-        return <UserPhotos />;
-    }
+    return chosenTab === 'photos' ? <UserPhotos /> : <UserCollections />;
   };
 
   return (
@@ -50,10 +43,6 @@ const User = props => {
           <li onClick={() => props.handleTabClick('collections', userName)}>
             <StyledCollectionsIcon />
             Collections
-          </li>
-          <li onClick={() => props.handleTabClick('stats', userName)}>
-            <StyledStatsIcon />
-            Stats
           </li>
         </ul>
         {renderChosenTab()}

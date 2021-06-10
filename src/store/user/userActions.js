@@ -19,9 +19,6 @@ import {
   FETCH_USER_COLLECTIONS_ERROR,
   FETCH_MORE_COLLECTIONS,
   getCollectionsPageToLoad,
-  FETCH_USER_STATS_PENDING,
-  FETCH_USER_STATS_SUCCESS,
-  FETCH_USER_STATS_ERROR,
 } from './userTypes';
 
 export const handleTabClick = (chosenTab, username) => (dispatch, getState) => {
@@ -30,14 +27,9 @@ export const handleTabClick = (chosenTab, username) => (dispatch, getState) => {
     payload: chosenTab,
   });
 
-  switch (chosenTab) {
-    case 'collections':
-      return dispatch(getUserCollections(username));
-    case 'stats':
-      return dispatch(getUserStats(username));
-    default:
-      return dispatch(getUserPhotos(username));
-  }
+  return chosenTab === 'photos'
+    ? dispatch(getUserPhotos(username))
+    : dispatch(getUserCollections(username));
 };
 
 export const clearDataForNewUser = () => {
@@ -125,24 +117,4 @@ export const getMoreCollections = () => {
     type: FETCH_MORE_COLLECTIONS,
     payload: 1,
   };
-};
-
-export const getUserStats = username => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: FETCH_USER_STATS_PENDING,
-    });
-    const { data } = await axios(
-      `https://api.unsplash.com/users/${username}/statistics?client_id=${process.env.REACT_APP_API_KEY}`
-    );
-    dispatch({
-      type: FETCH_USER_STATS_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    console.log(error);
-    dispatch({
-      type: FETCH_USER_STATS_ERROR,
-    });
-  }
 };

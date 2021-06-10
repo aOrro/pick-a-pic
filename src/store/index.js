@@ -7,6 +7,7 @@ import featuredReducer from './featured/featuredReducer';
 import userReducer from './user/userReducer';
 import searchReducer from './search/searchReducer';
 import collectionReducer from './collection/collectionReducer';
+import settingsReducer from './settings/settingsReducer';
 
 const rootReducer = combineReducers({
   feed: feedReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   search: searchReducer,
   collection: collectionReducer,
+  settings: settingsReducer,
 });
 
 const middleware = [thunk];
@@ -21,8 +23,8 @@ const middleware = [thunk];
 const store = createStore(
   rootReducer,
   compose(
-    applyMiddleware(...middleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    applyMiddleware(...middleware)
+    //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
 

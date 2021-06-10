@@ -19,6 +19,3 @@ export const FETCH_USER_COLLECTIONS_ERROR = 'FETCH_USER_COLLECTIONS_ERROR';
 export const FETCH_MORE_COLLECTIONS = 'FETCH_MORE_COLLECTIONS';
 export const getCollectionsPageToLoad = state =>
   state.user.collections.collectionsPageToLoad;
-export const FETCH_USER_STATS_PENDING = 'FETCH_USER_STATS_PENDING';
-export const FETCH_USER_STATS_SUCCESS = 'FETCH_USER_STATS_SUCCESS';
-export const FETCH_USER_STATS_ERROR = 'FETCH_USER_STATS_ERROR';
