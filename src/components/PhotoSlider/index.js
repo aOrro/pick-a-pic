@@ -93,7 +93,7 @@ const PhotoSlider = props => {
             )}
           </i>
         </span>
-        <div onClick={() => this.props.openAddToCollectionModal(currentPhoto)}>
+        <div onClick={() => props.openAddToCollectionModal(currentPhoto)}>
           <StyledAddIcon />
         </div>
       </ModalFooter>

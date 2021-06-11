@@ -1,5 +1,7 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 
 import feedReducer from './feed/feedReducer';
@@ -8,6 +10,12 @@ import userReducer from './user/userReducer';
 import searchReducer from './search/searchReducer';
 import collectionReducer from './collection/collectionReducer';
 import settingsReducer from './settings/settingsReducer';
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['featured'],
+};
 
 const rootReducer = combineReducers({
   feed: feedReducer,
@@ -20,12 +28,14 @@ const rootReducer = combineReducers({
 
 const middleware = [thunk];
 
-const store = createStore(
-  rootReducer,
+export const store = createStore(
+  persistReducer(persistConfig, rootReducer),
   compose(
     applyMiddleware(...middleware)
     //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
 
-export default store;
+export const persistor = persistStore(store);
+
+export default (store, persistor);
