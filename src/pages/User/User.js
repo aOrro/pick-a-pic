@@ -2,11 +2,9 @@ import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 
-import UserHeader from '../../components/UserHeader';
-import UserPhotos from '../../components/UserPhotos';
-import UserCollections from '../../components/UserCollections';
+import { UserHeader, UserPhotos, UserCollections } from 'components';
 
-import { handleTabClick, handleCloseClick } from '../../store/user/userActions';
+import { handleTabClick, handleCloseClick } from 'store';
 
 import {
   Container,

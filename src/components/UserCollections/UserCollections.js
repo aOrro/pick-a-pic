@@ -10,7 +10,7 @@ import {
   getUserCollections,
   getMoreCollections,
   clearDataForNewUser,
-} from '../../store/user/userActions';
+} from 'store';
 
 import { Container } from './UserCollections.styles';
 

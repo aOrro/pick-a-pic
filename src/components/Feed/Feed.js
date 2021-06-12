@@ -7,11 +7,11 @@ import { PhotoCard, PhotoModal, AddToCollectionModal } from 'components';
 
 import {
   getFeedPhotos,
-  getMoreData,
-  handlePhotoClick,
-  handleCloseClick,
-} from '../../store/feed/feedActions';
-import { openAddToCollectionModal } from '../../store/featured/featuredActions';
+  getMoreFeedPhotos,
+  openPhotoModal,
+  closePhotoModal,
+  openAddToCollectionModal,
+} from 'store';
 
 import { Container } from './Feed.styles';
 
@@ -21,14 +21,13 @@ const Feed = props => {
     //eslint-disable-next-line
   }, []);
 
-  const { pageToLoad } = props.feed;
+  const { index, photos, hasMore, pageToLoad } = props.feed;
 
   useEffect(() => {
     props.getFeedPhotos();
     //eslint-disable-next-line
   }, [pageToLoad]);
 
-  const { index, photos, hasMore } = props.feed;
   const { showCollectionsModal } = props.featured.modal;
   const showPhotoModal = index > -1;
 
@@ -36,7 +35,7 @@ const Feed = props => {
     <Container>
       <InfiniteScroll
         dataLength={photos.length}
-        next={props.getMoreData}
+        next={props.getMoreFeedPhotos}
         hasMore={hasMore}
         loader={<div>Loading photos...</div>}
       >
@@ -45,7 +44,7 @@ const Feed = props => {
             <PhotoCard
               {...item}
               key={item.id}
-              handlePhotoClick={() => props.handlePhotoClick(index)}
+              handlePhotoClick={() => props.openPhotoModal(index)}
               openAddToCollectionModal={() =>
                 props.openAddToCollectionModal(item)
               }
@@ -56,7 +55,7 @@ const Feed = props => {
           <PhotoModal
             index={index}
             arrayOfPhotos={photos}
-            handleCloseClick={props.handleCloseClick}
+            handleCloseClick={props.closePhotoModal}
           />
         )}
         {showCollectionsModal && <AddToCollectionModal />}
@@ -72,9 +71,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   getFeedPhotos,
-  getMoreData,
-  handlePhotoClick,
-  handleCloseClick,
+  getMoreFeedPhotos,
+  openPhotoModal,
+  closePhotoModal,
   openAddToCollectionModal,
 };
 

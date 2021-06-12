@@ -2,14 +2,13 @@ import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 
-import CollectionHeader from '../../components/CollectionHeader';
-import CollectionPhotos from '../../components/CollectionPhotos';
-import RelatedCollections from '../../components/RelatedCollections';
-
 import {
-  handleTabClick,
-  deletePreviousData,
-} from '../../store/collection/collectionActions';
+  CollectionHeader,
+  CollectionPhotos,
+  RelatedCollections,
+} from 'components';
+
+import { handleTabClick, deletePreviousData } from 'store';
 
 import { Container, SearchTabs, StyledLink } from './Collection.styles';
 

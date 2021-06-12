@@ -16,7 +16,7 @@ import {
   FETCH_USER_COLLECTIONS_NO_DATA,
   FETCH_USER_COLLECTIONS_ERROR,
   FETCH_MORE_COLLECTIONS,
-} from './userTypes';
+} from './user.types';
 
 const initialState = {
   chosenTab: '',

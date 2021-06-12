@@ -10,7 +10,7 @@ import {
   CREATE_NEW_COLLECTION,
   OPEN_COLLECTION_MODAL,
   CLOSE_COLLECTION_MODAL,
-} from './featuredTypes';
+} from './featured.types';
 
 const initialState = {
   inputValue: '',

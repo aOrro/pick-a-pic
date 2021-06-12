@@ -10,7 +10,7 @@ import {
   handleSubmit,
   handleCollectionClick,
   closeCollectionModal,
-} from '../../store/featured/featuredActions';
+} from 'store';
 
 import {
   Container,

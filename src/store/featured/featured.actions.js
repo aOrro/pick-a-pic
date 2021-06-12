@@ -10,7 +10,7 @@ import {
   CREATE_NEW_COLLECTION,
   OPEN_COLLECTION_MODAL,
   CLOSE_COLLECTION_MODAL,
-} from './featuredTypes';
+} from './featured.types';
 
 export const handleChange = e => {
   return {
@@ -26,8 +26,7 @@ export const handleClick = index => {
   };
 };
 
-export const handleSubmit = e => (dispatch, getState) => {
-  e.preventDefault();
+export const handleSubmit = () => (dispatch, getState) => {
   const state = getState().featured;
   if (state.inputValue === '') return;
   else

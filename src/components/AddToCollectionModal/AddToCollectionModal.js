@@ -6,7 +6,7 @@ import {
   handleChange,
   handleFocus,
   createNewCollection,
-} from '../../store/featured/featuredActions';
+} from 'store';
 
 import {
   Container,

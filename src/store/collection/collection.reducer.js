@@ -15,7 +15,7 @@ import {
   OPEN_PHOTO_MODAL,
   CLOSE_PHOTO_MODAL,
   DELETE_PREVIOUS_DATA,
-} from './collectionTypes';
+} from './collection.types';
 
 const initialState = {
   chosenTab: '',

@@ -18,7 +18,7 @@ import {
   CLOSE_PHOTO_MODAL,
   getPageToLoad,
   DELETE_PREVIOUS_DATA,
-} from './collectionTypes';
+} from './collection.types';
 
 export const handleTabClick =
   (chosenTab, collectionId) => (dispatch, getState) => {

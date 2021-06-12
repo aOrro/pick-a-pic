@@ -13,7 +13,7 @@ import {
   handlePhotoClick,
   handleCloseClick,
   deletePreviousData,
-} from '../../store/collection/collectionActions';
+} from 'store';
 
 import { Container, StyledPhoto } from './CollectionPhotos.styles.js';
 

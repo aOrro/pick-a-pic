@@ -1,6 +1,7 @@
 import React from 'react';
-import Feed from '../../components/Feed';
-import Featured from '../../components/Featured';
+
+import { Feed, Featured } from 'components';
+
 import { Container } from './Home.styles';
 
 const Home = props => {

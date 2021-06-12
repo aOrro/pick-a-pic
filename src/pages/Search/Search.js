@@ -2,14 +2,13 @@ import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 
-import SearchResultsPhotos from '../../components/SearchResultsPhotos';
-import SearchResultsCollections from '../../components/SearchResultsCollections';
-import SearchResultsUsers from '../../components/SearchResultsUsers';
-
 import {
-  handleTabClick,
-  clearDataForNewSearch,
-} from '../../store/search/searchActions';
+  SearchResultsPhotos,
+  SearchResultsCollections,
+  SearchResultsUsers,
+} from 'components';
+
+import { handleTabClick, clearDataForNewSearch } from 'store';
 
 import {
   Container,

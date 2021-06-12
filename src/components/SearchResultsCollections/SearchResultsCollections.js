@@ -10,7 +10,7 @@ import {
   getSearchCollections,
   getMoreCollections,
   clearDataForNewSearch,
-} from '../../store/search/searchActions';
+} from 'store';
 
 import { Container } from './SearchResultsCollections.styles';
 
