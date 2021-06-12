@@ -8,7 +8,7 @@ import {
   PHOTO_CLICK,
   CLOSE_MODAL,
   getPageToLoad,
-} from './feedTypes';
+} from './feed.types';
 
 export const getFeedPhotos = () => async (dispatch, getState) => {
   try {
@@ -35,20 +35,20 @@ export const getFeedPhotos = () => async (dispatch, getState) => {
   }
 };
 
-export const getMoreData = () => {
+export const getMoreFeedPhotos = () => {
   return {
     type: FETCH_NEW_PAGE,
   };
 };
 
-export const handlePhotoClick = index => {
+export const openPhotoModal = index => {
   return {
     type: PHOTO_CLICK,
     payload: index,
   };
 };
 
-export const handleCloseClick = () => {
+export const closePhotoModal = () => {
   return {
     type: CLOSE_MODAL,
   };

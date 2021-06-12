@@ -1,4 +1,4 @@
-import { THEME_CHANGE } from './settingsTypes';
+import { THEME_CHANGE } from './settings.types';
 
 const initialState = {
   lightTheme: true,

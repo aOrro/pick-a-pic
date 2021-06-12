@@ -18,7 +18,7 @@ import {
   FETCH_SEARCH_USERS_NO_DATA,
   FETCH_SEARCH_USERS_ERROR,
   FETCH_MORE_SEARCH_USERS,
-} from './searchTypes';
+} from './search.types';
 
 const initialState = {
   chosenTab: '',

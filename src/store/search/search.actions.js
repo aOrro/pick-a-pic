@@ -22,7 +22,7 @@ import {
   FETCH_SEARCH_USERS_ERROR,
   FETCH_MORE_SEARCH_USERS,
   getSearchUsersPageToLoad,
-} from './searchTypes';
+} from './search.types';
 
 export const handleTabClick =
   (chosenTab, searchTerm) => (dispatch, getState) => {

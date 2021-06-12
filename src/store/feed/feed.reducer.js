@@ -6,7 +6,7 @@ import {
   FETCH_NEW_PAGE,
   PHOTO_CLICK,
   CLOSE_MODAL,
-} from './feedTypes';
+} from './feed.types';
 
 const initialState = {
   photos: [],
