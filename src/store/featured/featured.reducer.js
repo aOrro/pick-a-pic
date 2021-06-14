@@ -5,7 +5,8 @@ import {
   OPEN_ADD_TO_COLLECTION_MODAL,
   ADD_PHOTO_TO_COLLECTION,
   CLOSE_ADD_TO_COLLECTION_MODAL,
-  REMOVE_PHOTO_FROM_COLLECTION,
+  /*   DELETE_COLLECTION,
+   */ REMOVE_PHOTO_FROM_COLLECTION,
   FOCUS_ON_CREATE_NEW_COLLECTION,
   CREATE_NEW_COLLECTION,
   OPEN_COLLECTION_MODAL,
@@ -14,11 +15,7 @@ import {
 
 const initialState = {
   inputValue: '',
-  collections: [
-    { title: 'Collection A', photos: [] },
-    { title: 'Collection B', photos: [] },
-    { title: 'Collection C', photos: [] },
-  ],
+  collections: [],
   openCollectionModal: false,
   collectionClicked: null,
   index: -1,
@@ -75,8 +72,14 @@ function featuredReducer(state = initialState, action) {
         modal: {
           ...state.modal,
           showCollectionsModal: false,
+          newCollection: false,
         },
       };
+    /*     case DELETE_COLLECTION:
+      return {
+        ...state,
+        collections: action.payload,
+      }; */
     case FOCUS_ON_CREATE_NEW_COLLECTION:
       return {
         ...state,

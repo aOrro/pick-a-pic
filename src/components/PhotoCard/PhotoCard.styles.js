@@ -54,6 +54,7 @@ export const StyledHeartIcon = styled(HeartIcon)`
 `;
 
 export const StyledAddIcon = styled(AddIcon)`
+  margin-top: 3px;
   & path {
     fill: ${props => props.theme.secondary};
   }

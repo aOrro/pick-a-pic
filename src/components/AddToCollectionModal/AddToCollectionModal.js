@@ -1,3 +1,5 @@
+import { useRef, useEffect } from 'react';
+
 import { connect } from 'react-redux';
 
 import {
@@ -14,14 +16,24 @@ import {
   Modal,
   ModalHeader,
   CollectionsList,
+  NewCollectionDiv,
+  StyledForm,
+  NewCollectionSpan,
   StyledInput,
   StyledCloseIcon,
   StyledAddIcon,
 } from './AddToCollectionModal.styles';
 
 const AddToCollectionModal = props => {
+  const inputRef = useRef();
   const { inputValue, collections } = props.featured;
   const { newCollection } = props.featured.modal;
+
+  useEffect(() => {
+    if (newCollection) {
+      return inputRef.current.focus();
+    }
+  }, [newCollection]);
 
   return (
     <Container>
@@ -48,18 +60,28 @@ const AddToCollectionModal = props => {
             );
           })}
         </CollectionsList>
-        <StyledAddIcon onClick={props.handleFocus} />
-        <form onSubmit={props.createNewCollection}>
-          <StyledInput
-            type='text'
-            onFocus={props.handleFocus}
-            onChange={props.handleChange}
-            defaultValue={inputValue}
-            placeholder='New Collection'
-          />
-        </form>
-        {newCollection && (
-          <button onClick={props.createNewCollection}>Create collection</button>
+        {newCollection ? (
+          <NewCollectionDiv>
+            <StyledForm onSubmit={props.createNewCollection}>
+              <label htmlFor='collection-title'>Collection title:</label>
+              <StyledInput
+                type='text'
+                name='collection-title'
+                onChange={props.handleChange}
+                defaultValue={inputValue}
+                placeholder='Enter title...'
+                ref={inputRef}
+              />
+            </StyledForm>
+            <button onClick={props.createNewCollection}>
+              Create collection
+            </button>
+          </NewCollectionDiv>
+        ) : (
+          <NewCollectionSpan>
+            <StyledAddIcon onClick={props.handleFocus} />
+            <span onClick={props.handleFocus}>New Collection</span>
+          </NewCollectionSpan>
         )}
       </Modal>
     </Container>

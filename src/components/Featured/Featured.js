@@ -9,6 +9,7 @@ import {
   handleClick,
   handleSubmit,
   handleCollectionClick,
+  // deleteCollection,
   closeCollectionModal,
 } from 'store';
 
@@ -48,6 +49,7 @@ const Featured = props => {
             title={item.title}
             collectionPhotos={item.photos}
             handleClick={() => props.handleCollectionClick(index)}
+            /* deleteCollection={props.deleteCollection} */
             key={item.title}
           />
         );
@@ -72,6 +74,7 @@ const mapDispatchToProps = {
   handleClick,
   handleSubmit,
   handleCollectionClick,
+  // deleteCollection,
   closeCollectionModal,
 };
 

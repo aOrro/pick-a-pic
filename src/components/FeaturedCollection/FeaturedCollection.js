@@ -20,12 +20,12 @@ const FeaturedCollection = props => {
   };
 
   return (
-    <Container onClick={props.handleClick}>
+    <Container>
       <HeaderDiv>
-        <h4>{props.title}</h4>
-        <StyledBinIcon />
+        <h4 onClick={props.handleClick}>{props.title}</h4>
+        <StyledBinIcon onClick={props.deleteCollection} />
       </HeaderDiv>
-      <StyledSlider {...settings}>
+      <StyledSlider {...settings} onClick={props.handleClick}>
         {props.collectionPhotos.map(item => {
           return (
             <StyledImg

@@ -5,6 +5,7 @@ import {
   OPEN_ADD_TO_COLLECTION_MODAL,
   ADD_PHOTO_TO_COLLECTION,
   CLOSE_ADD_TO_COLLECTION_MODAL,
+  // DELETE_COLLECTION,
   REMOVE_PHOTO_FROM_COLLECTION,
   FOCUS_ON_CREATE_NEW_COLLECTION,
   CREATE_NEW_COLLECTION,
@@ -48,6 +49,16 @@ export const closeAddToCollectionModal = () => {
   };
 };
 
+/* export const deleteCollection = index => (dispatch, getState) => {
+  const collections = [...getState().featured.collections];
+  collections.splice(index, 1);
+  console.log(collections);
+  return dispatch({
+    type: DELETE_COLLECTION,
+    payload: collections,
+  });
+}; */
+
 export const addToCollection =
   (isChecked, checkboxValue) => (dispatch, getState) => {
     const state = getState().featured;
@@ -84,11 +95,14 @@ export const createNewCollection = () => {
   };
 };
 
-export const handleCollectionClick = index => {
-  return {
-    type: OPEN_COLLECTION_MODAL,
-    payload: index,
-  };
+export const handleCollectionClick = index => (dispatch, getState) => {
+  const collections = getState().featured.collections;
+  if (collections[index].photos === []) return;
+  else
+    return dispatch({
+      type: OPEN_COLLECTION_MODAL,
+      payload: index,
+    });
 };
 
 export const closeCollectionModal = () => {
