@@ -2,7 +2,11 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
-  margin: 0 5px 80px 5px;
+  margin-bottom: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 330px;
 
   img {
     width: 330px;
@@ -36,11 +40,11 @@ export const Labels = styled.div`
 `;
 
 export const Label = styled(Link)`
-  background: #dcdcdc;
+  background: ${props => props.theme.third};
   margin-right: 10px;
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 14px;
   text-decoration: none;
-  color: #000;
+  color: ${props => props.theme.secondary};
 `;

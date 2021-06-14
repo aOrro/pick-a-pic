@@ -1,40 +1,32 @@
-import { Link } from 'react-router-dom';
-
 import {
   Container,
+  ShadeDiv,
   CardHeader,
   MainUserInfo,
   ProfileImage,
-  ImagesPreview,
-  CardImagePreview,
+  StyledLink,
   VisitButton,
 } from './UserPreviewCard.styles';
 
 const UserPreviewCard = ({ userInfo }) => {
+  const src = userInfo.photos[0].urls.small;
+
   return (
-    <Link to={`/users/${userInfo.username}`}>
-      <Container>
+    <Container src={src}>
+      <ShadeDiv>
         <CardHeader>
           <MainUserInfo>
-            <ProfileImage src={userInfo.profile_image.medium} alt='profile' />
-            <div>
+            <StyledLink to={`/users/${userInfo.username}`}>
+              <ProfileImage src={userInfo.profile_image.large} alt='profile' />
+            </StyledLink>
+            <StyledLink to={`/users/${userInfo.username}`}>
               <h3>{userInfo.name}</h3>
               <span>@{userInfo.username}</span>
-            </div>
+            </StyledLink>
           </MainUserInfo>
         </CardHeader>
-        <ImagesPreview>
-          {userInfo.photos.map(photo => (
-            <CardImagePreview
-              src={photo.urls.small}
-              alt={photo.id}
-              key={photo.id}
-            />
-          ))}
-        </ImagesPreview>
-        <VisitButton>Visit profile</VisitButton>
-      </Container>
-    </Link>
+      </ShadeDiv>
+    </Container>
   );
 };
 

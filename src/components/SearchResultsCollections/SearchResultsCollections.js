@@ -12,7 +12,7 @@ import {
   clearDataForNewSearch,
 } from 'store/search';
 
-import { Container } from './SearchResultsCollections.styles';
+import { CollectionsDiv } from './SearchResultsCollections.styles';
 
 const SearchResultsCollections = props => {
   const { searchTerm } = props.match.params;
@@ -39,18 +39,20 @@ const SearchResultsCollections = props => {
   const { data, hasMore } = props.collections;
 
   return (
-    <Container>
+    <div>
       <InfiniteScroll
         dataLength={data.length}
         next={props.getMoreCollections}
         hasMore={hasMore}
         loader={<div>Loading photos...</div>}
       >
-        {data.map(item => {
-          return <CollectionPreviewCard data={item} key={item.id} />;
-        })}
+        <CollectionsDiv>
+          {data.map(item => {
+            return <CollectionPreviewCard data={item} key={item.id} />;
+          })}
+        </CollectionsDiv>
       </InfiniteScroll>
-    </Container>
+    </div>
   );
 };
 
