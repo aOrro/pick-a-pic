@@ -10,8 +10,8 @@ import {
   getMoreFeedPhotos,
   openPhotoModal,
   closePhotoModal,
-  openAddToCollectionModal,
-} from 'store';
+} from 'store/feed';
+import { openAddToCollectionModal } from 'store/featured';
 
 import { Container } from './Feed.styles';
 

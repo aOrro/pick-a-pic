@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import capitalizeFirstLetter from '../../assets/capitalizeFirstLetter';
 
-import { getCollectionData } from 'store';
+import { getCollectionData } from 'store/collection';
 
 import {
   Container,

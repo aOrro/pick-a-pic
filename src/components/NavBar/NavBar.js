@@ -8,7 +8,7 @@ import { SearchBar } from 'components';
 import logoImage from '../../assets/images/logo-project.png';
 import lightLogoImage from '../../assets/images/logo-light.png';
 
-import { handleThemeChange } from 'store';
+import { handleThemeChange } from 'store/settings';
 
 import {
   Container,

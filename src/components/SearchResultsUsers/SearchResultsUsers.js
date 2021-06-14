@@ -10,7 +10,7 @@ import {
   getSearchUsers,
   getMoreSearchUsers,
   clearDataForNewSearch,
-} from 'store';
+} from 'store/search';
 
 import { Container } from './SearchResultsUsers.styles';
 

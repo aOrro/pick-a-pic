@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 
 import capitalizeFirstLetter from '../../assets/capitalizeFirstLetter';
 
-import { openAddToCollectionModal } from 'store';
+import { openAddToCollectionModal } from 'store/featured';
 
 import {
   Container,

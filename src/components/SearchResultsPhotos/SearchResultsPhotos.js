@@ -12,7 +12,7 @@ import {
   handlePhotoClick,
   handleCloseClick,
   clearDataForNewSearch,
-} from 'store';
+} from 'store/search';
 
 import { Container, StyledPhoto } from './SearchResultsPhotos.styles';
 

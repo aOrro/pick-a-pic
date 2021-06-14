@@ -8,7 +8,7 @@ import {
   handleChange,
   handleFocus,
   createNewCollection,
-} from 'store';
+} from 'store/featured';
 
 import {
   Container,

@@ -12,8 +12,8 @@ import {
   handlePhotoClick,
   handleCloseClick,
   clearDataForNewUser,
-  openAddToCollectionModal,
-} from 'store';
+} from 'store/user';
+import { openAddToCollectionModal } from 'store/featured';
 
 import { Container, StyledPhoto } from './UserPhotos.styles';
 

@@ -11,7 +11,7 @@ import {
   handleCollectionClick,
   // deleteCollection,
   closeCollectionModal,
-} from 'store';
+} from 'store/featured';
 
 import {
   Container,
