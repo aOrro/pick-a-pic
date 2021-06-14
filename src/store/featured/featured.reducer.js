@@ -9,6 +9,7 @@ import {
    */ REMOVE_PHOTO_FROM_COLLECTION,
   FOCUS_ON_CREATE_NEW_COLLECTION,
   CREATE_NEW_COLLECTION,
+  SHOW_INPUT,
   OPEN_COLLECTION_MODAL,
   CLOSE_COLLECTION_MODAL,
 } from './featured.types';
@@ -16,6 +17,7 @@ import {
 const initialState = {
   inputValue: '',
   collections: [],
+  showInput: false,
   openCollectionModal: false,
   collectionClicked: null,
   index: -1,
@@ -42,6 +44,7 @@ function featuredReducer(state = initialState, action) {
       return {
         ...state,
         inputValue: '',
+        showInput: false,
         collections: [
           ...state.collections,
           { title: state.inputValue, photos: [] },
@@ -99,6 +102,11 @@ function featuredReducer(state = initialState, action) {
         modal: {
           showCollectionsModal: false,
         },
+      };
+    case SHOW_INPUT:
+      return {
+        ...state,
+        showInput: true,
       };
     case OPEN_COLLECTION_MODAL:
       return {

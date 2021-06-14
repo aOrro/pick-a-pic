@@ -4,5 +4,5 @@ export const Container = styled.div`
   width: 60%;
   display: flex;
   flex-direction: column;
-  margin-top: 55px;
+  margin-top: 105px;
 `;

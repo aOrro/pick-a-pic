@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { UserHeader, UserPhotos, UserCollections } from 'components';
 
-import { handleTabClick, handleCloseClick } from 'store';
+import { handleTabClick, handleCloseClick } from 'store/user';
 
 import {
   Container,

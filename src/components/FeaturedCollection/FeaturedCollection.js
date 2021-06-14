@@ -23,19 +23,21 @@ const FeaturedCollection = props => {
     <Container>
       <HeaderDiv>
         <h4 onClick={props.handleClick}>{props.title}</h4>
-        <StyledBinIcon onClick={props.deleteCollection} />
+        <StyledBinIcon /* onClick={props.deleteCollection} */ />
       </HeaderDiv>
-      <StyledSlider {...settings} onClick={props.handleClick}>
-        {props.collectionPhotos.map(item => {
-          return (
-            <StyledImg
-              src={item.urls.small}
-              alt={item.alt_description}
-              key={item.id}
-            />
-          );
-        })}
-      </StyledSlider>
+      {props.collectionPhotos.length > 0 && (
+        <StyledSlider {...settings} onClick={props.handleClick}>
+          {props.collectionPhotos.map(item => {
+            return (
+              <StyledImg
+                src={item.urls.small}
+                alt={item.alt_description}
+                key={item.id}
+              />
+            );
+          })}
+        </StyledSlider>
+      )}
     </Container>
   );
 };

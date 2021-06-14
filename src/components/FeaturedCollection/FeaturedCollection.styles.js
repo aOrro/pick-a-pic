@@ -3,18 +3,20 @@ import Slider from 'react-slick';
 import { ReactComponent as BinIcon } from '../../assets/images/bin-icon.svg';
 
 export const Container = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  border: 1px solid ${props => props.theme.borders};
+  border-radius: 5px;
+  height: auto;
+  background: ${props => props.theme.cardBackground};
+  box-shadow: 0 2px 5px -1px rgba(50, 50, 93, 0.25),
+    0 1px 3px -1px rgba(0, 0, 0, 0.3);
 `;
 
 export const HeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: 5px;
-
-  h4 {
-    margin-bottom: 15px;
-  }
+  padding: 0 10px;
 `;
 
 export const StyledBinIcon = styled(BinIcon)`
@@ -24,13 +26,20 @@ export const StyledBinIcon = styled(BinIcon)`
 `;
 
 export const StyledSlider = styled(Slider)`
-  slick-slider {
+  .slick-slider {
+    border-radius: 5px;
+  }
+
+  .slick-track {
+    height: 250px;
     border-radius: 5px;
   }
 `;
 
 export const StyledImg = styled.img`
-  height: 150px;
+  height: 250px;
   object-fit: cover;
-  border-radius: 5px;
+  margin: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 `;

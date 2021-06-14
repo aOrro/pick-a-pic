@@ -1,20 +1,23 @@
 import styled from 'styled-components';
 import { ReactComponent as AddIcon } from '../../assets/images/add-icon-2.svg';
+import { ReactComponent as SuccessIcon } from '../../assets/images/check-success.svg';
 
 export const Container = styled.div`
-  width: 40%;
-  padding: 0 20px;
+  width: 320px;
+  margin-top: 50px;
+  position: fixed;
+  top: 85px;
+  right: 22.5%;
 
   h3 {
-    border-bottom: 1px solid ${props => props.theme.borders};
-    margin: 10px 0 20px 0;
-    padding: 10px 0;
+    margin: 0;
+    padding: 15px 0;
   }
 `;
 
 export const StyledInput = styled.input`
   border: none;
-  border-bottom: 1px solid ${props => props.theme.borders};
+  border-bottom: 1px solid ${props => props.theme.secondary};
   background: none;
   font-size: 16px;
   height: 25px;
@@ -28,10 +31,42 @@ export const StyledInput = styled.input`
 export const StyledSpan = styled.span`
   display: flex;
   align-items: center;
+  background: ${props => props.theme.cardBackground};
+  border: 1px solid ${props => props.theme.borders};
+  border-radius: 5px;
+  height: 60px;
+  box-shadow: 0 2px 5px -1px rgba(50, 50, 93, 0.25),
+    0 1px 3px -1px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
 `;
 
 export const StyledIcon = styled(AddIcon)`
-  margin-right: 10px;
+  margin: 0 10px 0 15px;
+  background: ${props => props.theme.third};
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background: red;
+  }
+
+  & path {
+    fill: ${props => props.theme.secondary};
+  }
+`;
+
+export const StyledSuccessIcon = styled(SuccessIcon)`
+  margin: 0 10px 0 15px;
+  background: ${props => props.theme.third};
+  border-radius: 50%;
+  padding: 7px;
+  cursor: pointer;
+
+  &:hover {
+    background: red;
+  }
+
   & path {
     fill: ${props => props.theme.secondary};
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -7,6 +7,7 @@ import { FeaturedCollection, PhotoModal } from 'components';
 import {
   handleChange,
   handleClick,
+  handleShowInput,
   handleSubmit,
   handleCollectionClick,
   // deleteCollection,
@@ -18,31 +19,55 @@ import {
   StyledInput,
   StyledSpan,
   StyledIcon,
+  StyledSuccessIcon,
 } from './Featured.styles';
 
 const Featured = props => {
-  const { inputValue, collections, openCollectionModal, collectionClicked } =
-    props.featured;
+  const {
+    inputValue,
+    collections,
+    showInput,
+    openCollectionModal,
+    collectionClicked,
+  } = props.featured;
 
   const handleSubmit = e => {
     e.preventDefault();
     props.handleSubmit();
   };
 
+  const inputRef = useRef();
+
+  useEffect(() => {
+    if (showInput) inputRef.current.focus();
+    else return;
+  }, [showInput]);
+
   return (
     <Container>
       <h3>Featured</h3>
       <StyledSpan>
-        <StyledIcon onClick={handleSubmit} />
-        <form onSubmit={handleSubmit}>
-          <StyledInput
-            type='text'
-            onChange={props.handleChange}
-            value={inputValue}
-            placeholder='Add Collection...'
-          />
-        </form>
+        {showInput ? (
+          <>
+            <StyledSuccessIcon onClick={handleSubmit} />
+            <form onSubmit={handleSubmit}>
+              <StyledInput
+                type='text'
+                onChange={props.handleChange}
+                value={inputValue}
+                placeholder='Enter collection title...'
+                ref={inputRef}
+              />
+            </form>
+          </>
+        ) : (
+          <>
+            <StyledIcon onClick={props.handleShowInput} />
+            <span>Create collection</span>
+          </>
+        )}
       </StyledSpan>
+
       {collections.map((item, index) => {
         return (
           <FeaturedCollection
@@ -72,6 +97,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   handleChange,
   handleClick,
+  handleShowInput,
   handleSubmit,
   handleCollectionClick,
   // deleteCollection,

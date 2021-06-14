@@ -8,7 +8,7 @@ import {
   SearchResultsUsers,
 } from 'components';
 
-import { handleTabClick, clearDataForNewSearch } from 'store';
+import { handleTabClick, clearDataForNewSearch } from 'store/search';
 
 import {
   Container,

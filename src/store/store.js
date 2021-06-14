@@ -4,19 +4,17 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 
-import {
-  feedReducer,
-  featuredReducer,
-  userReducer,
-  searchReducer,
-  collectionReducer,
-  settingsReducer,
-} from 'store';
+import { feedReducer } from 'store/feed';
+import { featuredReducer } from 'store/featured';
+import { userReducer } from 'store/user';
+import { searchReducer } from 'store/search';
+import { collectionReducer } from 'store/collection';
+import { settingsReducer } from 'store/settings';
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['featured', 'settings'],
+  whitelist: ['settings'],
 };
 
 const rootReducer = combineReducers({

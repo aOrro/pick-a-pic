@@ -8,7 +8,7 @@ import {
   RelatedCollections,
 } from 'components';
 
-import { handleTabClick, deletePreviousData } from 'store';
+import { handleTabClick, deletePreviousData } from 'store/collection';
 
 import { Container, SearchTabs, StyledLink } from './Collection.styles';
 

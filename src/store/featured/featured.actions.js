@@ -9,6 +9,7 @@ import {
   REMOVE_PHOTO_FROM_COLLECTION,
   FOCUS_ON_CREATE_NEW_COLLECTION,
   CREATE_NEW_COLLECTION,
+  SHOW_INPUT,
   OPEN_COLLECTION_MODAL,
   CLOSE_COLLECTION_MODAL,
 } from './featured.types';
@@ -86,6 +87,12 @@ export const addToCollection =
 export const handleFocus = () => {
   return {
     type: FOCUS_ON_CREATE_NEW_COLLECTION,
+  };
+};
+
+export const handleShowInput = () => {
+  return {
+    type: SHOW_INPUT,
   };
 };
 

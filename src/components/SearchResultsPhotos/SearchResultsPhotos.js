@@ -41,6 +41,8 @@ const SearchResultsPhotos = props => {
   const { showCollectionsModal } = props.featured.modal;
   const showModal = index > -1;
 
+  console.log(data);
+
   return (
     <Container>
       <InfiniteScroll
