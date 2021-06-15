@@ -11,5 +11,6 @@ export const StyledPhoto = styled.img`
   width: 33%;
   height: 250px;
   object-fit: cover;
-  margin-bottom: 3px;
+  margin-bottom: 5px;
+  border-radius: 5px;
 `;
