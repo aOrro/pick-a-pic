@@ -8,10 +8,13 @@ import {
 } from './UserPreviewCard.styles';
 
 const UserPreviewCard = ({ userInfo }) => {
-  const src = userInfo.photos[0].urls.small;
+  const getUrl = () => {
+    if (userInfo.photos[0]) return userInfo.photos[0].urls.small;
+    else return '../../assets/images/logo-light.png';
+  };
 
   return (
-    <Container src={src}>
+    <Container src={getUrl()}>
       <StyledLink to={`/users/${userInfo.username}`}>
         <ShadeDiv>
           <CardHeader>
