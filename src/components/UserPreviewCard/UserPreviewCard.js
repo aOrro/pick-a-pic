@@ -5,7 +5,6 @@ import {
   MainUserInfo,
   ProfileImage,
   StyledLink,
-  VisitButton,
 } from './UserPreviewCard.styles';
 
 const UserPreviewCard = ({ userInfo }) => {
@@ -13,19 +12,17 @@ const UserPreviewCard = ({ userInfo }) => {
 
   return (
     <Container src={src}>
-      <ShadeDiv>
-        <CardHeader>
-          <MainUserInfo>
-            <StyledLink to={`/users/${userInfo.username}`}>
+      <StyledLink to={`/users/${userInfo.username}`}>
+        <ShadeDiv>
+          <CardHeader>
+            <MainUserInfo>
               <ProfileImage src={userInfo.profile_image.large} alt='profile' />
-            </StyledLink>
-            <StyledLink to={`/users/${userInfo.username}`}>
               <h3>{userInfo.name}</h3>
               <span>@{userInfo.username}</span>
-            </StyledLink>
-          </MainUserInfo>
-        </CardHeader>
-      </ShadeDiv>
+            </MainUserInfo>
+          </CardHeader>
+        </ShadeDiv>
+      </StyledLink>
     </Container>
   );
 };

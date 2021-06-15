@@ -15,7 +15,7 @@ import {
 } from 'store/user';
 import { openAddToCollectionModal } from 'store/featured';
 
-import { Container, StyledPhoto } from './UserPhotos.styles';
+import { PhotosDiv, StyledPhoto } from './UserPhotos.styles';
 
 const UserPhotos = props => {
   const { userName } = props.match.params;
@@ -37,23 +37,25 @@ const UserPhotos = props => {
   const showModal = index > -1;
 
   return (
-    <Container>
+    <div>
       <InfiniteScroll
         dataLength={userPhotos.length}
         next={props.getMorePhotos}
         hasMore={hasMorePhotos}
         loader={<div>Loading photos...</div>}
       >
-        {userPhotos.map((item, index) => {
-          return (
-            <StyledPhoto
-              src={item.urls.small}
-              alt={item.alt_description}
-              key={item.id}
-              onClick={() => props.handlePhotoClick(index)}
-            />
-          );
-        })}
+        <PhotosDiv>
+          {userPhotos.map((item, index) => {
+            return (
+              <StyledPhoto
+                src={item.urls.small}
+                alt={item.alt_description}
+                key={item.id}
+                onClick={() => props.handlePhotoClick(index)}
+              />
+            );
+          })}
+        </PhotosDiv>
       </InfiniteScroll>
       {showModal && (
         <PhotoModal
@@ -63,7 +65,7 @@ const UserPhotos = props => {
         />
       )}
       {showCollectionsModal && <AddToCollectionModal />}
-    </Container>
+    </div>
   );
 };
 

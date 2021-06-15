@@ -17,6 +17,7 @@ import {
 import {
   Container,
   StyledInput,
+  HoverDiv,
   StyledSpan,
   StyledIcon,
   StyledSuccessIcon,
@@ -61,10 +62,10 @@ const Featured = props => {
             </form>
           </>
         ) : (
-          <>
-            <StyledIcon onClick={props.handleShowInput} />
+          <HoverDiv onClick={props.handleShowInput}>
+            <StyledIcon />
             <span>Create collection</span>
-          </>
+          </HoverDiv>
         )}
       </StyledSpan>
 

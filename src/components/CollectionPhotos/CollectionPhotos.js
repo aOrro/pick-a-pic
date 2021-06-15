@@ -15,7 +15,7 @@ import {
   deletePreviousData,
 } from 'store/collection';
 
-import { Container, StyledPhoto } from './CollectionPhotos.styles.js';
+import { PhotosDiv, StyledPhoto } from './CollectionPhotos.styles.js';
 
 const CollectionPhotos = props => {
   const { collectionId } = props.match.params;
@@ -36,23 +36,25 @@ const CollectionPhotos = props => {
   const showPhotoModal = index > -1;
 
   return (
-    <Container>
+    <div>
       <InfiniteScroll
         dataLength={collectionPhotos.length}
         next={props.getMorePhotos}
         hasMore={hasMore}
         loader={<div>Loading photos...</div>}
       >
-        {collectionPhotos.map((item, index) => {
-          return (
-            <StyledPhoto
-              src={item.urls.regular}
-              alt={item.alt_description}
-              key={item.id}
-              onClick={() => props.handlePhotoClick(index)}
-            />
-          );
-        })}
+        <PhotosDiv>
+          {collectionPhotos.map((item, index) => {
+            return (
+              <StyledPhoto
+                src={item.urls.regular}
+                alt={item.alt_description}
+                key={item.id}
+                onClick={() => props.handlePhotoClick(index)}
+              />
+            );
+          })}
+        </PhotosDiv>
       </InfiniteScroll>
       {showPhotoModal && (
         <PhotoModal
@@ -62,7 +64,7 @@ const CollectionPhotos = props => {
         />
       )}
       {showCollectionsModal && <AddToCollectionModal />}
-    </Container>
+    </div>
   );
 };
 

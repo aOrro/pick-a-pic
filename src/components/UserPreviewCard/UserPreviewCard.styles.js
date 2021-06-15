@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 250px;
+  width: 200px;
   height: 300px;
   border-radius: 10px;
   background-image: url(${props => props.src});
@@ -24,6 +24,7 @@ export const ShadeDiv = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+  line-height: 30px;
 
   &:hover {
     background: radial-gradient(
@@ -32,9 +33,9 @@ export const ShadeDiv = styled.div`
       rgba(153, 153, 153, 0.4990371148459384) 0%,
       rgba(0, 0, 0, 1) 100%
     );
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-      rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     cursor: pointer;
+    text-decoration: underline ${props => props.theme.main};
   }
 `;
 
@@ -47,11 +48,11 @@ export const CardHeader = styled.div`
   h3 {
     margin: 5px 0;
     color: #efefef;
-    white-space: wrap;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     width: auto;
-    max-width: 230px;
+    max-width: 180px;
     font-size: 20px;
   }
 
@@ -73,5 +74,5 @@ export const ProfileImage = styled.img`
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
-  text-align: center;
+  height: 100%;
 `;
