@@ -35,6 +35,7 @@ export const CollectionInfo = styled.div`
 export const Labels = styled.div`
   margin-top: 20px;
 `;
+
 export const Label = styled(Link)`
   background: ${props => props.theme.third};
   margin-right: 10px;

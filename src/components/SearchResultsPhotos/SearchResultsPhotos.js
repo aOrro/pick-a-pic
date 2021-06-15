@@ -14,7 +14,7 @@ import {
   clearDataForNewSearch,
 } from 'store/search';
 
-import { Container, StyledPhoto } from './SearchResultsPhotos.styles';
+import { PhotosDiv, StyledPhoto } from './SearchResultsPhotos.styles';
 
 const SearchResultsPhotos = props => {
   const { searchTerm } = props.match.params;
@@ -44,23 +44,25 @@ const SearchResultsPhotos = props => {
   console.log(data);
 
   return (
-    <Container>
+    <div>
       <InfiniteScroll
         dataLength={data.length}
         next={props.getMoreSearchPhotos}
         hasMore={hasMore}
         loader={<div>Loading photos...</div>}
       >
-        {data.map((item, index) => {
-          return (
-            <StyledPhoto
-              src={item.urls.small}
-              alt={item.alt_description}
-              key={item.id}
-              onClick={() => props.handlePhotoClick(index)}
-            />
-          );
-        })}
+        <PhotosDiv>
+          {data.map((item, index) => {
+            return (
+              <StyledPhoto
+                src={item.urls.small}
+                alt={item.alt_description}
+                key={item.id}
+                onClick={() => props.handlePhotoClick(index)}
+              />
+            );
+          })}
+        </PhotosDiv>
       </InfiniteScroll>
       {showModal && (
         <PhotoModal
@@ -70,7 +72,7 @@ const SearchResultsPhotos = props => {
         />
       )}
       {showCollectionsModal && <AddToCollectionModal />}
-    </Container>
+    </div>
   );
 };
 

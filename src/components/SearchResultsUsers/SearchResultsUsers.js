@@ -12,7 +12,7 @@ import {
   clearDataForNewSearch,
 } from 'store/search';
 
-import { Container } from './SearchResultsUsers.styles';
+import { UsersDiv } from './SearchResultsUsers.styles';
 
 const SearchResultsUsers = props => {
   const { searchTerm } = props.match.params;
@@ -37,18 +37,20 @@ const SearchResultsUsers = props => {
   }, []);
 
   return (
-    <Container>
+    <div>
       <InfiniteScroll
         dataLength={data.length}
         next={props.getMoreSearchUsers}
         hasMore={hasMore}
         loader={<div>Loading photos...</div>}
       >
-        {data.map(item => {
-          return <UserPreviewCard userInfo={item} key={item.id} />;
-        })}
+        <UsersDiv>
+          {data.map(item => {
+            return <UserPreviewCard userInfo={item} key={item.id} />;
+          })}
+        </UsersDiv>
       </InfiniteScroll>
-    </Container>
+    </div>
   );
 };
 

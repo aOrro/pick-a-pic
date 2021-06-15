@@ -38,6 +38,23 @@ export const StyledSpan = styled.span`
   box-shadow: 0 2px 5px -1px rgba(50, 50, 93, 0.25),
     0 1px 3px -1px rgba(0, 0, 0, 0.3);
   margin-bottom: 20px;
+
+  span {
+    cursor: pointer;
+  }
+`;
+
+export const HoverDiv = styled.div`
+  height: 45px;
+  width: 305px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+
+  &:hover {
+    background: ${props => props.theme.third};
+  }
 `;
 
 export const StyledIcon = styled(AddIcon)`
@@ -46,10 +63,6 @@ export const StyledIcon = styled(AddIcon)`
   border-radius: 50%;
   padding: 10px;
   cursor: pointer;
-
-  &:hover {
-    background: red;
-  }
 
   & path {
     fill: ${props => props.theme.secondary};

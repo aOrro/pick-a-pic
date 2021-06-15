@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
@@ -7,8 +8,10 @@ import {
   PhotoCardContainer,
   SmallProfilePicture,
   PhotoCardHeader,
+  StyledLink,
   PhotoCardFooter,
   Likes,
+  StyledImage,
   StyledHeartIcon,
   StyledAddIcon,
 } from './PhotoCard.styles';
@@ -16,14 +19,18 @@ import {
 const PhotoCard = props => {
   return (
     <PhotoCardContainer>
-      <PhotoCardHeader to={`/users/${props.user.username}`}>
-        <SmallProfilePicture
-          src={props.user.profile_image.medium}
-          alt={props.user.username}
-        />
-        {props.user.username}
+      <PhotoCardHeader>
+        <StyledLink to={`/users/${props.user.username}`}>
+          <SmallProfilePicture
+            src={props.user.profile_image.medium}
+            alt={props.user.username}
+          />
+        </StyledLink>
+        <StyledLink to={`/users/${props.user.username}`}>
+          {props.user.username}
+        </StyledLink>
       </PhotoCardHeader>
-      <img
+      <StyledImage
         onClick={props.handlePhotoClick}
         src={props.urls.small}
         alt={props.alt_description}

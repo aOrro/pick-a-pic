@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const PhotosDiv = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: flex-start;

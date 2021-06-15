@@ -12,7 +12,7 @@ import {
   clearDataForNewUser,
 } from 'store/user';
 
-import { Container } from './UserCollections.styles';
+import { CollectionsDiv } from './UserCollections.styles';
 
 const UserCollections = props => {
   const { userName } = props.match.params;
@@ -32,18 +32,20 @@ const UserCollections = props => {
   }, []);
 
   return (
-    <Container>
+    <div>
       <InfiniteScroll
         dataLength={userCollections.length}
         next={props.getMoreCollections}
         hasMore={hasMoreCollections}
         loader={<div>Loading photos...</div>}
       >
-        {userCollections.map(item => {
-          return <CollectionPreviewCard data={item} key={item.id} />;
-        })}
+        <CollectionsDiv>
+          {userCollections.map(item => {
+            return <CollectionPreviewCard data={item} key={item.id} />;
+          })}
+        </CollectionsDiv>
       </InfiniteScroll>
-    </Container>
+    </div>
   );
 };
 

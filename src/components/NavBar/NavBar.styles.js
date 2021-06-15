@@ -41,15 +41,19 @@ export const LinksList = styled.ul`
 export const Logo = styled.img`
   width: 80px;
   margin-right: 120px;
+  cursor: pointer;
 `;
 
 export const LightLogo = styled.img`
   width: 80px;
   margin-right: 120px;
+  cursor: pointer;
 `;
 
 export const StyledHomeIcon = styled(HomeIcon)`
   margin-top: 5px;
+  cursor: pointer;
+
   & path {
     fill: ${props => props.theme.secondary};
   }
@@ -57,6 +61,8 @@ export const StyledHomeIcon = styled(HomeIcon)`
 
 export const StyledExploreIcon = styled(ExploreIcon)`
   margin-top: 6px;
+  cursor: pointer;
+
   & path {
     fill: ${props => props.theme.secondary};
   }
@@ -64,8 +70,10 @@ export const StyledExploreIcon = styled(ExploreIcon)`
 
 export const StyledSunIcon = styled(SunIcon)`
   margin-top: 5px;
+  cursor: pointer;
 `;
 
 export const StyledMoonIcon = styled(MoonIcon)`
   margin-top: 5px;
+  cursor: pointer;
 `;

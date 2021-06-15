@@ -15,7 +15,7 @@ export const PhotoCardContainer = styled.div`
     0 1px 3px -1px rgba(0, 0, 0, 0.3);
 `;
 
-export const PhotoCardHeader = styled(Link)`
+export const PhotoCardHeader = styled.div`
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -24,9 +24,19 @@ export const PhotoCardHeader = styled(Link)`
   margin: 5px 0;
 `;
 
+export const StyledLink = styled(Link)`
+  color: ${props => props.theme.secondary};
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline ${props => props.theme.secondary};
+  }
+`;
+
 export const SmallProfilePicture = styled.img`
   border-radius: 50%;
   margin: 10px;
+  cursor: pointer;
 `;
 
 export const PhotoCardFooter = styled.div`
@@ -41,9 +51,7 @@ export const Likes = styled.div`
 `;
 
 export const StyledImage = styled.img`
-  margin-right: 5px;
-  width: 25px;
-  height: 25px;
+  cursor: pointer;
 `;
 
 export const StyledHeartIcon = styled(HeartIcon)`
@@ -55,6 +63,8 @@ export const StyledHeartIcon = styled(HeartIcon)`
 
 export const StyledAddIcon = styled(AddIcon)`
   margin-top: 3px;
+  cursor: pointer;
+
   & path {
     fill: ${props => props.theme.secondary};
   }
