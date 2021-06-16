@@ -19,10 +19,15 @@ export const SearchTabs = styled.ul`
     margin-right: 30px;
     font-size: 18px;
     font-weight: 600;
-    color: ${props => props.theme.secondary};
   }
 `;
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
+  color: ${props => props.theme.third};
+
+  &:active,
+  &:focus {
+    color: ${props => props.theme.secondary};
+  }
 `;

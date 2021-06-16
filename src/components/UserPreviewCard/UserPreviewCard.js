@@ -15,7 +15,7 @@ const UserPreviewCard = ({ userInfo }) => {
 
   return (
     <Container src={getUrl()}>
-      <StyledLink to={`/users/${userInfo.username}`}>
+      <StyledLink to={`/users/${userInfo.username}/photos`}>
         <ShadeDiv>
           <CardHeader>
             <MainUserInfo>

@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 200px;
-  height: 300px;
+  width: 330px;
+  height: 250px;
   border-radius: 10px;
   background-image: url(${props => props.src});
   background-size: cover;
@@ -35,7 +35,7 @@ export const ShadeDiv = styled.div`
     );
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     cursor: pointer;
-    text-decoration: underline ${props => props.theme.main};
+    text-decoration: underline #efefef;
   }
 `;
 
@@ -52,8 +52,8 @@ export const CardHeader = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     width: auto;
-    max-width: 180px;
-    font-size: 20px;
+    max-width: 300px;
+    font-size: 24px;
   }
 
   span {

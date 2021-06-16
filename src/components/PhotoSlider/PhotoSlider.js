@@ -47,7 +47,7 @@ const PhotoSlider = props => {
     <Container>
       <ModalHeader>
         <StyledLink
-          to={`/users/${currentPhoto.user.username}`}
+          to={`/users/${currentPhoto.user.username}/photos`}
           onClick={props.handleCloseClick}
         >
           <AuthorImage

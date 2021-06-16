@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { SearchBar } from 'components';
 
@@ -15,6 +15,7 @@ import {
   HeaderMenu,
   NavLinks,
   LinksList,
+  StyledLink,
   Logo,
   LightLogo,
   StyledHomeIcon,
@@ -52,14 +53,14 @@ const NavBar = props => {
         <NavLinks>
           <LinksList>
             <li>
-              <Link to='/'>
+              <StyledLink to='/'>
                 <StyledHomeIcon />
-              </Link>
+              </StyledLink>
             </li>
             <li>
-              <Link to='/explore'>
+              <StyledLink to='/explore'>
                 <StyledExploreIcon />
-              </Link>
+              </StyledLink>
             </li>
             <li onClick={props.handleThemeChange}>
               {props.settings.lightTheme ? (

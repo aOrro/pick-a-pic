@@ -43,7 +43,16 @@ const App = props => {
               exact
               component={Search}
             ></Route>
-            <Route path='/users/:userName' exact component={User}></Route>
+            <Route
+              path='/users/:userName/photos'
+              exact
+              component={User}
+            ></Route>
+            <Route
+              path='/users/:userName/collections'
+              exact
+              component={User}
+            ></Route>
             <Route path=''>
               <Home />
             </Route>

@@ -46,16 +46,16 @@ const Collection = props => {
     <Container>
       <CollectionHeader />
       <SearchTabs>
-        <StyledLink to={`/collections/${collectionId}/photos`}>
-          <li onClick={() => props.handleTabClick('photos', collectionId)}>
+        <li onClick={() => props.handleTabClick('photos', collectionId)}>
+          <StyledLink to={`/collections/${collectionId}/photos`}>
             Photos
-          </li>
-        </StyledLink>
-        <StyledLink to={`/collections/${collectionId}/related`}>
-          <li onClick={() => props.handleTabClick('related', collectionId)}>
+          </StyledLink>
+        </li>
+        <li onClick={() => props.handleTabClick('related', collectionId)}>
+          <StyledLink to={`/collections/${collectionId}/related`}>
             Related
-          </li>
-        </StyledLink>
+          </StyledLink>
+        </li>
       </SearchTabs>
       {renderChosenTab()}
     </Container>

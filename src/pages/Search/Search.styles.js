@@ -1,8 +1,5 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { ReactComponent as PhotoIcon } from '../../assets/images/photo-icon.svg';
-import { ReactComponent as CollectionsIcon } from '../../assets/images/collections-icon.svg';
-import { ReactComponent as UserIcon } from '../../assets/images/user-icon.svg';
 
 export const Container = styled.div`
   width: 55%;
@@ -27,8 +24,9 @@ export const SearchTabs = styled.ul`
   li {
     display: flex;
     align-items: center;
-    margin-right: 50px;
-    font-size: 16px;
+    margin-right: 30px;
+    font-size: 18px;
+    font-weight: 600;
   }
 `;
 
@@ -36,30 +34,10 @@ export const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: ${props => props.theme.secondary};
-`;
+  color: ${props => props.theme.third};
 
-export const StyledPhotoIcon = styled(PhotoIcon)`
-  margin-right: 5px;
-  padding-top: 3px;
-  & path {
-    fill: ${props => props.theme.secondary};
-  }
-`;
-
-export const StyledCollectionsIcon = styled(CollectionsIcon)`
-  margin-right: 5px;
-  & path {
-    fill: ${props => props.theme.secondary};
-  }
-`;
-
-export const StyledUserIcon = styled(UserIcon)`
-  margin-right: 5px;
-  & path {
-    fill: ${props => props.theme.secondary};
-  }
-  & circle {
-    fill: ${props => props.theme.secondary};
+  &:active,
+  &:focus {
+    color: ${props => props.theme.secondary};
   }
 `;

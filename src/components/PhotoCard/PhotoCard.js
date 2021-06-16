@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
@@ -20,13 +19,13 @@ const PhotoCard = props => {
   return (
     <PhotoCardContainer>
       <PhotoCardHeader>
-        <StyledLink to={`/users/${props.user.username}`}>
+        <StyledLink to={`/users/${props.user.username}/photos`}>
           <SmallProfilePicture
             src={props.user.profile_image.medium}
             alt={props.user.username}
           />
         </StyledLink>
-        <StyledLink to={`/users/${props.user.username}`}>
+        <StyledLink to={`/users/${props.user.username}/photos`}>
           {props.user.username}
         </StyledLink>
       </PhotoCardHeader>

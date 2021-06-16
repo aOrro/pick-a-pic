@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg';
 import { ReactComponent as ExploreIcon } from '../../assets/images/explore-icon.svg';
 import { ReactComponent as SunIcon } from '../../assets/images/sun-icon.svg';
@@ -38,6 +39,8 @@ export const LinksList = styled.ul`
   width: 100px;
 `;
 
+export const StyledLink = styled(Link)``;
+
 export const Logo = styled.img`
   width: 80px;
   margin-right: 120px;
@@ -51,7 +54,6 @@ export const LightLogo = styled.img`
 `;
 
 export const StyledHomeIcon = styled(HomeIcon)`
-  margin-top: 5px;
   cursor: pointer;
 
   & path {
@@ -60,7 +62,8 @@ export const StyledHomeIcon = styled(HomeIcon)`
 `;
 
 export const StyledExploreIcon = styled(ExploreIcon)`
-  margin-top: 6px;
+  margin: 0;
+
   cursor: pointer;
 
   & path {
@@ -69,7 +72,7 @@ export const StyledExploreIcon = styled(ExploreIcon)`
 `;
 
 export const StyledSunIcon = styled(SunIcon)`
-  margin-top: 5px;
+  margin-top: 6px;
   cursor: pointer;
 `;
 

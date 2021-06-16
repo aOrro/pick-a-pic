@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import { ReactComponent as PhotoIcon } from '../../assets/images/photo-icon.svg';
-import { ReactComponent as CollectionsIcon } from '../../assets/images/collections-icon.svg';
-import { ReactComponent as StatsIcon } from '../../assets/images/stats-icon.svg';
+import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   width: 100%;
@@ -23,29 +21,18 @@ export const ContentContainer = styled.div`
   li {
     display: flex;
     align-items: center;
-    margin-right: 50px;
-    font-size: 16px;
+    margin-right: 30px;
+    font-size: 18px;
+    font-weight: 600;
   }
 `;
 
-export const StyledPhotoIcon = styled(PhotoIcon)`
-  margin-right: 5px;
-  padding-top: 3px;
-  & path {
-    fill: ${props => props.theme.secondary};
-  }
-`;
+export const StyledLink = styled(Link)`
+  color: ${props => props.theme.third};
+  text-decoration: none;
 
-export const StyledCollectionsIcon = styled(CollectionsIcon)`
-  margin-right: 5px;
-  & path {
-    fill: ${props => props.theme.secondary};
-  }
-`;
-
-export const StyledStatsIcon = styled(StatsIcon)`
-  margin-right: 5px;
-  & path {
-    fill: ${props => props.theme.secondary};
+  &:active,
+  &:focus {
+    color: ${props => props.theme.secondary};
   }
 `;

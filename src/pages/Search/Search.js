@@ -10,15 +10,7 @@ import {
 
 import { handleTabClick, clearDataForNewSearch } from 'store/search';
 
-import {
-  Container,
-  SearchInfo,
-  SearchTabs,
-  StyledLink,
-  StyledPhotoIcon,
-  StyledCollectionsIcon,
-  StyledUserIcon,
-} from './Search.styles';
+import { Container, SearchInfo, SearchTabs, StyledLink } from './Search.styles';
 
 const Search = props => {
   const { searchTerm } = props.match.params;
@@ -53,24 +45,17 @@ const Search = props => {
         </i>
       </SearchInfo>
       <SearchTabs>
-        <StyledLink to={`/search/photos/${searchTerm}`}>
-          <li onClick={() => props.handleTabClick('photos', searchTerm)}>
-            <StyledPhotoIcon />
-            Photos
-          </li>
-        </StyledLink>
-        <StyledLink to={`/search/collections/${searchTerm}`}>
-          <li onClick={() => props.handleTabClick('collections', searchTerm)}>
-            <StyledCollectionsIcon />
+        <li onClick={() => props.handleTabClick('photos', searchTerm)}>
+          <StyledLink to={`/search/photos/${searchTerm}`}>Photos</StyledLink>
+        </li>
+        <li onClick={() => props.handleTabClick('collections', searchTerm)}>
+          <StyledLink to={`/search/collections/${searchTerm}`}>
             Collections
-          </li>
-        </StyledLink>
-        <StyledLink to={`/search/users/${searchTerm}`}>
-          <li onClick={() => props.handleTabClick('users', searchTerm)}>
-            <StyledUserIcon />
-            Users
-          </li>
-        </StyledLink>
+          </StyledLink>
+        </li>
+        <li onClick={() => props.handleTabClick('users', searchTerm)}>
+          <StyledLink to={`/search/users/${searchTerm}`}>Users</StyledLink>
+        </li>
       </SearchTabs>
       {renderChosenTab()}
     </Container>

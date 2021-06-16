@@ -6,12 +6,7 @@ import { UserHeader, UserPhotos, UserCollections } from 'components';
 
 import { handleTabClick, handleCloseClick } from 'store/user';
 
-import {
-  Container,
-  ContentContainer,
-  StyledPhotoIcon,
-  StyledCollectionsIcon,
-} from './User.styles';
+import { Container, ContentContainer, StyledLink } from './User.styles';
 
 const User = props => {
   const { userName } = props.match.params;
@@ -33,12 +28,12 @@ const User = props => {
       <ContentContainer>
         <ul>
           <li onClick={() => props.handleTabClick('photos', userName)}>
-            <StyledPhotoIcon />
-            Photos
+            <StyledLink to={`/users/${userName}/photos`}>Photos</StyledLink>
           </li>
           <li onClick={() => props.handleTabClick('collections', userName)}>
-            <StyledCollectionsIcon />
-            Collections
+            <StyledLink to={`/users/${userName}/collections`}>
+              Collections
+            </StyledLink>
           </li>
         </ul>
         {renderChosenTab()}
