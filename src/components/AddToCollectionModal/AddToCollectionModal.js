@@ -1,8 +1,6 @@
 import { useRef, useEffect } from 'react';
-
 import { connect } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import {
   closeAddToCollectionModal,
@@ -26,6 +24,7 @@ import {
   StyledCloseIcon,
   StyledAddIcon,
 } from './AddToCollectionModal.styles';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddToCollectionModal = props => {
   const inputRef = useRef();
@@ -39,8 +38,10 @@ const AddToCollectionModal = props => {
   }, [newCollection]);
 
   const notify = (collectionTitle, isChecked) => {
-    if (isChecked) toast(`Photo added to ${collectionTitle}`);
-    else toast(`Photo removed from ${collectionTitle}`);
+    const notificationText = isChecked
+      ? `Photo added to ${collectionTitle}`
+      : `Photo removed from ${collectionTitle}`;
+    toast(notificationText);
   };
 
   return (

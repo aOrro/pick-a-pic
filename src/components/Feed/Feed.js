@@ -14,6 +14,7 @@ import {
 import { openAddToCollectionModal } from 'store/featured';
 
 import { Container } from './Feed.styles';
+import { isStyledComponent } from 'styled-components';
 
 const Feed = props => {
   useEffect(() => {

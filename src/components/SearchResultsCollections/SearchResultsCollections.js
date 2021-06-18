@@ -25,7 +25,6 @@ const SearchResultsCollections = props => {
   }, [searchTerm]);
 
   useEffect(() => {
-    console.log('calling api');
     props.getSearchCollections(searchTerm);
     //eslint-disable-next-line
   }, [pageToLoad]);
