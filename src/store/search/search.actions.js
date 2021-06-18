@@ -24,19 +24,9 @@ import {
   getSearchUsersPageToLoad,
 } from './search.types';
 
-export const handleTabClick =
-  (chosenTab, searchTerm) => (dispatch, getState) => {
-    dispatch({ type: TAB_CLICK, payload: chosenTab });
-
-    switch (chosenTab) {
-      case 'collections':
-        return dispatch(getSearchCollections(searchTerm));
-      case 'users':
-        return dispatch(getSearchUsers(searchTerm));
-      default:
-        return dispatch(getSearchPhotos(searchTerm));
-    }
-  };
+export const handleTabClick = chosenTab => {
+  return { type: TAB_CLICK, payload: chosenTab };
+};
 
 export const clearDataForNewSearch = () => (dispatch, getState) => {
   dispatch(handleCloseClick);

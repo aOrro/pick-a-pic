@@ -23,7 +23,7 @@ const FeaturedCollection = props => {
     <Container>
       <HeaderDiv>
         <h4 onClick={props.handleClick}>{props.title}</h4>
-        <StyledBinIcon /* onClick={props.deleteCollection} */ />
+        <StyledBinIcon onClick={props.deleteCollection} />
       </HeaderDiv>
       {props.collectionPhotos.length > 0 && (
         <StyledSlider {...settings} onClick={props.handleClick}>

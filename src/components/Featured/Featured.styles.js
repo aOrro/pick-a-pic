@@ -28,7 +28,7 @@ export const StyledInput = styled.input`
   }
 `;
 
-export const StyledSpan = styled.span`
+export const StyledDiv = styled.div`
   display: flex;
   align-items: center;
   background: ${props => props.theme.cardBackground};

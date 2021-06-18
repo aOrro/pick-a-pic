@@ -6,7 +6,7 @@ import { UserHeader, UserPhotos, UserCollections } from 'components';
 
 import { handleTabClick, handleCloseClick } from 'store/user';
 
-import { Container, ContentContainer, StyledLink } from './User.styles';
+import { Container, ContentContainer, StyledNavLink } from './User.styles';
 
 const User = props => {
   const { userName } = props.match.params;
@@ -27,14 +27,20 @@ const User = props => {
       <UserHeader />
       <ContentContainer>
         <ul>
-          <li onClick={() => props.handleTabClick('photos', userName)}>
-            <StyledLink to={`/users/${userName}/photos`}>Photos</StyledLink>
-          </li>
-          <li onClick={() => props.handleTabClick('collections', userName)}>
-            <StyledLink to={`/users/${userName}/collections`}>
-              Collections
-            </StyledLink>
-          </li>
+          <StyledNavLink
+            to={`/users/${userName}/photos`}
+            activeClassName='selected'
+            onClick={() => props.handleTabClick('photos', userName)}
+          >
+            Photos
+          </StyledNavLink>
+          <StyledNavLink
+            to={`/users/${userName}/collections`}
+            activeClassName='selected'
+            onClick={() => props.handleTabClick('collections', userName)}
+          >
+            Collections
+          </StyledNavLink>
         </ul>
         {renderChosenTab()}
       </ContentContainer>

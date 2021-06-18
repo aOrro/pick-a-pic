@@ -10,15 +10,15 @@ import {
 
 import { handleTabClick, clearDataForNewSearch } from 'store/search';
 
-import { Container, SearchInfo, SearchTabs, StyledLink } from './Search.styles';
+import {
+  Container,
+  SearchInfo,
+  SearchTabs,
+  StyledNavLink,
+} from './Search.styles';
 
 const Search = props => {
   const { searchTerm } = props.match.params;
-
-  useEffect(() => {
-    props.handleTabClick('photos', searchTerm);
-    //eslint-disable-next-line
-  }, []);
 
   useEffect(() => {
     props.handleTabClick('photos', searchTerm);
@@ -45,17 +45,27 @@ const Search = props => {
         </i>
       </SearchInfo>
       <SearchTabs>
-        <li onClick={() => props.handleTabClick('photos', searchTerm)}>
-          <StyledLink to={`/search/photos/${searchTerm}`}>Photos</StyledLink>
-        </li>
-        <li onClick={() => props.handleTabClick('collections', searchTerm)}>
-          <StyledLink to={`/search/collections/${searchTerm}`}>
-            Collections
-          </StyledLink>
-        </li>
-        <li onClick={() => props.handleTabClick('users', searchTerm)}>
-          <StyledLink to={`/search/users/${searchTerm}`}>Users</StyledLink>
-        </li>
+        <StyledNavLink
+          to={`/search/photos/${searchTerm}`}
+          activeClassName='selected'
+          onClick={() => props.handleTabClick('photos')}
+        >
+          Photos
+        </StyledNavLink>
+        <StyledNavLink
+          to={`/search/collections/${searchTerm}`}
+          activeClassName='selected'
+          onClick={() => props.handleTabClick('collections')}
+        >
+          Collections
+        </StyledNavLink>
+        <StyledNavLink
+          to={`/search/users/${searchTerm}`}
+          activeClassName='selected'
+          onClick={() => props.handleTabClick('users')}
+        >
+          Users
+        </StyledNavLink>
       </SearchTabs>
       {renderChosenTab()}
     </Container>

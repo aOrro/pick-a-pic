@@ -1,6 +1,8 @@
 import { useRef, useEffect } from 'react';
 
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {
   closeAddToCollectionModal,
@@ -18,6 +20,7 @@ import {
   CollectionsList,
   NewCollectionDiv,
   StyledForm,
+  StyledSpan,
   NewCollectionSpan,
   StyledInput,
   StyledCloseIcon,
@@ -34,6 +37,11 @@ const AddToCollectionModal = props => {
       return inputRef.current.focus();
     }
   }, [newCollection]);
+
+  const notify = (collectionTitle, isChecked) => {
+    if (isChecked) toast(`Photo added to ${collectionTitle}`);
+    else toast(`Photo removed from ${collectionTitle}`);
+  };
 
   return (
     <Container>
@@ -54,7 +62,9 @@ const AddToCollectionModal = props => {
                   onChange={e =>
                     props.addToCollection(e.target.checked, e.target.value)
                   }
+                  onClick={e => notify(item.title, e.target.checked)}
                 />
+                <StyledSpan></StyledSpan>
                 {item.title}
               </label>
             );
@@ -84,6 +94,17 @@ const AddToCollectionModal = props => {
           </NewCollectionSpan>
         )}
       </Modal>
+      <ToastContainer
+        position='bottom-right'
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+      />
     </Container>
   );
 };
