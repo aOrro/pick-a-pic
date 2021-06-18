@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
-
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
 
 import {
   closeAddToCollectionModal,
@@ -18,11 +18,13 @@ import {
   CollectionsList,
   NewCollectionDiv,
   StyledForm,
+  StyledSpan,
   NewCollectionSpan,
   StyledInput,
   StyledCloseIcon,
   StyledAddIcon,
 } from './AddToCollectionModal.styles';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddToCollectionModal = props => {
   const inputRef = useRef();
@@ -34,6 +36,13 @@ const AddToCollectionModal = props => {
       return inputRef.current.focus();
     }
   }, [newCollection]);
+
+  const notify = (collectionTitle, isChecked) => {
+    const notificationText = isChecked
+      ? `Photo added to ${collectionTitle}`
+      : `Photo removed from ${collectionTitle}`;
+    toast(notificationText);
+  };
 
   return (
     <Container>
@@ -54,7 +63,9 @@ const AddToCollectionModal = props => {
                   onChange={e =>
                     props.addToCollection(e.target.checked, e.target.value)
                   }
+                  onClick={e => notify(item.title, e.target.checked)}
                 />
+                <StyledSpan></StyledSpan>
                 {item.title}
               </label>
             );
@@ -84,6 +95,17 @@ const AddToCollectionModal = props => {
           </NewCollectionSpan>
         )}
       </Modal>
+      <ToastContainer
+        position='bottom-right'
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+      />
     </Container>
   );
 };

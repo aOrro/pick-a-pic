@@ -17,9 +17,19 @@ export const HeaderDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
+
+  h4 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: auto;
+    max-width: 250px;
+  }
 `;
 
 export const StyledBinIcon = styled(BinIcon)`
+  cursor: pointer;
+
   & path {
     fill: ${props => props.theme.secondary};
   }

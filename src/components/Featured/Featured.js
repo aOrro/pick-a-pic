@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { FeaturedCollection, PhotoModal } from 'components';
 
@@ -10,7 +12,7 @@ import {
   handleShowInput,
   handleSubmit,
   handleCollectionClick,
-  // deleteCollection,
+  deleteCollection,
   closeCollectionModal,
 } from 'store/featured';
 
@@ -18,7 +20,7 @@ import {
   Container,
   StyledInput,
   HoverDiv,
-  StyledSpan,
+  StyledDiv,
   StyledIcon,
   StyledSuccessIcon,
 } from './Featured.styles';
@@ -32,9 +34,19 @@ const Featured = props => {
     collectionClicked,
   } = props.featured;
 
+  const notify = action => {
+    if (action === 'create') {
+      toast(`Collection successfully created: ${inputValue}`);
+    } else {
+      props.deleteCollection();
+      toast('Collection successfully deleted');
+    }
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
     props.handleSubmit();
+    notify('create');
   };
 
   const inputRef = useRef();
@@ -47,7 +59,7 @@ const Featured = props => {
   return (
     <Container>
       <h3>Featured</h3>
-      <StyledSpan>
+      <StyledDiv>
         {showInput ? (
           <>
             <StyledSuccessIcon onClick={handleSubmit} />
@@ -67,7 +79,7 @@ const Featured = props => {
             <span>Create collection</span>
           </HoverDiv>
         )}
-      </StyledSpan>
+      </StyledDiv>
 
       {collections.map((item, index) => {
         return (
@@ -75,7 +87,7 @@ const Featured = props => {
             title={item.title}
             collectionPhotos={item.photos}
             handleClick={() => props.handleCollectionClick(index)}
-            /* deleteCollection={props.deleteCollection} */
+            deleteCollection={() => notify('delete')}
             key={item.title}
           />
         );
@@ -87,6 +99,17 @@ const Featured = props => {
           handleCloseClick={props.closeCollectionModal}
         />
       )}
+      <ToastContainer
+        position='bottom-right'
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+      />
     </Container>
   );
 };
@@ -101,7 +124,7 @@ const mapDispatchToProps = {
   handleShowInput,
   handleSubmit,
   handleCollectionClick,
-  // deleteCollection,
+  deleteCollection,
   closeCollectionModal,
 };
 

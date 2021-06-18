@@ -51,6 +51,7 @@ export const CollectionsList = styled.form`
   width: auto;
   flex-direction: column;
   align-items: left;
+  justify-content: center;
   margin: 0 auto;
   padding: 15px 0;
   border-top: 1px solid ${props => props.theme.secondary};
@@ -65,15 +66,18 @@ export const CollectionsList = styled.form`
   }
 
   input {
-    -webkit-appearance: none;
-    margin: 0 10px 0 15px;
-    background: ${props => props.theme.cardBackground};
-    border: 2px solid ${props => props.theme.secondary};
-    width: 15px;
-    height: 15px;
+    margin: 10px 10px 10px 15px;
+    width: 20px;
+    height: 20px;
     vertical-align: middle;
+
+    &:checked {
+      content: url('../../assets/images/check-success.svg');
+    }
   }
 `;
+
+export const StyledSpan = styled.span``;
 
 export const NewCollectionDiv = styled.div`
   display: flex;

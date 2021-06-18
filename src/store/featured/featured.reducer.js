@@ -5,8 +5,8 @@ import {
   OPEN_ADD_TO_COLLECTION_MODAL,
   ADD_PHOTO_TO_COLLECTION,
   CLOSE_ADD_TO_COLLECTION_MODAL,
-  /*   DELETE_COLLECTION,
-   */ REMOVE_PHOTO_FROM_COLLECTION,
+  DELETE_COLLECTION,
+  REMOVE_PHOTO_FROM_COLLECTION,
   FOCUS_ON_CREATE_NEW_COLLECTION,
   CREATE_NEW_COLLECTION,
   SHOW_INPUT,
@@ -78,11 +78,11 @@ function featuredReducer(state = initialState, action) {
           newCollection: false,
         },
       };
-    /*     case DELETE_COLLECTION:
+    case DELETE_COLLECTION:
       return {
         ...state,
         collections: action.payload,
-      }; */
+      };
     case FOCUS_ON_CREATE_NEW_COLLECTION:
       return {
         ...state,
@@ -106,7 +106,8 @@ function featuredReducer(state = initialState, action) {
     case SHOW_INPUT:
       return {
         ...state,
-        showInput: true,
+        inputValue: '',
+        showInput: !state.showInput,
       };
     case OPEN_COLLECTION_MODAL:
       return {

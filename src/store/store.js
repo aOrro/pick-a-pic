@@ -1,5 +1,4 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
-
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
@@ -14,7 +13,7 @@ import { settingsReducer } from 'store/settings';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['settings'],
+  whitelist: ['settings', 'featured'],
 };
 
 const rootReducer = combineReducers({
