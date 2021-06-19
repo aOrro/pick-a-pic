@@ -9,6 +9,7 @@ import { userReducer } from 'store/user';
 import { searchReducer } from 'store/search';
 import { collectionReducer } from 'store/collection';
 import { settingsReducer } from 'store/settings';
+import { exploreReducer } from './explore';
 
 const persistConfig = {
   key: 'root',
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   search: searchReducer,
   collection: collectionReducer,
   settings: settingsReducer,
+  explore: exploreReducer,
 });
 
 const middleware = [thunk];
@@ -30,8 +32,8 @@ const middleware = [thunk];
 export const store = createStore(
   persistReducer(persistConfig, rootReducer),
   compose(
-    applyMiddleware(...middleware)
-    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    applyMiddleware(...middleware),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
 

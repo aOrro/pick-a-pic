@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import NavBar from './components/NavBar';
-import { Collection, Home, Search, User } from 'pages';
+import { Collection, Explore, Home, Search, User } from 'pages';
 
 import { Container, lightThemeStyles, darkThemeStyles } from './App.styles';
 
@@ -53,6 +53,7 @@ const App = props => {
               exact
               component={User}
             ></Route>
+            <Route path='/explore' exact component={Explore}></Route>
             <Route path=''>
               <Home />
             </Route>
