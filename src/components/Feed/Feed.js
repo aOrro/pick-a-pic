@@ -14,7 +14,6 @@ import {
 import { openAddToCollectionModal } from 'store/featured';
 
 import { Container } from './Feed.styles';
-import { isStyledComponent } from 'styled-components';
 
 const Feed = props => {
   useEffect(() => {
@@ -52,15 +51,15 @@ const Feed = props => {
             />
           );
         })}
-        {showPhotoModal && (
-          <PhotoModal
-            index={index}
-            arrayOfPhotos={photos}
-            handleCloseClick={props.closePhotoModal}
-          />
-        )}
-        {showCollectionsModal && <AddToCollectionModal />}
       </InfiniteScroll>
+      {showPhotoModal && (
+        <PhotoModal
+          index={index}
+          arrayOfPhotos={photos}
+          handleCloseClick={props.closePhotoModal}
+        />
+      )}
+      {showCollectionsModal && <AddToCollectionModal />}
     </Container>
   );
 };
