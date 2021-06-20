@@ -25,10 +25,14 @@ export const CollectionInfo = styled.div`
     font-size: 30px;
     margin: 0 0 10px 0;
   }
+`;
 
-  a {
-    text-decoration: none;
-    color: ${props => props.theme.secondary};
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: ${props => props.theme.secondary};
+
+  &:hover {
+    text-decoration: underline;
   }
 `;
 
@@ -37,10 +41,15 @@ export const Labels = styled.div`
 `;
 
 export const Label = styled(Link)`
-  background: ${props => props.theme.third};
+  background: ${props => props.theme.labelsBackground};
   margin-right: 10px;
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 14px;
   color: ${props => props.theme.secondary};
+  text-decoration: none;
+
+  &:hover {
+    background: ${props => props.theme.labelsHover};
+  }
 `;

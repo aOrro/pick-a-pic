@@ -13,6 +13,12 @@ export const lightThemeStyles = {
   text: '#000',
   cardBackground: '#fff',
   borders: 'lightgrey',
+  inactiveLinks: '#b8b8b8',
+  labelsBackground: '#d8d8d8',
+  labelsHover: '#c2c2c2',
+  iconBackground: '#e6e6e6',
+  iconHover: '#cfcfcf',
+  spanHover: '#f2f2f2',
 };
 
 export const darkThemeStyles = {
@@ -22,4 +28,10 @@ export const darkThemeStyles = {
   text: '#efefef',
   cardBackground: '#272727',
   borders: '#343434',
+  inactiveLinks: '#5c5c5c',
+  labelsBackground: '#343434',
+  labelsHover: '#484848',
+  iconBackground: '#343434',
+  iconHover: '#484848',
+  spanHover: '#484848',
 };

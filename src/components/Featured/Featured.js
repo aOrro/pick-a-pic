@@ -35,6 +35,7 @@ const Featured = props => {
   } = props.featured;
 
   const notify = action => {
+    if (!inputValue) return;
     if (action === 'create') {
       toast(`Collection successfully created: ${inputValue}`);
     } else {
@@ -57,41 +58,43 @@ const Featured = props => {
   }, [showInput]);
 
   return (
-    <Container>
-      <h3>Featured</h3>
-      <StyledDiv>
-        {showInput ? (
-          <>
-            <StyledSuccessIcon onClick={handleSubmit} />
-            <form onSubmit={handleSubmit}>
-              <StyledInput
-                type='text'
-                onChange={props.handleChange}
-                value={inputValue}
-                placeholder='Enter collection title...'
-                ref={inputRef}
-              />
-            </form>
-          </>
-        ) : (
-          <HoverDiv onClick={props.handleShowInput}>
-            <StyledIcon />
-            <span>Create collection</span>
-          </HoverDiv>
-        )}
-      </StyledDiv>
+    <>
+      <Container>
+        <h3>Featured</h3>
+        <StyledDiv>
+          {showInput ? (
+            <>
+              <StyledSuccessIcon onClick={handleSubmit} />
+              <form onSubmit={handleSubmit}>
+                <StyledInput
+                  type='text'
+                  onChange={props.handleChange}
+                  value={inputValue}
+                  placeholder='Enter collection title...'
+                  ref={inputRef}
+                />
+              </form>
+            </>
+          ) : (
+            <HoverDiv onClick={props.handleShowInput}>
+              <StyledIcon />
+              <span>Create collection</span>
+            </HoverDiv>
+          )}
+        </StyledDiv>
 
-      {collections.map((item, index) => {
-        return (
-          <FeaturedCollection
-            title={item.title}
-            collectionPhotos={item.photos}
-            handleClick={() => props.handleCollectionClick(index)}
-            deleteCollection={() => notify('delete')}
-            key={item.title}
-          />
-        );
-      })}
+        {collections.map((item, index) => {
+          return (
+            <FeaturedCollection
+              title={item.title}
+              collectionPhotos={item.photos}
+              handleClick={() => props.handleCollectionClick(index)}
+              deleteCollection={() => notify('delete')}
+              key={item.title}
+            />
+          );
+        })}
+      </Container>
       {openCollectionModal && (
         <PhotoModal
           arrayOfPhotos={collections[collectionClicked].photos}
@@ -110,7 +113,7 @@ const Featured = props => {
         draggable
         pauseOnHover={false}
       />
-    </Container>
+    </>
   );
 };
 

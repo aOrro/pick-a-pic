@@ -71,8 +71,12 @@ export const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #000;
+  color: ${props => props.theme.secondary};
   font-size: 18px;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const AuthorImage = styled.img`
@@ -115,12 +119,16 @@ export const StyledHeartIcon = styled(HeartIcon)`
 `;
 
 export const StyledAddIcon = styled(AddIcon)`
+  cursor: pointer;
+
   & path {
     fill: ${props => props.theme.secondary};
   }
 `;
 
 export const StyledCloseWindowIcon = styled(CloseWindowIcon)`
+  cursor: pointer;
+
   & path {
     fill: ${props => props.theme.secondary};
   }

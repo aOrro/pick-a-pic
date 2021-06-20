@@ -12,11 +12,19 @@ export const Container = styled.div`
     0 1px 3px -1px rgba(0, 0, 0, 0.3);
 `;
 
+export const StyledBinIcon = styled(BinIcon)`
+  display: none;
+  & path {
+    fill: ${props => props.theme.secondary};
+  }
+`;
+
 export const HeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
+  position: relative;
 
   h4 {
     white-space: nowrap;
@@ -24,14 +32,19 @@ export const HeaderDiv = styled.div`
     text-overflow: ellipsis;
     width: auto;
     max-width: 250px;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
-`;
 
-export const StyledBinIcon = styled(BinIcon)`
-  cursor: pointer;
-
-  & path {
-    fill: ${props => props.theme.secondary};
+  &:hover ${StyledBinIcon} {
+    display: inline-block;
+    position: absolute;
+    cursor: pointer;
+    right: 0;
+    margin-right: 10px;
   }
 `;
 
@@ -52,4 +65,5 @@ export const StyledImg = styled.img`
   margin: 0;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  cursor: pointer;
 `;

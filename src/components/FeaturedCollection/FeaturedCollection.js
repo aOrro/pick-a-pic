@@ -26,13 +26,14 @@ const FeaturedCollection = props => {
         <StyledBinIcon onClick={props.deleteCollection} />
       </HeaderDiv>
       {props.collectionPhotos.length > 0 && (
-        <StyledSlider {...settings} onClick={props.handleClick}>
+        <StyledSlider {...settings}>
           {props.collectionPhotos.map(item => {
             return (
               <StyledImg
                 src={item.urls.small}
                 alt={item.alt_description}
                 key={item.id}
+                onClick={props.handleClick}
               />
             );
           })}

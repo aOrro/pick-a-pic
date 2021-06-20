@@ -70,6 +70,7 @@ export const CollectionsList = styled.form`
     width: 20px;
     height: 20px;
     vertical-align: middle;
+    cursor: pointer;
 
     &:checked {
       content: url('../../assets/images/check-success.svg');
@@ -77,13 +78,15 @@ export const CollectionsList = styled.form`
   }
 `;
 
-export const StyledSpan = styled.span``;
-
 export const NewCollectionDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 15px 20px;
+
+  button {
+    cursor: pointer;
+  }
 `;
 
 export const StyledForm = styled.form`
@@ -97,6 +100,7 @@ export const NewCollectionSpan = styled.span`
   justify-content: center;
   margin: 15px 10px;
   width: 150px;
+  cursor: pointer;
 `;
 
 export const StyledInput = styled.input`

@@ -15,7 +15,12 @@ import {
 } from 'store/user';
 import { openAddToCollectionModal } from 'store/featured';
 
-import { PhotosDiv, StyledPhoto } from './UserPhotos.styles';
+import {
+  PhotosDiv,
+  ImageContainer,
+  HoverDiv,
+  StyledPhoto,
+} from './UserPhotos.styles';
 
 const UserPhotos = props => {
   const { userName } = props.match.params;
@@ -47,12 +52,18 @@ const UserPhotos = props => {
         <PhotosDiv>
           {userPhotos.map((item, index) => {
             return (
-              <StyledPhoto
-                src={item.urls.small}
-                alt={item.alt_description}
-                key={item.id}
+              <ImageContainer
                 onClick={() => props.handlePhotoClick(index)}
-              />
+                key={item.id}
+              >
+                <HoverDiv>{item.likes} likes</HoverDiv>
+                <StyledPhoto
+                  src={item.urls.small}
+                  alt={item.alt_description}
+                  key={item.id}
+                  onClick={() => props.handlePhotoClick(index)}
+                />
+              </ImageContainer>
             );
           })}
         </PhotosDiv>

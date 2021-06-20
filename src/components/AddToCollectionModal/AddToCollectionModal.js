@@ -18,7 +18,6 @@ import {
   CollectionsList,
   NewCollectionDiv,
   StyledForm,
-  StyledSpan,
   NewCollectionSpan,
   StyledInput,
   StyledCloseIcon,
@@ -65,7 +64,6 @@ const AddToCollectionModal = props => {
                   }
                   onClick={e => notify(item.title, e.target.checked)}
                 />
-                <StyledSpan></StyledSpan>
                 {item.title}
               </label>
             );

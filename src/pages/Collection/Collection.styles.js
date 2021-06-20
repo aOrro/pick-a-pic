@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
@@ -22,12 +23,20 @@ export const SearchTabs = styled.ul`
   }
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledNavLink = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  margin-right: 30px;
+  font-size: 18px;
+  font-weight: 600;
   text-decoration: none;
   color: ${props => props.theme.third};
 
-  &:active,
-  &:focus {
+  &.selected {
+    color: ${props => props.theme.secondary};
+  }
+
+  &:hover {
     color: ${props => props.theme.secondary};
   }
 `;

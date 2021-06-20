@@ -25,6 +25,8 @@ export const PhotoCardHeader = styled.div`
 `;
 
 export const StyledLink = styled(Link)`
+  display: flex;
+  align-items: center;
   color: ${props => props.theme.secondary};
   text-decoration: none;
 
