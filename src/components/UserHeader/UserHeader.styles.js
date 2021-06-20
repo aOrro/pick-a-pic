@@ -7,6 +7,7 @@ export const UserInfoContainer = styled.div`
   align-items: flex-start;
   justify-content: center;
   padding-top: 100px;
+  width: auto;
 `;
 
 export const ProfileImage = styled.img`
@@ -45,16 +46,34 @@ export const UserInfo = styled.div`
 `;
 
 export const UserStatsCount = styled.div`
-  width: 60%;
+  width: 50%;
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 20px;
+
+  span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+
+    strong {
+      font-size: 18px;
+    }
+  }
 `;
 
 export const IconDiv = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 5px;
+
+  a {
+    max-width: 500px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
 export const StyledLocationIcon = styled(LocationIcon)`

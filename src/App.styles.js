@@ -31,7 +31,7 @@ export const darkThemeStyles = {
   inactiveLinks: '#5c5c5c',
   labelsBackground: '#343434',
   labelsHover: '#484848',
-  iconBackground: '#343434',
-  iconHover: '#484848',
-  spanHover: '#484848',
+  iconBackground: '#484848',
+  iconHover: '#5a5a5a',
+  spanHover: '#343434',
 };
