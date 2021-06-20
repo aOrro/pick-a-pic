@@ -17,7 +17,7 @@ export const getData = () => async (dispatch, getState) => {
     });
     const pageToLoad = getPageToLoad(getState());
     const { data } = await axios(
-      `https://api.unsplash.com/photos?page=${pageToLoad}&order_by=popular&client_id=${process.env.REACT_APP_API_KEY}`
+      `https://api.unsplash.com/photos/random?page=${pageToLoad}&count=10&client_id=${process.env.REACT_APP_API_KEY}`
     );
     if (data)
       dispatch({
