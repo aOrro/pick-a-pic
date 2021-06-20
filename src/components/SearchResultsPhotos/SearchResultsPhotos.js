@@ -26,15 +26,9 @@ const SearchResultsPhotos = props => {
   const { index, data, hasMore, pageToLoad } = props.photos;
 
   useEffect(() => {
-    props.clearDataForNewSearch();
     props.getSearchPhotos(searchTerm);
     //eslint-disable-next-line
-  }, [searchTerm]);
-
-  useEffect(() => {
-    props.getSearchPhotos(searchTerm);
-    //eslint-disable-next-line
-  }, [pageToLoad]);
+  }, [searchTerm, pageToLoad]);
 
   useEffect(() => {
     return function cleanup() {

@@ -9,6 +9,7 @@ import { FeaturedCollection, PhotoModal } from 'components';
 import {
   handleChange,
   handleClick,
+  clickOutside,
   handleShowInput,
   handleSubmit,
   handleCollectionClick,
@@ -25,6 +26,21 @@ import {
   StyledSuccessIcon,
 } from './Featured.styles';
 
+const useOutsideAlerter = (ref, callBack) => {
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        callBack();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+    //eslint-disable-next-line
+  }, [ref]);
+};
+
 const Featured = props => {
   const {
     inputValue,
@@ -35,9 +51,13 @@ const Featured = props => {
   } = props.featured;
 
   const notify = action => {
-    if (!inputValue) return;
     if (action === 'create') {
-      toast(`Collection successfully created: ${inputValue}`);
+      if (!inputValue) return;
+      toast(
+        <>
+          Collection successfully created: <strong>"{inputValue}"</strong>
+        </>
+      );
     } else {
       props.deleteCollection();
       toast('Collection successfully deleted');
@@ -45,23 +65,26 @@ const Featured = props => {
   };
 
   const handleSubmit = e => {
-    e.preventDefault();
+    e && e.preventDefault();
     props.handleSubmit();
     notify('create');
   };
 
   const inputRef = useRef();
+  const divRef = useRef();
 
   useEffect(() => {
     if (showInput) inputRef.current.focus();
     else return;
   }, [showInput]);
 
+  useOutsideAlerter(divRef, props.clickOutside);
+
   return (
     <>
       <Container>
         <h3>Featured</h3>
-        <StyledDiv>
+        <StyledDiv ref={divRef}>
           {showInput ? (
             <>
               <StyledSuccessIcon onClick={handleSubmit} />
@@ -124,6 +147,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   handleChange,
   handleClick,
+  clickOutside,
   handleShowInput,
   handleSubmit,
   handleCollectionClick,

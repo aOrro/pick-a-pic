@@ -19,15 +19,9 @@ const SearchResultsCollections = props => {
   const { pageToLoad } = props.collections;
 
   useEffect(() => {
-    props.clearDataForNewSearch();
     props.getSearchCollections(searchTerm);
     //eslint-disable-next-line
-  }, [searchTerm]);
-
-  useEffect(() => {
-    props.getSearchCollections(searchTerm);
-    //eslint-disable-next-line
-  }, [pageToLoad]);
+  }, [searchTerm, pageToLoad]);
 
   useEffect(() => {
     return function cleanup() {

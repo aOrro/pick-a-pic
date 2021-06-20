@@ -2,6 +2,7 @@ import {
   HANDLE_INPUT_CHANGE,
   HANDLE_ICON_CLICK,
   HANDLE_FORM_SUBMIT,
+  CLICK_OUTSIDE,
   OPEN_ADD_TO_COLLECTION_MODAL,
   ADD_PHOTO_TO_COLLECTION,
   CLOSE_ADD_TO_COLLECTION_MODAL,
@@ -49,6 +50,11 @@ function featuredReducer(state = initialState, action) {
           ...state.collections,
           { title: state.inputValue, photos: [] },
         ],
+      };
+    case CLICK_OUTSIDE:
+      return {
+        ...state,
+        showInput: false,
       };
     case OPEN_ADD_TO_COLLECTION_MODAL:
       return {

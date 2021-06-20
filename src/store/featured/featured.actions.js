@@ -1,6 +1,7 @@
 import {
   HANDLE_INPUT_CHANGE,
   HANDLE_ICON_CLICK,
+  CLICK_OUTSIDE,
   HANDLE_FORM_SUBMIT,
   OPEN_ADD_TO_COLLECTION_MODAL,
   ADD_PHOTO_TO_COLLECTION,
@@ -25,6 +26,12 @@ export const handleClick = index => {
   return {
     type: HANDLE_ICON_CLICK,
     payload: index,
+  };
+};
+
+export const clickOutside = () => {
+  return {
+    type: CLICK_OUTSIDE,
   };
 };
 

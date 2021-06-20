@@ -21,15 +21,11 @@ import {
   getCollectionsPageToLoad,
 } from './user.types';
 
-export const handleTabClick = (chosenTab, username) => (dispatch, getState) => {
-  dispatch({
+export const handleTabClick = chosenTab => {
+  return {
     type: TAB_CLICK,
     payload: chosenTab,
-  });
-
-  return chosenTab === 'photos'
-    ? dispatch(getUserPhotos(username))
-    : dispatch(getUserCollections(username));
+  };
 };
 
 export const clearDataForNewUser = () => {

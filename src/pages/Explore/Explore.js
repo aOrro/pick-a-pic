@@ -26,11 +26,6 @@ const Explore = props => {
   useEffect(() => {
     props.getData();
     //eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    props.getData();
-    //eslint-disable-next-line
   }, [pageToLoad]);
 
   const { showCollectionsModal } = props.featured.modal;
