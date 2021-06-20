@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
 import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg';
 import { ReactComponent as ExploreIcon } from '../../assets/images/explore-icon.svg';
 import { ReactComponent as SunIcon } from '../../assets/images/sun-icon.svg';
