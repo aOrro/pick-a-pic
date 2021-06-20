@@ -37,9 +37,15 @@ const AddToCollectionModal = props => {
   }, [newCollection]);
 
   const notify = (collectionTitle, isChecked) => {
-    const notificationText = isChecked
-      ? `Photo added to ${collectionTitle}`
-      : `Photo removed from ${collectionTitle}`;
+    const notificationText = isChecked ? (
+      <>
+        Photo added to "<strong>{collectionTitle}</strong>"
+      </>
+    ) : (
+      <>
+        Photo removed from "<strong>{collectionTitle}</strong>"
+      </>
+    );
     toast(notificationText);
   };
 
