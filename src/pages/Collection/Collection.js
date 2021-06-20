@@ -10,7 +10,7 @@ import {
 
 import { handleTabClick, deletePreviousData } from 'store/collection';
 
-import { Container, SearchTabs, StyledLink } from './Collection.styles';
+import { Container, SearchTabs, StyledNavLink } from './Collection.styles';
 
 const Collection = props => {
   const { collectionId } = props.match.params;
@@ -46,16 +46,20 @@ const Collection = props => {
     <Container>
       <CollectionHeader />
       <SearchTabs>
-        <li onClick={() => props.handleTabClick('photos', collectionId)}>
-          <StyledLink to={`/collections/${collectionId}/photos`}>
-            Photos
-          </StyledLink>
-        </li>
-        <li onClick={() => props.handleTabClick('related', collectionId)}>
-          <StyledLink to={`/collections/${collectionId}/related`}>
-            Related
-          </StyledLink>
-        </li>
+        <StyledNavLink
+          to={`/collections/${collectionId}/photos`}
+          activeClassName='selected'
+          onClick={() => props.handleTabClick('photos', collectionId)}
+        >
+          Photos
+        </StyledNavLink>
+        <StyledNavLink
+          to={`/collections/${collectionId}/related`}
+          activeClassName='selected'
+          onClick={() => props.handleTabClick('related', collectionId)}
+        >
+          Related
+        </StyledNavLink>
       </SearchTabs>
       {renderChosenTab()}
     </Container>

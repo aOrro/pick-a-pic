@@ -24,8 +24,6 @@ const PhotoCard = props => {
             src={props.user.profile_image.medium}
             alt={props.user.username}
           />
-        </StyledLink>
-        <StyledLink to={`/users/${props.user.username}/photos`}>
           {props.user.username}
         </StyledLink>
       </PhotoCardHeader>

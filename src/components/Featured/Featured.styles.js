@@ -3,7 +3,7 @@ import { ReactComponent as AddIcon } from '../../assets/images/add-icon-2.svg';
 import { ReactComponent as SuccessIcon } from '../../assets/images/check-success.svg';
 
 export const Container = styled.div`
-  width: 320px;
+  width: 19%;
   margin-top: 50px;
   position: fixed;
   top: 85px;
@@ -46,20 +46,20 @@ export const StyledDiv = styled.div`
 
 export const HoverDiv = styled.div`
   height: 45px;
-  width: 305px;
+  width: 270px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   border-radius: 5px;
 
   &:hover {
-    background: ${props => props.theme.third};
+    background: ${props => props.theme.spanHover};
   }
 `;
 
 export const StyledIcon = styled(AddIcon)`
-  margin: 0 10px 0 15px;
-  background: ${props => props.theme.third};
+  margin: 0 5px 0 15px;
+  background: ${props => props.theme.iconBackground};
   border-radius: 50%;
   padding: 10px;
   cursor: pointer;
@@ -71,13 +71,13 @@ export const StyledIcon = styled(AddIcon)`
 
 export const StyledSuccessIcon = styled(SuccessIcon)`
   margin: 0 10px 0 15px;
-  background: ${props => props.theme.third};
+  background: ${props => props.theme.iconBackground};
   border-radius: 50%;
   padding: 7px;
   cursor: pointer;
 
   &:hover {
-    background: red;
+    background: ${props => props.theme.iconHover};
   }
 
   & path {

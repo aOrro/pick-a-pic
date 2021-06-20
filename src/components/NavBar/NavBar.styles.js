@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg';
 import { ReactComponent as ExploreIcon } from '../../assets/images/explore-icon.svg';
 import { ReactComponent as SunIcon } from '../../assets/images/sun-icon.svg';
@@ -38,8 +38,6 @@ export const LinksList = styled.ul`
   list-style: none;
   width: 100px;
 `;
-
-export const StyledLink = styled(Link)``;
 
 export const Logo = styled.img`
   width: 80px;

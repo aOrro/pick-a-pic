@@ -15,7 +15,12 @@ import {
   deletePreviousData,
 } from 'store/collection';
 
-import { PhotosDiv, StyledPhoto } from './CollectionPhotos.styles.js';
+import {
+  PhotosDiv,
+  ImageContainer,
+  HoverDiv,
+  StyledPhoto,
+} from './CollectionPhotos.styles.js';
 
 const CollectionPhotos = props => {
   const { collectionId } = props.match.params;
@@ -46,12 +51,18 @@ const CollectionPhotos = props => {
         <PhotosDiv>
           {collectionPhotos.map((item, index) => {
             return (
-              <StyledPhoto
-                src={item.urls.regular}
-                alt={item.alt_description}
-                key={item.id}
+              <ImageContainer
                 onClick={() => props.handlePhotoClick(index)}
-              />
+                key={item.id}
+              >
+                <HoverDiv>{item.likes} likes</HoverDiv>
+                <StyledPhoto
+                  src={item.urls.regular}
+                  alt={item.alt_description}
+                  key={item.id}
+                  onClick={() => props.handlePhotoClick(index)}
+                />
+              </ImageContainer>
             );
           })}
         </PhotosDiv>

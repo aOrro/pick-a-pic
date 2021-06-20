@@ -1,6 +1,18 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+export const CollectionInfo = styled.div`
+  margin-left: 10px;
+
+  h3 {
+    margin: 15px 0 10px 0;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
 export const Container = styled.div`
   margin-bottom: 80px;
   white-space: nowrap;
@@ -13,14 +25,6 @@ export const Container = styled.div`
     height: 220px;
     object-fit: cover;
     border-radius: 10px;
-  }
-`;
-
-export const CollectionInfo = styled.div`
-  margin-left: 10px;
-
-  h3 {
-    margin: 15px 0 10px 0;
   }
 `;
 
@@ -40,11 +44,15 @@ export const Labels = styled.div`
 `;
 
 export const Label = styled(Link)`
-  background: ${props => props.theme.third};
+  background: ${props => props.theme.labelsBackground};
   margin-right: 10px;
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 14px;
   text-decoration: none;
   color: ${props => props.theme.secondary};
+
+  &:hover {
+    background: ${props => props.theme.labelsHover};
+  }
 `;

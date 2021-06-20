@@ -48,7 +48,10 @@ const Explore = props => {
           <Masonry gutter='5px'>
             {data.map((item, index) => {
               return (
-                <ImageContainer onClick={() => props.openPhotoModal(index)}>
+                <ImageContainer
+                  onClick={() => props.openPhotoModal(index)}
+                  key={item.id}
+                >
                   <HoverDiv>{item.likes} likes</HoverDiv>
                   <StyledImg src={item.urls.small} alt={item.alt_description} />
                 </ImageContainer>

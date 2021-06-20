@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
 
 import capitalizeFirstLetter from '../../assets/capitalizeFirstLetter';
 
@@ -12,6 +11,7 @@ import {
   Container,
   CollectionImage,
   CollectionInfo,
+  StyledLink,
   Labels,
   Label,
 } from './CollectionHeader.styles';
@@ -52,9 +52,9 @@ const CollectionHeader = props => {
             {collectionData.description ?? (
               <span>
                 {`${collectionData.total_photos} photos by `}
-                <Link to={`/users/${collectionData.user.username}`}>
+                <StyledLink to={`/users/${collectionData.user.username}`}>
                   @{collectionData.user.username}
-                </Link>
+                </StyledLink>
               </span>
             )}
 

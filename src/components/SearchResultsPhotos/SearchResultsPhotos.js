@@ -14,7 +14,12 @@ import {
   clearDataForNewSearch,
 } from 'store/search';
 
-import { PhotosDiv, StyledPhoto } from './SearchResultsPhotos.styles';
+import {
+  PhotosDiv,
+  ImageContainer,
+  HoverDiv,
+  StyledPhoto,
+} from './SearchResultsPhotos.styles';
 
 const SearchResultsPhotos = props => {
   const { searchTerm } = props.match.params;
@@ -52,12 +57,13 @@ const SearchResultsPhotos = props => {
         <PhotosDiv>
           {data.map((item, index) => {
             return (
-              <StyledPhoto
-                src={item.urls.small}
-                alt={item.alt_description}
-                key={item.id}
+              <ImageContainer
                 onClick={() => props.handlePhotoClick(index)}
-              />
+                key={item.id}
+              >
+                <HoverDiv>{item.likes} likes</HoverDiv>
+                <StyledPhoto src={item.urls.small} alt={item.alt_description} />
+              </ImageContainer>
             );
           })}
         </PhotosDiv>
