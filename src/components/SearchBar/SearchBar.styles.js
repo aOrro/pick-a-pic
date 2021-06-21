@@ -7,6 +7,11 @@ export const StyledForm = styled.form`
 `;
 
 export const StyledSearchIcon = styled(SearchIcon)`
+  position: absolute;
+  left: 57.5%;
+  z-index: 99;
+  opacity: 0.6;
+
   & path {
     fill: ${props => props.theme.secondary};
   }
@@ -16,7 +21,7 @@ export const SearchInputElement = styled.input`
   background: ${props => props.theme.third};
   width: 250px;
   height: 40px;
-  padding: 0 15px;
+  padding: 0 20px;
   border: none;
   border-radius: 20px;
   font-size: 14px;

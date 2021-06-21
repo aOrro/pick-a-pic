@@ -46,7 +46,16 @@ const AddToCollectionModal = props => {
         Photo removed from "<strong>{collectionTitle}</strong>"
       </>
     );
-    toast(notificationText);
+    return toast(notificationText);
+  };
+
+  const addToNewCollection = collectionTitle => {
+    props.createNewCollection();
+    return toast(
+      <>
+        Photo added to new collection: "<strong>{collectionTitle}</strong>"
+      </>
+    );
   };
 
   return (
@@ -77,7 +86,7 @@ const AddToCollectionModal = props => {
         </CollectionsList>
         {newCollection ? (
           <NewCollectionDiv>
-            <StyledForm onSubmit={props.createNewCollection}>
+            <StyledForm onSubmit={() => addToNewCollection(inputValue)}>
               <label htmlFor='collection-title'>Collection title:</label>
               <StyledInput
                 type='text'
@@ -88,7 +97,7 @@ const AddToCollectionModal = props => {
                 ref={inputRef}
               />
             </StyledForm>
-            <button onClick={props.createNewCollection}>
+            <button onClick={() => addToNewCollection(inputValue)}>
               Create collection
             </button>
           </NewCollectionDiv>
