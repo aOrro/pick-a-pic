@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { withRouter } from 'react-router';
+import { SemiCircleSpin } from 'react-pure-loaders';
 
 import { CollectionPreviewCard } from 'components';
 
@@ -16,7 +17,7 @@ import { CollectionsDiv } from './SearchResultsCollections.styles';
 
 const SearchResultsCollections = props => {
   const { searchTerm } = props.match.params;
-  const { pageToLoad } = props.collections;
+  const { data, hasMore, isLoading, pageToLoad } = props.collections;
 
   useEffect(() => {
     props.getSearchCollections(searchTerm);
@@ -30,7 +31,7 @@ const SearchResultsCollections = props => {
     //eslint-disable-next-line
   }, []);
 
-  const { data, hasMore } = props.collections;
+  const showNoDataMessage = data.length === 0 && !isLoading;
 
   return (
     <div>
@@ -38,7 +39,7 @@ const SearchResultsCollections = props => {
         dataLength={data.length}
         next={props.getMoreCollections}
         hasMore={hasMore}
-        loader={<div>Loading photos...</div>}
+        loader={<SemiCircleSpin color='red' loading={isLoading} />}
       >
         <CollectionsDiv>
           {data.map(item => {
@@ -46,6 +47,9 @@ const SearchResultsCollections = props => {
           })}
         </CollectionsDiv>
       </InfiniteScroll>
+      {showNoDataMessage && (
+        <p>{`There are no collections for "${searchTerm}"`}</p>
+      )}
     </div>
   );
 };

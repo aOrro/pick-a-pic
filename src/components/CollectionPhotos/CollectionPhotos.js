@@ -27,15 +27,14 @@ const CollectionPhotos = props => {
   const { index, collectionPhotos, hasMore, pageToLoad } = props.collection;
 
   useEffect(() => {
-    props.getCollectionPhotos(collectionId);
-    //eslint-disable-next-line
-  }, [pageToLoad]);
-
-  useEffect(() => {
     props.deletePreviousData();
-    props.handleTabClick('photos', collectionId);
     //eslint-disable-next-line
   }, [collectionId]);
+
+  useEffect(() => {
+    props.getCollectionPhotos(collectionId);
+    //eslint-disable-next-line
+  }, [collectionId, pageToLoad]);
 
   const { showCollectionsModal } = props.featured.modal;
   const showPhotoModal = index > -1;

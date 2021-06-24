@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { withRouter } from 'react-router';
 
 import { CollectionPreviewCard } from 'components';
+import { SemiCircleSpin } from 'react-pure-loaders';
 
 import {
   getUserCollections,
@@ -16,8 +17,12 @@ import { CollectionsDiv } from './UserCollections.styles';
 
 const UserCollections = props => {
   const { userName } = props.match.params;
-  const { userCollections, hasMoreCollections, collectionsPageToLoad } =
-    props.collections;
+  const {
+    userCollections,
+    isLoadingCollections,
+    hasMoreCollections,
+    collectionsPageToLoad,
+  } = props.collections;
 
   useEffect(() => {
     props.getUserCollections(userName);
@@ -31,13 +36,16 @@ const UserCollections = props => {
     //eslint-disable-next-line
   }, []);
 
+  const showNoDataMessage =
+    userCollections.length === 0 && !isLoadingCollections;
+
   return (
     <div>
       <InfiniteScroll
         dataLength={userCollections.length}
         next={props.getMoreCollections}
         hasMore={hasMoreCollections}
-        loader={<div>Loading photos...</div>}
+        loader={<SemiCircleSpin color='red' loading={isLoadingCollections} />}
       >
         <CollectionsDiv>
           {userCollections.map(item => {
@@ -45,6 +53,7 @@ const UserCollections = props => {
           })}
         </CollectionsDiv>
       </InfiniteScroll>
+      {showNoDataMessage && <div>This user has no collections.</div>}
     </div>
   );
 };

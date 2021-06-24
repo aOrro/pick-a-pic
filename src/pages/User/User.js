@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 
 import { UserHeader, UserPhotos, UserCollections } from 'components';
 
-import { handleTabClick, handleCloseClick } from 'store/user';
+import {
+  handleTabClick,
+  handleCloseClick,
+  clearDataForNewUser,
+} from 'store/user';
 
 import { Container, ContentContainer, StyledNavLink } from './User.styles';
 
@@ -14,6 +18,13 @@ const User = props => {
   useEffect(() => {
     props.handleCloseClick();
     props.handleTabClick('photos', userName);
+    //eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    return function cleanup() {
+      props.clearDataForNewUser();
+    };
     //eslint-disable-next-line
   }, []);
 
@@ -55,6 +66,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   handleTabClick,
   handleCloseClick,
+  clearDataForNewUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(User);
