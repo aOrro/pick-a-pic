@@ -12,7 +12,6 @@ import {
   getMorePhotos,
   handlePhotoClick,
   handleCloseClick,
-  clearDataForNewUser,
 } from 'store/user';
 import { openAddToCollectionModal } from 'store/featured';
 
@@ -92,7 +91,6 @@ const mapDispatchToProps = {
   getMorePhotos,
   handlePhotoClick,
   handleCloseClick,
-  clearDataForNewUser,
   openAddToCollectionModal,
 };
 
