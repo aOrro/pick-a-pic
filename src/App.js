@@ -19,6 +19,7 @@ const App = props => {
         <Router>
           <NavBar />
           <Switch>
+            <Route path='/' exact component={Home}></Route>
             <Route
               path='/search/photos/:searchTerm'
               exact
@@ -55,7 +56,6 @@ const App = props => {
               component={User}
             ></Route>
             <Route path='/explore' exact component={Explore}></Route>
-            <Route path='/' component={Home}></Route>
             <Route path='*' component={NotFound}></Route>
           </Switch>
         </Router>
