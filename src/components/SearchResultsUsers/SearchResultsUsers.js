@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { withRouter } from 'react-router';
+import { SemiCircleSpin } from 'react-pure-loaders';
 
 import { UserPreviewCard } from 'components';
 
@@ -16,7 +17,7 @@ import { UsersDiv } from './SearchResultsUsers.styles';
 
 const SearchResultsUsers = props => {
   const { searchTerm } = props.match.params;
-  const { data, hasMore, pageToLoad } = props.users;
+  const { data, isLoading, hasMore, pageToLoad } = props.users;
 
   useEffect(() => {
     props.getSearchUsers(searchTerm);
@@ -30,13 +31,15 @@ const SearchResultsUsers = props => {
     //eslint-disable-next-line
   }, []);
 
+  const showNoDataMessage = data.length === 0 && !isLoading;
+
   return (
     <div>
       <InfiniteScroll
         dataLength={data.length}
         next={props.getMoreSearchUsers}
         hasMore={hasMore}
-        loader={<div>Loading photos...</div>}
+        loader={<SemiCircleSpin color='red' loading={isLoading} />}
       >
         <UsersDiv>
           {data.map(item => {
@@ -44,6 +47,9 @@ const SearchResultsUsers = props => {
           })}
         </UsersDiv>
       </InfiniteScroll>
+      {showNoDataMessage && (
+        <p>{`There are no users called "${searchTerm}"`}</p>
+      )}
     </div>
   );
 };

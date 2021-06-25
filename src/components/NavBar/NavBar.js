@@ -39,11 +39,13 @@ const NavBar = props => {
     <Container>
       <HeaderMenu>
         <div>
-          {props.settings.lightTheme ? (
-            <Logo src={logoImage} alt='Pick a pic logo' />
-          ) : (
-            <LightLogo src={lightLogoImage} alt='Pick a pic logo' />
-          )}
+          <Link to='/'>
+            {props.settings.lightTheme ? (
+              <Logo src={logoImage} alt='Pick a pic logo' />
+            ) : (
+              <LightLogo src={lightLogoImage} alt='Pick a pic logo' />
+            )}
+          </Link>
         </div>
         <SearchBar
           handleChange={handleChange}

@@ -49,14 +49,14 @@ const Collection = props => {
         <StyledNavLink
           to={`/collections/${collectionId}/photos`}
           activeClassName='selected'
-          onClick={() => props.handleTabClick('photos', collectionId)}
+          onClick={() => props.handleTabClick('photos')}
         >
           Photos
         </StyledNavLink>
         <StyledNavLink
           to={`/collections/${collectionId}/related`}
           activeClassName='selected'
-          onClick={() => props.handleTabClick('related', collectionId)}
+          onClick={() => props.handleTabClick('related')}
         >
           Related
         </StyledNavLink>

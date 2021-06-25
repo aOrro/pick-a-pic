@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { withRouter } from 'react-router';
+import { SemiCircleSpin } from 'react-pure-loaders';
 
 import { PhotoModal, AddToCollectionModal } from 'components';
 
@@ -23,7 +24,12 @@ import {
 
 const SearchResultsPhotos = props => {
   const { searchTerm } = props.match.params;
-  const { index, data, hasMore, pageToLoad } = props.photos;
+  const { index, data, isLoading, hasMore, pageToLoad } = props.photos;
+
+  useEffect(() => {
+    props.clearDataForNewSearch();
+    //eslint-disable-next-line
+  }, [searchTerm]);
 
   useEffect(() => {
     props.getSearchPhotos(searchTerm);
@@ -39,6 +45,7 @@ const SearchResultsPhotos = props => {
 
   const { showCollectionsModal } = props.featured.modal;
   const showModal = index > -1;
+  const showNoDataMessage = data.length === 0 && !isLoading;
 
   return (
     <div>
@@ -46,7 +53,14 @@ const SearchResultsPhotos = props => {
         dataLength={data.length}
         next={props.getMoreSearchPhotos}
         hasMore={hasMore}
-        loader={<div>Loading photos...</div>}
+        loader={
+          <SemiCircleSpin
+            color={props.lightTheme ? '#0e0e0e' : '#efefef'}
+            loading={isLoading}
+            width='200'
+            height='200'
+          />
+        }
       >
         <PhotosDiv>
           {data.map((item, index) => {
@@ -62,6 +76,7 @@ const SearchResultsPhotos = props => {
           })}
         </PhotosDiv>
       </InfiniteScroll>
+      {showNoDataMessage && <p>{`There are no photos for "${searchTerm}"`}</p>}
       {showModal && (
         <PhotoModal
           index={index}
@@ -77,6 +92,7 @@ const SearchResultsPhotos = props => {
 const mapStateToProps = state => ({
   photos: state.search.photos,
   featured: state.featured,
+  lightTheme: state.settings.lightTheme,
 });
 
 const mapDispatchToProps = {

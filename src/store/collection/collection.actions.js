@@ -20,14 +20,9 @@ import {
   DELETE_PREVIOUS_DATA,
 } from './collection.types';
 
-export const handleTabClick =
-  (chosenTab, collectionId) => (dispatch, getState) => {
-    dispatch({ type: TAB_CLICK, payload: chosenTab });
-
-    chosenTab === 'related'
-      ? dispatch(getRelatedCollections(collectionId))
-      : dispatch(getCollectionPhotos(collectionId));
-  };
+export const handleTabClick = chosenTab => {
+  return { type: TAB_CLICK, payload: chosenTab };
+};
 
 export const getCollectionData = collectionId => async (dispatch, getState) => {
   try {
@@ -84,7 +79,6 @@ export const getRelatedCollections =
       const { data } = await axios(
         `https://api.unsplash.com/collections/${collectionId}/related?client_id=${process.env.REACT_APP_API_KEY}`
       );
-      console.log(data);
       data
         ? dispatch({
             type: FETCH_RELATED_SUCCESS,

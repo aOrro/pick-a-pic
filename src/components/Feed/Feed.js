@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { SemiCircleSpin } from 'react-pure-loaders';
 
 import { PhotoCard, PhotoModal, AddToCollectionModal } from 'components';
 
@@ -37,7 +38,7 @@ const Feed = props => {
         dataLength={photos.length}
         next={props.getMoreFeedPhotos}
         hasMore={hasMore}
-        loader={<div>Loading photos...</div>}
+        loader={<SemiCircleSpin color='red' />}
       >
         {photos.map((item, index) => {
           return (

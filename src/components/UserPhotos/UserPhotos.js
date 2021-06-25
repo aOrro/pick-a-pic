@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { withRouter } from 'react-router';
+import { SemiCircleSpin } from 'react-pure-loaders';
 
 import { PhotoModal, AddToCollectionModal } from 'components';
 
@@ -11,7 +12,6 @@ import {
   getMorePhotos,
   handlePhotoClick,
   handleCloseClick,
-  clearDataForNewUser,
 } from 'store/user';
 import { openAddToCollectionModal } from 'store/featured';
 
@@ -24,20 +24,20 @@ import {
 
 const UserPhotos = props => {
   const { userName } = props.match.params;
-  const { index, userPhotos, hasMorePhotos, photosPageToLoad } = props.photos;
+  const {
+    index,
+    userPhotos,
+    isLoadingPhotos,
+    hasMorePhotos,
+    photosPageToLoad,
+  } = props.photos;
 
   useEffect(() => {
     props.getUserPhotos(userName);
     //eslint-disable-next-line
   }, [photosPageToLoad]);
 
-  useEffect(() => {
-    return function cleanup() {
-      props.clearDataForNewUser();
-    };
-    //eslint-disable-next-line
-  }, []);
-
+  const showNoDataMessage = userPhotos.length === 0 && !isLoadingPhotos;
   const { showCollectionsModal } = props.featured.modal;
   const showModal = index > -1;
 
@@ -47,7 +47,7 @@ const UserPhotos = props => {
         dataLength={userPhotos.length}
         next={props.getMorePhotos}
         hasMore={hasMorePhotos}
-        loader={<div>Loading photos...</div>}
+        loader={<SemiCircleSpin color='red' loading={isLoadingPhotos} />}
       >
         <PhotosDiv>
           {userPhotos.map((item, index) => {
@@ -68,6 +68,7 @@ const UserPhotos = props => {
           })}
         </PhotosDiv>
       </InfiniteScroll>
+      {showNoDataMessage && <div>This user has no photos.</div>}
       {showModal && (
         <PhotoModal
           index={index}
@@ -90,7 +91,6 @@ const mapDispatchToProps = {
   getMorePhotos,
   handlePhotoClick,
   handleCloseClick,
-  clearDataForNewUser,
   openAddToCollectionModal,
 };
 
