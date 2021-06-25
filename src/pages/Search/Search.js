@@ -21,7 +21,6 @@ const Search = props => {
   const { searchTerm } = props.match.params;
 
   useEffect(() => {
-    console.log(props);
     props.handleTabClick('photos', searchTerm);
     //eslint-disable-next-line
   }, [searchTerm]);
